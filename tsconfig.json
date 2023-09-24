@@ -20,8 +20,15 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "types": [
-      "bun-types", // add Bun global
-      "./src/types", // add custom type definitions
+      "bun-types",
+      "./types/index.d.ts"
     ],
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue", 
+    "server/**/*.tsx", 
+    "server/**/*.ts",
+    "vite.config.ts"
+  ]
 }

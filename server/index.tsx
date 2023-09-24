@@ -16,9 +16,21 @@ const setup = async () => {
     dir: join(import.meta.dir, "pages"),
   });
 
+  const isDev = Bun.env.mode === "development";
+
   const { routes } = router;
 
-  const app = new Elysia().use(swagger()).use(html()).use(staticPlugin());
+  const staticConfig = isDev ? {} : { assets: "static", prefix: "/assets" };
+
+  const app = new Elysia()
+    .use(swagger())
+    .use(html())
+    .use(
+      staticPlugin({
+        ...staticConfig,
+        ignorePatterns: ["static/index.html"],
+      })
+    );
 
   for (const [path, file] of Object.entries(routes)) {
     const { meta, page: Page } = await import(file);
@@ -33,7 +45,7 @@ const setup = async () => {
       meta
     );
 
-	const { method, layout } = _meta;
+    const { method, layout } = _meta;
 
     const render = () => {
       if (Object.keys(layouts).includes(layout)) {
@@ -66,6 +78,11 @@ const setup = async () => {
         break;
     }
   }
+
+  app.get('edit', async () => {
+    const html = Bun.file(join(import.meta.dir, "../static/index.html"), { type: "application/html" });
+    return await html.text();
+  })
 
   app.listen(4567);
 

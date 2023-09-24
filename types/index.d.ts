@@ -9,3 +9,9 @@ declare interface LayoutProps {
 	children: string | JSX.Element | string[] | JSX.Element[],
 	meta: Meta
 }
+
+declare module "bun" {
+	interface Env {
+		mode: "development" | "production";
+	}
+}
