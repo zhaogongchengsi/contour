@@ -6,10 +6,12 @@
     "dev": "bun --hot ./src/index.tsx",
     "start": "bun ./src/index.tsx",
     "dev:vite": "bunx --bun vite",
+    "build:vite": "bunx --bun vite build",
     "build": "bun build ./src/index.tsx"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "unocss": "^0.56.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
