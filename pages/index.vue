@@ -11,6 +11,5 @@
 			<option value="dark">Dark</option>
 			<option value="sepia">Sepia</option>
 		</select>
-		 <el-button>button</el-button>
 	</div>
 </template>
