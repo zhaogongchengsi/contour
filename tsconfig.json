@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "bundler",
@@ -12,10 +14,6 @@
     "strict": true,
     "downlevelIteration": true,
     "skipLibCheck": true,
-    "jsx": "react",
-    "jsxFactory": "Html.createElement",
-    "jsxFragmentFactory": "Html.Fragment",
-    "plugins": [ {"name": "@kitajs/ts-html-plugin"}],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
@@ -24,11 +22,5 @@
       "./types/index.d.ts"
     ],
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.vue", 
-    "server/**/*.tsx", 
-    "server/**/*.ts",
-    "vite.config.ts"
-  ]
+  "extends": "./.nuxt/tsconfig.json"
 }
