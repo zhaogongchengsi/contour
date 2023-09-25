@@ -1,4 +1,9 @@
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: 'Talnt'
+    }
+  },
   devtools: { enabled: true },
   modules: [
     '@unocss/nuxt',
