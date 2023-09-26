@@ -1,15 +1,6 @@
-# contour
+<h1 style="text-align: center;">Contour</h1>
 
-To install dependencies:
+<h2 style="text-align: center;">
+	<img width="50" hight="50" src="./public/logo.svg" alt="logo" />
+</h2>
 
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.0.3. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
