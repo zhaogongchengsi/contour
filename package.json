@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@nuxtjs/color-mode": "^3.3.0",
-    "@unocss/reset": "^0.56.2"
+    "@unocss/reset": "^0.56.2",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5"
   }
 }
