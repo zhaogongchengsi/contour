@@ -4,12 +4,16 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
     '@vueuse/nuxt',
+    '@oku-ui/primitives-nuxt'
   ],
   css: [
     '@unocss/reset/tailwind.css'
   ],
   colorMode: {
     classSuffix: ''
+  },
+  primitives: {
+    installComponents: false
   }
 })
 

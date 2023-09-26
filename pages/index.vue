@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
@@ -11,5 +10,9 @@
 			<option value="dark">Dark</option>
 			<option value="sepia">Sepia</option>
 		</select>
+		<OkuToggleGroup type="single">
+			<OkuToggleGroupItem value="left">123</OkuToggleGroupItem>
+			<OkuToggleGroupItem value="right">123</OkuToggleGroupItem>
+		</OkuToggleGroup>
 	</div>
 </template>
