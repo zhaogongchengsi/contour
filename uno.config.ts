@@ -11,7 +11,9 @@ import {
 } from 'unocss'
 
 export default defineConfig({
-	shortcuts: [],
+	shortcuts: [
+		['md-icon', 'w-6 h-6']
+	],
 	theme: {},
 	presets: [
 		presetUno(),
