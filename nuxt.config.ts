@@ -4,7 +4,8 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
     '@vueuse/nuxt',
-    '@oku-ui/primitives-nuxt'
+    '@oku-ui/primitives-nuxt',
+    'pinceau/nuxt'
   ],
   css: [
     '@unocss/reset/tailwind.css'
