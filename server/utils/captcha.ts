@@ -1,7 +1,7 @@
 import captcha from 'svg-captcha'
 import { randomUUID } from "uncrypto";
 
-const option = { noise: 3 }
+const option = { noise: 3, height: 40, width: 120 }
 
 export async function createCaptcha() {
 	const { text, data } = captcha.createMathExpr(option);

@@ -25,7 +25,7 @@ const submit = () => {
 </script>
 
 <template>
-	<div class="flex flex-col items-center py-10">
+	<div class="flex flex-col items-center py-10 container mx-auto">
 		<h3 class="text-8 sm:text-12 md:text-15 lg:text-20 font-bold">开始吧！ 🤳</h3>
 		<div class="mt-20 h-15 sm:h-18 md:h-20 bg-purple-100 px-4 py-2 flex gap-3 rounded-md shadow-md">
 			<input v-model="name"

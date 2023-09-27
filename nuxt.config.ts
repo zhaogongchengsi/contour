@@ -32,6 +32,11 @@ export default defineNuxtConfig({
         path: '~/components/app',
         global: true,
         prefix: 'app'
+      },
+      {
+        path: '~/components/ui',
+        global: true,
+        prefix: 'ui'
       }
     ]
   },
