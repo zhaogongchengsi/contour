@@ -40,6 +40,13 @@ export default defineNuxtConfig({
       }
     ]
   },
+  imports: {
+    dirs: [
+      'composables',
+      'composables/*/index.{ts,js,mjs,mts}',
+      'composables/**'
+    ]
+  },
   nitro: {
     storage: {
       redis: {
