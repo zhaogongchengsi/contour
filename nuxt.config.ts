@@ -34,7 +34,18 @@ export default defineNuxtConfig({
         prefix: 'app'
       }
     ]
+  },
+  nitro: {
+    storage: {
+      redis: {
+        base: 'app-redis',
+        driver: 'redis',
+        host: 'localhost',
+        port: 6379,
+      }
+    }
   }
 })
+
 
 
