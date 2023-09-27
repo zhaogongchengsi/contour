@@ -7,7 +7,10 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "dbgc": "prisma generate",
+    "dbpush": "db push",
+    "studio": "prisma studio --port 7890"
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.21",
@@ -25,7 +28,9 @@
     "@nuxtjs/color-mode": "^3.3.0",
     "@oku-ui/primitives": "^0.4.0",
     "@oku-ui/toggle-group": "^0.4.0",
+    "@prisma/client": "5.3.1",
     "@unocss/reset": "^0.56.2",
+    "prisma": "^5.3.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   }
