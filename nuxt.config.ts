@@ -15,7 +15,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       base: process.env.APP_BASE
-    }
+    },
+    captchaExpert: 3
   },
   devtools: { enabled: true },
   modules: [
