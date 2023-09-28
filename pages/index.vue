@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { MessageInstance } from '~/components/ui/instance';
 import { isName } from '~/composables/schema';
+import { message } from '~/composables/discrete'
 
-const message = ref('')
-const messageInstance = ref<MessageInstance>()
 const router = useRouter()
 const name = ref<string>('')
 
@@ -13,17 +11,13 @@ const submit = async () => {
 	const { success, message: msg } = await isName(url)
 
 	if (!success) {
-		message.value = msg!
-		messageInstance.value?.open()
+		message.error(msg!)
 		return
 	}
 
 	router.push(`/edit/${url}`)
 }
 
-const open = () => {
-	messageInstance.value?.open()
-}
 
 </script>
 
@@ -40,8 +34,6 @@ const open = () => {
 				<span>提交</span>
 			</button>
 		</div>
-
-		<UiMessage type="error" ref="messageInstance">{{ message }}</UiMessage>
 	</div>
 </template>
 
