@@ -1,17 +1,11 @@
 
-declare interface Meta {
-	title: string,
-	description: string
-	layout: string
-}
 
-declare interface LayoutProps {
-	children: string | JSX.Element | string[] | JSX.Element[],
-	meta: Meta
-}
-
-declare module "bun" {
+declare module "Nodejs" {
 	interface Env {
 		mode: "development" | "production";
+		APP_BASE: string;
+		REDIS_HOST: string;
+		REDIS_PORT: string;
+		REDIS_PASSWORD: string;
 	}
 }

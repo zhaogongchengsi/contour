@@ -4,7 +4,17 @@ export default defineNuxtConfig({
       title: 'Talent',
       link: [
         { rel: 'icon', href: '/logo.svg' }
+      ],
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { hid: 'description', name: 'description', content: 'Talent' }
       ]
+    }
+  },
+  runtimeConfig: {
+    public: {
+      base: process.env.APP_BASE
     }
   },
   devtools: { enabled: true },
@@ -46,16 +56,6 @@ export default defineNuxtConfig({
       'composables/*/index.{ts,js,mjs,mts}',
       'composables/**'
     ]
-  },
-  nitro: {
-    storage: {
-      redis: {
-        base: 'app-redis',
-        driver: 'redis',
-        host: 'localhost',
-        port: 6379,
-      }
-    }
   }
 })
 
