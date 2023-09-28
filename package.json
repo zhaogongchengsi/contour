@@ -13,6 +13,7 @@
     "studio": "prisma studio --port 7890"
   },
   "devDependencies": {
+    "@css-render/vue3-ssr": "^0.15.12",
     "@iconify-json/carbon": "^1.1.21",
     "@nuxt/devtools": "latest",
     "@oku-ui/primitives-nuxt": "^0.1.5",
@@ -25,6 +26,7 @@
     "unocss": "^0.56.2"
   },
   "dependencies": {
+    "@juggle/resize-observer": "^3.4.0",
     "@nuxtjs/color-mode": "^3.3.0",
     "@oku-ui/primitives": "^0.4.0",
     "@oku-ui/toggle-group": "^0.4.0",
@@ -40,6 +42,7 @@
     "unstorage": "^1.9.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5",
+    "vueuc": "^0.4.51",
     "yup": "^1.3.1"
   }
 }

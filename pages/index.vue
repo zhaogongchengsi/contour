@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { isName } from '~/composables/schema';
 import { message } from '~/composables/discrete'
+import { NButton } from 'naive-ui'
 
 const router = useRouter()
 const name = ref<string>('')
@@ -34,6 +35,7 @@ const submit = async () => {
 				<span>提交</span>
 			</button>
 		</div>
+		<NButton>123</NButton>
 	</div>
 </template>
 
