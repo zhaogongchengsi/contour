@@ -1,25 +1,28 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { MessageInstance } from '~/components/ui/instance';
+import { isName } from '~/composables/schema';
 
+const message = ref('')
+const messageInstance = ref<MessageInstance>()
 const router = useRouter()
 const name = ref<string>('')
 
-const submit = () => {
+const submit = async () => {
 	const url = unref(name)
-	if (!url) {
-		alert('不得为空')
-		return
-	}
-	if (url.length < 3) {
-		alert('最短不得小于3个字母')
-		return
-	}
-	if (url.length > 20) {
-		alert('最长大得20个字母')
+	const { success, message: msg } = await isName(url)
+
+	if (!success) {
+		message.value = msg!
+		messageInstance.value?.open()
 		return
 	}
 
 	router.push(`/edit/${url}`)
+}
+
+const open = () => {
+	messageInstance.value?.open()
 }
 
 </script>
@@ -37,6 +40,8 @@ const submit = () => {
 				<span>提交</span>
 			</button>
 		</div>
+
+		<UiMessage type="error" ref="messageInstance">{{ message }}</UiMessage>
 	</div>
 </template>
 
