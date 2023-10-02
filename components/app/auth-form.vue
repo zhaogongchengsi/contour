@@ -1,12 +1,22 @@
 <script setup lang="ts">
-import { isClient } from '@vueuse/core'
+import { isClient, useInterval } from '@vueuse/core'
+import { NForm, NFormItem, NInput, NButton, type FormInst } from 'naive-ui'
 
 interface AuthFormProps {
 	buttonText: string
 	icon?: string
 }
 
+const seconds = 10
+
+const { counter, reset, pause, resume } = useInterval(1000, { controls: true, immediate: false })
+const formRef = ref<FormInst>()
 const id = ref<undefined | string>('')
+const fromValue = reactive({
+	email: '',
+	password: '',
+	code: ''
+})
 
 withDefaults(defineProps<AuthFormProps>(), {
 	icon: 'i-carbon-login'
@@ -24,30 +34,41 @@ watch(data, (newData) => {
 	id.value = newData.id
 })
 
+watch(counter, (newCounter) => {
+	if (newCounter === seconds) {
+		// 暂停计时器 重制计时器 请求新验证码
+		pause()
+		reset()
+		refresh(id.value)
+	}
+})
+
 </script>
 
 <template>
 	<div class="space-y-5">
-		<div class="from-item">
-			<label class="w-25 h-full inline-flex items-center">账号</label>
-			<input class="primary-input" placeholder="请输入账号" />
-		</div>
-		<div class="from-item">
-			<label class="w-25 h-full inline-flex items-center">密码</label>
-			<input class="primary-input" placeholder="请输入密码" />
-		</div>
-		<div class="from-item">
-			<label class="w-25 h-full inline-flex items-center">验证码</label>
-			<input class="primary-input" placeholder="请输入密码" />
-			<div class="w-40 h-full flex justify-center items-center border-x-1 border-t-1 cursor-pointer"
-				@click="refresh(id)">
-				<div v-if="loading" class="md-icon i-carbon-rotate-180 animate-spin" />
-				<div v-else-if="data && !loading" class="w-full h-full" v-html="data.data"></div>
-			</div>
-		</div>
-		<button class="primary-button flex gap-4 justify-center items-center">
-			<div v-if="icon" class="primary-icon" :class="icon" />
-			<span class="primary-text">{{ buttonText }}</span>
-		</button>
+		<n-form ref="formRef" :label-width="80" :model="fromValue">
+			<n-form-item label="邮箱" v-model:value="fromValue.email">
+				<n-input placeholder="请输入邮箱" />
+			</n-form-item>
+			<n-form-item label="密码" v-model:value="fromValue.password">
+				<n-input placeholder="请输入密码" />
+			</n-form-item>
+			<n-form-item label="验证码" v-model:value="fromValue.code">
+				<div class="flex h-full w-full gap-3">
+					<n-input class="flex-1" placeholder="请输入验证码" />
+					<div @click="resume()" class="w-30 border rounded flex justify-center items-center cursor-pointer">
+						<span v-if="counter" class="text-4">{{ counter }}</span>
+						<div v-else-if="loading" class="md-icon i-carbon-rotate-180 animate-spin" />
+						<div v-else-if="data && !loading" class="w-full h-full" v-html="data.data"></div>
+					</div>
+				</div>
+			</n-form-item>
+			<n-form-item>
+				<n-button attr-type="button">
+					{{ buttonText }}
+				</n-button>
+			</n-form-item>
+		</n-form>
 	</div>
 </template>

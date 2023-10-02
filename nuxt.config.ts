@@ -23,7 +23,6 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
     '@vueuse/nuxt',
-    '@oku-ui/primitives-nuxt',
     'pinceau/nuxt'
   ],
   css: [
@@ -33,9 +32,6 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: '',
     dataValue: 'light'
-  },
-  primitives: {
-    installComponents: false
   },
   components: {
     "dirs": [
@@ -73,7 +69,7 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include:
         process.env.NODE_ENV === 'development'
-          ? ['naive-ui', 'vueuc', 'date-fns-tz/esm/formatInTimeZone']
+          ? ['naive-ui', 'vueuc']
           : []
     }
   }

@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "types": [
-      "./types/index.d.ts"
+      "./types/index.d.ts",
+      "naive-ui"
     ],
   },
   "extends": "./.nuxt/tsconfig.json"
