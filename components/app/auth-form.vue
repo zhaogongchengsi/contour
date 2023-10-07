@@ -67,7 +67,7 @@ const resetForm = () => {
 					<div @click="resume()" class="w-30 border rounded flex justify-center items-center cursor-pointer">
 						<span v-if="counter" class="text-4">{{ counter }}</span>
 						<div v-else-if="loading" class="md-icon i-carbon-rotate-180 animate-spin" />
-						<div v-else-if="data && !loading" class="w-full h-full" v-html="data.data"></div>
+						<div v-else-if="data && !loading" class="w-full h-full bg-white" v-html="data.data"></div>
 					</div>
 				</div>
 			</n-form-item>

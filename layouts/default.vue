@@ -5,8 +5,11 @@ import { themeOverrides } from '../theme'
 
 const colorMode = useColorMode()
 
+// console.log(colorMode.preference)
+
 const theme = computed(() => {
-	return colorMode.value === 'dark' ? darkTheme : lightTheme
+
+	return colorMode.preference === 'dark' ? darkTheme : lightTheme
 })
 
 </script>
@@ -21,7 +24,3 @@ const theme = computed(() => {
 		<AppFooter />
 	</n-config-provider>
 </template>
-
-<style>
-
-</style>

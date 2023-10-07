@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { NSwitch } from 'naive-ui'
 
-const active = ref(false)
 const colorMode = useColorMode()
+const active = ref(false)
 
 watchEffect(() => {
-	active.value ? colorMode.value = 'dark' : colorMode.value = 'light'
+	active.value ? colorMode.preference = 'dark' : colorMode.preference = 'light'
 })
 
 </script>
