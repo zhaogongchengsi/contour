@@ -7,6 +7,8 @@ export const userInfoSchema = object({
 	code: string().required('验证码必填')
 })
 
+export const userEmail = string().required('账号必填').email('无效邮箱')
+
 export const nameSchema = string().required('不准为空').max(20, '最长20位').min(5, '最短为5位')
 
 export type UserInfoScheme = InferType<typeof userInfoSchema>

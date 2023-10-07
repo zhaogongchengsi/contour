@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { NConfigProvider, NGlobalStyle, darkTheme, lightTheme } from 'naive-ui'
+import { NConfigProvider, NGlobalStyle, darkTheme, lightTheme, NMessageProvider } from 'naive-ui'
 import { isClient } from '@vueuse/core'
 import { themeOverrides } from '../theme'
 
 const colorMode = useColorMode()
 
-// console.log(colorMode.preference)
-
 const theme = computed(() => {
-
 	return colorMode.preference === 'dark' ? darkTheme : lightTheme
 })
 
@@ -17,10 +14,12 @@ const theme = computed(() => {
 <template>
 	<n-config-provider class="app-container" :theme="theme" :inline-theme="isClient" :theme-overrides="themeOverrides">
 		<n-global-style />
-		<AppHeader />
-		<main class="app-main min-h-screen">
-			<slot />
-		</main>
-		<AppFooter />
+		<NMessageProvider>
+			<AppHeader />
+			<main class="app-main min-h-screen">
+				<slot />
+			</main>
+			<AppFooter />
+		</NMessageProvider>
 	</n-config-provider>
 </template>
