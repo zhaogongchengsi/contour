@@ -16,7 +16,11 @@ export default defineNuxtConfig({
     public: {
       base: process.env.APP_BASE
     },
-    captchaExpert: 3
+    captchaExpert: 3,
+    email: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
   },
   devtools: { enabled: true },
   modules: [

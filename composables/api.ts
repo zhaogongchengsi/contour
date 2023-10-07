@@ -22,3 +22,5 @@ export function useVerifyCode() {
 		refresh
 	}
 }
+
+export const loginApi = (body: UserInfoScheme) => $fetch<AppResponse<UserInfoScheme>>('/api/login', { method: 'post', body: body })

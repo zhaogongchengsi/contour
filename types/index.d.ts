@@ -8,5 +8,7 @@ declare module "Nodejs" {
 		REDIS_HOST: string;
 		REDIS_PORT: string;
 		REDIS_PASSWORD: string;
+		EMAIL_USER: string
+		EMAIL_PASS: string
 	}
 }

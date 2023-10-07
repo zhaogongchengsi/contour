@@ -1,10 +1,18 @@
 <script setup lang="ts">
-import { NTabs, NTabPane } from 'naive-ui'
+import { NTabs, NTabPane, useMessage } from 'naive-ui'
+import { loginApi } from '~/composables/api';
 
 const name = useRoute().params.name as string
 
-const login = (value: any) => {
-	console.log(value)
+const messageApi = useMessage()
+
+const login = async (value: any) => {
+	const { code, message } = await loginApi(value)
+	if (code) {
+		messageApi.success('登陆成功')
+		return
+	}
+	messageApi.error(message)
 }
 
 const register = (value: any) => {

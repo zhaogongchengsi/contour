@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "types": [
-      "./types/index.d.ts",
+      // "./types/index.d.ts",
+      // "./types/**/*.{d.ts}",
+      "./types",
       "naive-ui"
     ],
   },
