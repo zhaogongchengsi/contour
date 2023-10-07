@@ -43,6 +43,13 @@ watch(counter, (newCounter) => {
 	}
 })
 
+
+const resetForm = () => {
+	fromValue.code = ''
+	fromValue.email = ''
+	fromValue.password = ''
+}
+
 </script>
 
 <template>
@@ -65,9 +72,10 @@ watch(counter, (newCounter) => {
 				</div>
 			</n-form-item>
 			<n-form-item>
-				<n-button attr-type="button">
-					{{ buttonText }}
-				</n-button>
+				<div class="flex gap-3">
+					<n-button attr-type="button">{{ buttonText }}</n-button>
+					<n-button @click="resetForm">重置</n-button>
+				</div>
 			</n-form-item>
 		</n-form>
 	</div>

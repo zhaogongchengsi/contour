@@ -7,3 +7,31 @@ body {
 	color: rgb(14, 14, 14);
 	min-height: 100vh;
 }
+
+body::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+
+body::-webkit-scrollbar-track {
+	background-color: $dt('color.gray.100');
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: $dt('color.gray.400');
+	border-radius: 5px;
+}
+
+.dark body::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+
+.dark body::-webkit-scrollbar-track {
+	background-color: $dt('color.gray.900');
+}
+
+.dark body::-webkit-scrollbar-thumb {
+	background-color: $dt('color.gray.600');
+	border-radius: 5px;
+}
