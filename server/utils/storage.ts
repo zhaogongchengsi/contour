@@ -1,17 +1,22 @@
-import { createStorage } from "unstorage";
+import { createStorage, type Storage, type StorageValue } from "unstorage";
 import redisDriver from "unstorage/drivers/redis";
 
-const storage = createStorage({
-	driver: redisDriver({
-		base: process.env.APP_BASE,
-		host: process.env.REDIS_HOST,
-		port: Number(process.env.REDIS_PORT),
-		password: process.env.REDIS_PASSWORD,
-	}),
-});
+let captchaStorage: Storage<StorageValue> | null
 
-export function useRedisStorage() {
-	return storage
+export function useRedisCaptchaStorage() {
+	if (!captchaStorage) {
+		captchaStorage = createStorage({
+			driver: redisDriver({
+				base: 'captcha',
+				host: process.env.REDIS_HOST,
+				port: Number(process.env.REDIS_PORT),
+				password: process.env.REDIS_PASSWORD,
+			}),
+		});
+	}
+	return captchaStorage
 }
+
+
 
 

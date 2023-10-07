@@ -1,6 +1,6 @@
 import captcha from 'svg-captcha'
 import { randomUUID } from "uncrypto";
-import { useRedisStorage } from './storage';
+import { useRedisCaptchaStorage } from './storage';
 import dayjs from 'dayjs';
 
 const option = { noise: 3, height: 34, width: 120 }
@@ -12,7 +12,7 @@ interface CaptchaValue {
 }
 
 export async function createCaptcha() {
-	const storage = useRedisStorage()
+	const storage = useRedisCaptchaStorage()
 	const runtime = useRuntimeConfig()
 
 	const id = randomUUID()
@@ -33,7 +33,7 @@ export async function createCaptcha() {
 }
 
 export async function verifyCaptcha(id: string, value: string) {
-	const storage = useRedisStorage()
+	const storage = useRedisCaptchaStorage()
 	const val = await storage.getItem(id) as CaptchaValue
 	if (val) {
 		storage.removeItem(id)
@@ -47,6 +47,6 @@ export async function verifyCaptcha(id: string, value: string) {
 }
 
 export async function deleteCaptchaId(id: string) {
-	const storage = useRedisStorage()
+	const storage = useRedisCaptchaStorage()
 	return storage.removeItem(id)
 }

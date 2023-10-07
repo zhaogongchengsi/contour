@@ -29,6 +29,9 @@ dependencies:
   axios:
     specifier: ^1.5.1
     version: 1.5.1
+  crypto-js:
+    specifier: ^4.1.1
+    version: 4.1.1
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
@@ -76,6 +79,9 @@ devDependencies:
   '@oku-ui/primitives-nuxt':
     specifier: ^0.1.5
     version: 0.1.5(rollup@3.29.3)
+  '@types/crypto-js':
+    specifier: ^4.1.2
+    version: 4.1.2
   '@types/nodemailer':
     specifier: ^6.4.11
     version: 6.4.11
@@ -2592,6 +2598,10 @@ packages:
       minimatch: 9.0.3
     dev: true
 
+  /@types/crypto-js@4.1.2:
+    resolution: {integrity: sha512-t33RNmTu5ufG/sorROIafiCVJMx3jz95bXUMoPAZcUD14fxMXnuTzqzXZoxpR0tNx2xpw11Dlmem9vGCsrSOfA==}
+    dev: true
+
   /@types/eslint-scope@3.7.5:
     resolution: {integrity: sha512-JNvhIEyxVW6EoMIFIvj93ZOywYFatlpu9deeH6eSx6PE3WHYvHaQtmHmQeNw7aA81bYGBPPQqdtBm6b1SsQMmA==}
     dependencies:
@@ -3991,6 +4001,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  /crypto-js@4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+    dev: false
 
   /css-declaration-sorter@6.4.1(postcss@8.4.30):
     resolution: {integrity: sha512-rtdthzxKuyq6IzqX6jEcIzQF/YqccluefyCYheovBOLhFT/drQA9zj/UbRAa9J7C0o6EG6u3E6g+vKkay7/k3g==}

@@ -9,7 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "dbgc": "prisma generate",
-    "dbpush": "db push",
+    "dbpush": "prisma db push",
     "studio": "prisma studio --port 7890"
   },
   "devDependencies": {
@@ -17,6 +17,7 @@
     "@iconify-json/carbon": "^1.1.21",
     "@nuxt/devtools": "latest",
     "@oku-ui/primitives-nuxt": "^0.1.5",
+    "@types/crypto-js": "^4.1.2",
     "@types/nodemailer": "^6.4.11",
     "@unocss/nuxt": "^0.56.2",
     "@vueuse/core": "^10.4.1",
@@ -35,6 +36,7 @@
     "@unocss/reset": "^0.56.2",
     "@vueuse/components": "^10.4.1",
     "axios": "^1.5.1",
+    "crypto-js": "^4.1.1",
     "dayjs": "^1.11.10",
     "naive-ui": "^2.34.4",
     "nodemailer": "^6.9.5",

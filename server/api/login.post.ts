@@ -8,16 +8,9 @@ export default defineEventHandler(async (event) => {
 		return sendFail(message)
 	}
 
-	if (!await verifyCaptcha(body.id, body.code)) {
+	if (isPro() && !await verifyCaptcha(body.id, body.code)) {
 		return sendFail('验证码错误或过期')
 	}
-
-
-	// todo: 验证邮箱真实性
-
-
-
-
 
 	console.log(body)
 

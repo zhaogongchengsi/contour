@@ -15,8 +15,13 @@ const login = async (value: any) => {
 	messageApi.error(message)
 }
 
-const register = (value: any) => {
-	console.log(value)
+const register = async (value: any) => {
+	const { code, message } = await registerApi(value)
+	if (code) {
+		messageApi.success('注册成功')
+		return
+	}
+	messageApi.error(message)
 }
 
 </script>

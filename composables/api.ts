@@ -24,3 +24,4 @@ export function useVerifyCode() {
 }
 
 export const loginApi = (body: UserInfoScheme) => $fetch<AppResponse<UserInfoScheme>>('/api/login', { method: 'post', body: body })
+export const registerApi = (body: UserInfoScheme, name?: string) => $fetch<AppResponse<UserInfoScheme>>('/api/register', { method: 'post', body: body, params: { name } })
