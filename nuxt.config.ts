@@ -20,6 +20,11 @@ export default defineNuxtConfig({
     email: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
+    },
+    jwt: {
+      key: process.env.JWT_KEY,
+      // 过期时间 see https://github.com/vercel/ms
+      exp: '1h'
     }
   },
   devtools: { enabled: true },

@@ -1,4 +1,6 @@
 import { isUserInfo } from "~/composables/schema"
+import { prisma } from "~/prisma/client"
+import { issueToken } from "../utils/jwt"
 
 export default defineEventHandler(async (event) => {
 	const body = await readBody(event)
@@ -12,7 +14,30 @@ export default defineEventHandler(async (event) => {
 		return sendFail('验证码错误或过期')
 	}
 
-	console.log(body)
+	const user = await prisma.user.findFirst({
+		where: {
+			email: body.account
+		}
+	})
 
-	return sendSuccess<any>(body)
+	if (!user) {
+		return sendFail('用户不存在')
+	}
+
+	if (!decrypt(body.password, user.password as any)) {
+		return sendFail('密码错误')
+	}
+
+	// 签发token
+
+	const token = issueToken(user.uid)
+
+	user.password = ''
+
+	return sendSuccess<any>({
+		authorization: {
+			token
+		},
+		user
+	})
 })

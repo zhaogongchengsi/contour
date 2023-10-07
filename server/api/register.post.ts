@@ -18,6 +18,16 @@ export default defineEventHandler(async (event) => {
 
 	try {
 
+		const oldUser = await prisma.user.findFirst({
+			where: {
+				email: body.account
+			}
+		})
+
+		if (oldUser) {
+			return sendFail('用户已存在')
+		}
+
 		const user = await prisma.user.create({
 			data: {
 				email: body.account,
