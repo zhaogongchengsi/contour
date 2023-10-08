@@ -10,9 +10,10 @@ const store = useEditDataStore()
 const route = useRoute()
 store.setName(route.params.name as string)
 
-
 </script>
 
 <template>
-	<RenderPlane :name="store.name" />
+	<RenderLeftPlane />
+	<RenderPlane :name="store.name" :background="store.background" />
+	<RenderRightPlane />
 </template>

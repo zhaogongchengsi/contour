@@ -25,3 +25,9 @@ declare interface User {
 	uid: string;
 	updatedAt: null;
 }
+
+declare interface BgItem {
+	url: string,
+	name: string,
+	size: string
+}
