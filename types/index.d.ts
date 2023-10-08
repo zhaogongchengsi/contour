@@ -12,3 +12,5 @@ declare module "Nodejs" {
 		EMAIL_PASS: string
 	}
 }
+
+declare type AvatarUri =  `url:${string}` | `text:${string}` | `emoji:${string}`

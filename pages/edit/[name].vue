@@ -13,7 +13,7 @@ store.setName(route.params.name as string)
 </script>
 
 <template>
-	<RenderLeftPlane />
-	<RenderPlane :name="store.name" :background="store.background" />
+	<RenderLeftPlane :name="$route.params.name" />
+	<RenderPlane :avatar="store.avatar" :name="store.name" :background="store.background" />
 	<RenderRightPlane />
 </template>

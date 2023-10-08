@@ -7,8 +7,8 @@ const props = defineProps<RenderPlaneProps>()
 
 <template>
 	<main class="w-full min-h-screen" :style="`background: ${props.background}`">
-		<div class="max-w-300 mx-auto">
-			{{ props.name }}
+		<div class="max-w-300 mx-auto py-15">
+			<ui-resume-header :name="props.name" :avatar="props.avatar" />
 		</div>
 	</main>
 </template>
