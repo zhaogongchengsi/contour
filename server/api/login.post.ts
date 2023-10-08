@@ -1,6 +1,5 @@
 import { isUserInfo } from "~/composables/schema"
 import { prisma } from "~/prisma/client"
-import { issueToken } from "../utils/jwt"
 
 export default defineEventHandler(async (event) => {
 	const body = await readBody(event)
@@ -28,16 +27,15 @@ export default defineEventHandler(async (event) => {
 		return sendFail('密码错误')
 	}
 
-	// 签发token
-
-	const token = issueToken(user.uid)
+	const { token, exp } = issueToken(user.uid)
 
 	user.password = ''
 
-	return sendSuccess<any>({
+	return sendSuccess<AppUserResponse>({
 		authorization: {
-			token
+			token,
+			exp
 		},
-		user
+		user: user as unknown as User
 	})
 })

@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { NTabs, NTabPane, useMessage } from 'naive-ui'
 import { loginApi } from '~/composables/api';
+import { setExp, setToken } from '~/utils/storage';
 
 const name = useRoute().params.name as string
 
 const messageApi = useMessage()
 
 const login = async (value: any) => {
-	const { code, message } = await loginApi(value)
+	const { code, message, data } = await loginApi(value)
 	if (code) {
+		setToken(data!.authorization.token!)
+		setExp(data!.authorization.exp!)
 		messageApi.success('登陆成功')
 		return
 	}
