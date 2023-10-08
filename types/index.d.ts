@@ -14,3 +14,11 @@ declare module "Nodejs" {
 }
 
 declare type AvatarUri =  `url:${string}` | `text:${string}` | `emoji:${string}`
+
+declare interface RenderPlaneProps {
+	name: string
+	background?: string
+	description?: string
+	avatar: AvatarUri,
+	edit?: boolean
+}

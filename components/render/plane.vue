@@ -3,6 +3,8 @@ import { type RenderPlaneProps } from './props'
 
 const props = defineProps<RenderPlaneProps>()
 
+provide<RenderPlaneProps>(editDataProviderKey, props)
+
 </script>
 
 <template>
