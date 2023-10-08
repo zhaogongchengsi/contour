@@ -1,13 +1,12 @@
 <script setup lang="ts">
 
-// definePageMeta({
-// 	middleware: ['auth'],
-// });
+definePageMeta({
+	layout: 'edit',
+	// middleware: ['auth'],
+});
 
 </script>
 
 <template>
-	<div>
-		edit
-	</div>
+	<RenderPlane :name="$route.params.name" />
 </template>

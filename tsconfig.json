@@ -4,7 +4,8 @@
       // "./types/index.d.ts",
       // "./types/**/*.{d.ts}",
       "./types",
-      "naive-ui"
+      "naive-ui",
+      "@pinia/nuxt"
     ],
   },
   "extends": "./.nuxt/tsconfig.json"

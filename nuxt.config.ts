@@ -32,12 +32,20 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
     '@vueuse/nuxt',
-    'pinceau/nuxt'
+    'pinceau/nuxt',
+    '@pinia/nuxt',
   ],
   css: [
     '@unocss/reset/tailwind.css',
     'assets/main.css'
   ],
+  pinia: {
+    autoImports: [
+      // automatically imports `defineStore`
+      'defineStore', // import { defineStore } from 'pinia'
+      ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+    ],
+  },
   colorMode: {
     classSuffix: '',
     dataValue: 'light'
@@ -53,6 +61,11 @@ export default defineNuxtConfig({
         path: '~/components/ui',
         global: true,
         prefix: 'ui'
+      },
+      {
+        path: '~/components/render',
+        global: true,
+        prefix: 'render'
       }
     ]
   },
@@ -60,7 +73,8 @@ export default defineNuxtConfig({
     dirs: [
       'composables',
       'composables/*/index.{ts,js,mjs,mts}',
-      'composables/**'
+      'composables/**',
+      'stores'
     ]
   },
   build: {
