@@ -14,9 +14,7 @@ const theme = computed(() => {
 	<n-config-provider class="app-container" :theme="theme" :inline-theme="isClient" :theme-overrides="themeOverrides">
 		<n-global-style />
 		<NMessageProvider>
-			<div class="w-full relative min-h-screen py-10">
-				<slot />
-			</div>
+			<slot />
 		</NMessageProvider>
 	</n-config-provider>
 </template>

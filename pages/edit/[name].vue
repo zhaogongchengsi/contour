@@ -5,8 +5,14 @@ definePageMeta({
 	// middleware: ['auth'],
 });
 
+const store = useEditDataStore()
+
+const route = useRoute()
+store.setName(route.params.name as string)
+
+
 </script>
 
 <template>
-	<RenderPlane :name="$route.params.name" />
+	<RenderPlane :name="store.name" />
 </template>

@@ -6,7 +6,9 @@ const props = defineProps<RenderPlaneProps>()
 </script>
 
 <template>
-	<div class="max-w-300 mx-auto">
-		{{ props.name }}
-	</div>
+	<main class="w-full min-h-screen">
+		<div class="max-w-300 mx-auto">
+			{{ props.name }}
+		</div>
+	</main>
 </template>
