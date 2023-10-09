@@ -30,6 +30,7 @@
     "unocss": "^0.56.2"
   },
   "dependencies": {
+    "@iconify-json/formkit": "^1.1.2",
     "@juggle/resize-observer": "^3.4.0",
     "@nuxtjs/color-mode": "^3.3.0",
     "@oku-ui/primitives": "^0.4.0",

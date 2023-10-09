@@ -21,4 +21,12 @@ export declare interface RenderPlaneProps {
 	description?: string
 	avatar: AvatarUri,
 	edit?: boolean
+	// 磨砂
+	frosted?: boolean
+	// 模糊
+	blur?: boolean
+	// 居中
+	center?: boolean
+	// 斜体
+	ltalic?: boolean
 }
