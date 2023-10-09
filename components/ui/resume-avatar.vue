@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { AvatarUri } from '~/types';
+
 
 const props = defineProps<{
 	src: AvatarUri
@@ -8,6 +10,7 @@ const props = defineProps<{
 
 const avatar = computed(() => {
 	const info = props.src.split(':')
+	// url:https://xx -> [url, https, //xxx]
 	const value = info.slice(1).join(':')
 	return { type: info[0], value }
 })
