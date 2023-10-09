@@ -22,3 +22,6 @@ REDIS_PASSWORD=''
 
 EMAIL_USER='xxx@xxx.xxx'
 EMAIL_PASS='xxxxxxx'
+
+SECRETID=''
+SECRETKEY=''
