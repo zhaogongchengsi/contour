@@ -6,7 +6,8 @@ const props = withDefaults(defineProps<RenderPlaneProps>(), {
 	center: false,
 	blur: false,
 	frosted: false,
-	ltalic: false
+	ltalic: false,
+	description: ''
 })
 
 provide<RenderPlaneProps>(editDataProviderKey, props)

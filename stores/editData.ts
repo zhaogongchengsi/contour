@@ -19,6 +19,9 @@ export const useEditDataStore = defineStore('editData', () => {
 	const styles = useStorage<string[]>(defineStorageKey('styles'), [])
 	const setStyles = (s: string[]) => (styles.value = s)
 
+	const description = useStorage<string>(defineStorageKey('description'), '这是一条非常牛逼的自我描述')
+	const setDescription = (d: string) => (description.value = d)
+
 	return {
 		name,
 		setName,
@@ -27,6 +30,8 @@ export const useEditDataStore = defineStore('editData', () => {
 		avatar,
 		setAvatar,
 		styles,
-		setStyles
+		setStyles,
+		description,
+		setDescription
 	}
 })
