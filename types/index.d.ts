@@ -13,9 +13,9 @@ declare module "Nodejs" {
 	}
 }
 
-declare export type AvatarUri =  `url:${string}` | `text:${string}` | `emoji:${string}`
+export declare type AvatarUri =  `url:${string}` | `text:${string}` | `emoji:${string}`
 
-declare export interface RenderPlaneProps {
+export declare interface RenderPlaneProps {
 	name: string
 	background?: string
 	description?: string

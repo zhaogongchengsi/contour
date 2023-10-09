@@ -28,7 +28,7 @@ const textSize = (text: string) => {
 
 <template>
 	<div class="w-30 h-30 bg-white overflow-hidden rounded-full flex justify-center items-center" :class="{
-		'p-1': avatar.type === 'url'
+		'p-1': avatar.type === 'url',
 	}">
 		<span v-if="avatar.type === 'emoji'" class="text-16">{{ avatar.value }}</span>
 		<span v-else-if="avatar.type === 'text'" :style="textSize(avatar.value)" class="w-full font-bold text-purple-500">{{ avatar.value }}</span>

@@ -13,7 +13,5 @@ store.setName(route.params.name as string)
 </script>
 
 <template>
-	<app-component :name="$route.params.name" />
 	<render-plane :avatar="store.avatar" :name="store.name" :background="store.background" />
-	<app-style />
 </template>

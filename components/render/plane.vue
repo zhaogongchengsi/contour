@@ -10,7 +10,7 @@ provide<RenderPlaneProps>(editDataProviderKey, props)
 <template>
 	<main class="w-full min-h-screen" :style="{background: props.background }">
 		<div class="max-w-300 mx-auto py-15">
-			<ui-resume-header />
+			<render-header />
 		</div>
 	</main>
 </template>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-defineProps<{name: string}>()
+defineProps<{ name: string | string[] }>()
 
 </script>
 
