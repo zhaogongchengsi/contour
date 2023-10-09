@@ -14,8 +14,9 @@ provide<RenderPlaneProps>(editDataProviderKey, props)
 </script>
 
 <template>
-	<main class="w-full min-h-screen relative flex" :style="{ background: props.background }">
-		<div class="w-300 mx-auto py-15 z-20">
+	<main class="w-full min-h-screen relative flex px-3 sm:px-10 md:px-30 lg:px-50 xl:px-80 2xl:px-150"
+		:style="{ background: props.background }">
+		<div class="w-full py-15 z-20">
 			<render-header />
 		</div>
 		<div class="render-bg z-10" :class="{
@@ -36,12 +37,7 @@ provide<RenderPlaneProps>(editDataProviderKey, props)
 	pointer-events: none;
 }
 
-.bg-frosted::after {
-	content: '';
-	display: block;
-	position: absolute;
+.bg-frosted {
 	background: url(/noise.svg);
-	z-index: -10;
-	@apply w-full h-full top-0 left-0 inset-0;
 }
 </style>
