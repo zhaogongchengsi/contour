@@ -2,7 +2,6 @@
 
 definePageMeta({
 	layout: 'edit',
-	// middleware: ['auth'],
 });
 
 const store = useEditDataStore()
