@@ -31,6 +31,9 @@
   },
   "dependencies": {
     "@iconify-json/formkit": "^1.1.2",
+    "@iconify-json/tdesign": "^1.1.0",
+    "@iconify-json/uiw": "^1.1.8",
+    "@iconify-json/vscode-icons": "^1.1.28",
     "@juggle/resize-observer": "^3.4.0",
     "@nuxtjs/color-mode": "^3.3.0",
     "@oku-ui/primitives": "^0.4.0",

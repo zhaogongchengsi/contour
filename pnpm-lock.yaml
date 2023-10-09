@@ -8,6 +8,15 @@ dependencies:
   '@iconify-json/formkit':
     specifier: ^1.1.2
     version: 1.1.2
+  '@iconify-json/tdesign':
+    specifier: ^1.1.0
+    version: 1.1.0
+  '@iconify-json/uiw':
+    specifier: ^1.1.8
+    version: 1.1.8
+  '@iconify-json/vscode-icons':
+    specifier: ^1.1.28
+    version: 1.1.28
   '@juggle/resize-observer':
     specifier: ^3.4.0
     version: 3.4.0
@@ -1158,6 +1167,24 @@ packages:
 
   /@iconify-json/formkit@1.1.2:
     resolution: {integrity: sha512-/+vcQUPa4yzARQDzz1BBkNtFvXv5t2iknF57RRoEm1Xg3oKOnrvK7hMono0MtQg4aTvPH2nJoa0/qczQ7CB40w==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
+  /@iconify-json/tdesign@1.1.0:
+    resolution: {integrity: sha512-yb50t3dK4lwMU4T5M5wAQU21K5UAwm2f8A4gdvR2G9oC3enRSX3QFMlSoBp/JdnL0OeT1vAvB+JgQQk2oWwKYg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
+  /@iconify-json/uiw@1.1.8:
+    resolution: {integrity: sha512-0zcCLH3zH4LFEorAKgGPlKiZxy0uE/my0VZAMlL+D0wGaJ1olQdPM05SyVMIHaZX6yYUuj4NkSbAbFQRuYU7fw==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
+  /@iconify-json/vscode-icons@1.1.28:
+    resolution: {integrity: sha512-B2slvmqiwzBI4vrkJAuHn3wSDHJ2XNjapUVaeuPr5qXM3FY/HoCKE/gFIbTNHFRi5oLNC8c1huRLo1yITn15GQ==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: false
