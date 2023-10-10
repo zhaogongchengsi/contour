@@ -57,7 +57,7 @@ const store = useEditDataStore()
 				</n-tabs>
 			</div>
 			<h4 class="text-4 font-bold px-3 text-gray-400">设置</h4>
-			<n-checkbox-group class="px-3" @update-value="store.setStyles">
+			<n-checkbox-group class="px-3" v-model:value="store.styles" @update-value="store.setStyles">
 				<n-grid :y-gap="8" :cols="2">
 					<n-gi><n-checkbox size="medium" label="磨砂" value="frosted" /></n-gi>
 					<n-gi><n-checkbox size="medium" label="模糊" value="blur" /></n-gi>
