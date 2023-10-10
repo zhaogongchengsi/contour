@@ -7,7 +7,8 @@ const defineStorageKey = (key: string) => `contour-edit-${key}`
 
 export const useEditDataStore = defineStore('editData', () => {
 
-	const name = useStorage(defineStorageKey('name'), '')
+	const route = useRoute()
+	const name = useStorage<string>(defineStorageKey('name'), route.params.name as string)
 	const setName = (n: string) => (name.value = n)
 
 	const background = useStorage(defineStorageKey('background'), '#fff')
