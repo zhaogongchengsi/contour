@@ -9,7 +9,7 @@ const store = useEditDataStore()
 </script>
 
 <template>
-	<app-component :name="$route.params.name" />
+	<app-component />
 	<render-plane
 		edit
 		:frosted="store.styles.includes('frosted')" 
@@ -20,6 +20,7 @@ const store = useEditDataStore()
 		:name="store.name"
 		:background="store.background"
 		:description="store.description"
+		:contacts="store.contacts"
 	/>
 	<app-style />
 </template>

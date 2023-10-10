@@ -1,7 +1,7 @@
 
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import { AvatarUri } from '~/types'
+import { AvatarUri, ContactInfo } from '~/types'
 
 const defineStorageKey = (key: string) => `contour-edit-${key}`
 
@@ -23,6 +23,15 @@ export const useEditDataStore = defineStore('editData', () => {
 	const description = useStorage<string>(defineStorageKey('description'), '这是一条非常牛逼的自我描述')
 	const setDescription = (d: string) => (description.value = d)
 
+	const contacts = useStorage<ContactInfo[]>(defineStorageKey('contact'), [])
+
+	const createContact = (): ContactInfo => {
+		return {
+			value: '',
+			type: 'phone'
+		}
+	}
+
 	return {
 		name,
 		setName,
@@ -33,6 +42,8 @@ export const useEditDataStore = defineStore('editData', () => {
 		styles,
 		setStyles,
 		description,
-		setDescription
+		setDescription,
+		contacts,
+		createContact
 	}
 })

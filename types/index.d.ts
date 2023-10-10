@@ -29,4 +29,12 @@ export declare interface RenderPlaneProps {
 	center?: boolean
 	// 斜体
 	ltalic?: boolean
+	// 联系方式
+	contacts?: ContactInfo[]
+}
+
+
+export declare interface ContactInfo {
+	value: string
+	type: 'qq' | 'mail' | 'phone'
 }

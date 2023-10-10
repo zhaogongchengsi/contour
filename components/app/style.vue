@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NTooltip, NTabs, NTabPane, NCheckboxGroup, NCheckbox, NGrid, NGi, NScrollbar, NColorPicker, NRadioGroup, NRadioButton } from 'naive-ui'
+import { NTooltip, NTabs, NTabPane, NCheckboxGroup, NCheckbox, NGrid, NGi, NScrollbar, NColorPicker, NRadioGroup, NRadioButton, NInput } from 'naive-ui'
 
 const store = useEditDataStore()
 
@@ -10,7 +10,7 @@ const store = useEditDataStore()
 		<template #header>
 			<div class="flex py-2 px-3 items-center justify-between">
 				<h3 class="text-4 font-bold">样式</h3>
-				<RouterLink :to="`/preview/${$route.params.name}`" class="flex items-center">
+				<RouterLink :to="`/preview/${store.name}`" class="flex items-center">
 					<n-tooltip trigger="hover">
 						<template #trigger>
 							<button class="md-icon i-carbon:view"></button>
@@ -32,12 +32,9 @@ const store = useEditDataStore()
 				<n-tabs type="segment" animated size="small">
 					<n-tab-pane name="color" tab="纯颜色">
 						<n-scrollbar class="h-50 max-h-80">
-							<div>
-								<n-color-picker />
-								<div class="w-full grid grid-cols-4 gap-3">
-									<ui-bg-card @click="store.setBackground(item)" :active="store.background === item"
-										v-for="item of swatches" :key="item" :value="item" />
-								</div>
+							<div class="w-full grid grid-cols-4 gap-3">
+								<ui-bg-card @click="store.setBackground(item)" :active="store.background === item"
+									v-for="item of swatches" :key="item" :value="item" />
 							</div>
 						</n-scrollbar>
 					</n-tab-pane>
