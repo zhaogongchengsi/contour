@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { NInput, NDynamicInput, NInputGroup, NSelect, SelectOption } from 'naive-ui'
+import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, type SelectOption, type UploadFileInfo } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
-import { ContactInfo } from '~/types';
 
 const store = useEditDataStore()
 
@@ -23,6 +22,15 @@ const selectOptions = ref([
 const renderLabel = (option: SelectOption): VNodeChild => {
 	return h('div', { class: ["sm-icon", option.label] })
 }
+
+const fileList = ref<UploadFileInfo[]>([
+	// {
+	// 	id: 'c',
+	// 	name: '我是自带url的图片.png',
+	// 	status: 'finished',
+	// 	url: 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'
+	// }
+])
 
 
 </script>
@@ -58,6 +66,28 @@ const renderLabel = (option: SelectOption): VNodeChild => {
 					</div>
 				</template>
 			</n-dynamic-input>
+			<h4 class="text-4 font-bold text-gray-400">二维码</h4>
+			<n-upload class="app-file-upload"
+				:default-file-list="fileList" list-type="image-card">
+				<div class="md-icon i-carbon:upload" />
+			</n-upload>
 		</div>
 	</ui-affix-modal>
 </template>
+
+<style>
+.app-file-upload .n-upload-file-list {
+	--image-size: 52px;
+	grid-template-columns: repeat(auto-fill, var(--image-size));
+}
+
+.app-file-upload .n-upload-file-list .n-upload-file {
+	width: var(--image-size);
+	height: var(--image-size);
+}
+
+.app-file-upload .n-upload-trigger {
+	width: var(--image-size);
+	height: var(--image-size);
+}
+</style>
