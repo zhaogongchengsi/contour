@@ -18,8 +18,8 @@ const store = useEditDataStore()
 		:ltalic="store.styles.includes('ltalic')" 
 		:avatar="store.avatar"
 		:name="store.name"
-		:background="store.background" 
-		:description="store.description" 
+		:background="store.background"
+		:description="store.description"
 	/>
 	<app-style />
 </template>

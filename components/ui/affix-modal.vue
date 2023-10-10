@@ -11,11 +11,15 @@ withDefaults(defineProps<{ direction?: 'left' | 'right' }>(), {
 	<div class="fixed top-0 h-screen p-8 w-100 pointer-events-none z-99"
 		:class="{ 'left-0': direction === 'left', 'right-0': direction === 'right' }">
 		<div
-			class="w-full h-full border primary-border-color bg-gray-50 dark:bg-zinc-800/80 rounded-md pointer-events-auto">
+			class="w-full h-full border overflow-hidden rounded primary-border-color bg-gray-50 dark:bg-zinc-800/80 rounded-md pointer-events-auto">
 			<n-scrollbar style="height: calc(100vh - 48px)" class="affix-modal-container_scrollbar">
-				<slot name="header" />
+				<div class="border-b primary-border-color bg-gray-50 dark:bg-zinc-800/90 z-20 sticky top-0">
+					<slot name="header" />
+				</div>
 				<slot />
-				<slot name="footer" />
+				<div v-if="$slots.footer" class="border-t primary-border-color bg-gray-50 dark:bg-zinc-800/90 z-20 sticky bottom-0">
+					<slot name="footer" />
+				</div>
 			</n-scrollbar>
 		</div>
 	</div>

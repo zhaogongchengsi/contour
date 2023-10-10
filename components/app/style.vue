@@ -8,9 +8,9 @@ const store = useEditDataStore()
 <template>
 	<ui-affix-modal direction="right">
 		<template #header>
-			<div class="flex py-2 px-3 items-center justify-between border-b-1 primary-border-color">
+			<div class="flex py-2 px-3 items-center justify-between">
 				<h3 class="text-4 font-bold">样式</h3>
-				<RouterLink :to="`/preview/${$route.params.name}`">
+				<RouterLink :to="`/preview/${$route.params.name}`" class="flex items-center">
 					<n-tooltip trigger="hover">
 						<template #trigger>
 							<button class="md-icon i-carbon:view"></button>

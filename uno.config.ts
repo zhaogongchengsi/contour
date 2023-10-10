@@ -22,7 +22,7 @@ export default defineConfig({
 		['from-item', 'flex gap-5 h-10 md:h-14 text-4 md:text-5 border-b px-2 focus-within:border-color-purple-500'],
 		['primary-text', 'text-4 md:text-5 lg:text-6'],
 		['primary-icon', 'w-4 h-4 md:w-6 md:h-6'],
-		['primary-border-color', 'border-color-zinc-200 dark:border-color-gray-500']
+		['primary-border-color', 'border-color-zinc-200 dark:border-color-gray-500/50']
 	],
 	theme: {
 		
