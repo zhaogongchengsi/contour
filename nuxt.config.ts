@@ -26,7 +26,10 @@ export default defineNuxtConfig({
       // 过期时间 see https://github.com/vercel/ms
       exp: '1h'
     },
-    upload: process.env.UPLOAD_PATH
+    upload: {
+      urlPrefix: 'http://localhost/static',
+      path: process.env.UPLOAD_PATH
+    }
   },
   devtools: { enabled: true },
   modules: [

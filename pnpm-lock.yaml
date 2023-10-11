@@ -5,18 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@iconify-json/formkit':
-    specifier: ^1.1.2
-    version: 1.1.2
-  '@iconify-json/tdesign':
-    specifier: ^1.1.0
-    version: 1.1.0
-  '@iconify-json/uiw':
-    specifier: ^1.1.8
-    version: 1.1.8
-  '@iconify-json/vscode-icons':
-    specifier: ^1.1.28
-    version: 1.1.28
   '@juggle/resize-observer':
     specifier: ^3.4.0
     version: 3.4.0
@@ -53,9 +41,15 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
+  fs-extra:
+    specifier: ^11.1.1
+    version: 11.1.1
   jsonwebtoken:
     specifier: ^9.0.2
     version: 9.0.2
+  lyla:
+    specifier: ^1.3.1
+    version: 1.3.1
   ms:
     specifier: ^2.1.3
     version: 2.1.3
@@ -65,6 +59,12 @@ dependencies:
   nodemailer:
     specifier: ^6.9.5
     version: 6.9.5
+  ohash:
+    specifier: ^1.1.3
+    version: 1.1.3
+  pathe:
+    specifier: ^1.1.1
+    version: 1.1.1
   perfect-debounce:
     specifier: ^1.0.0
     version: 1.0.0
@@ -103,6 +103,18 @@ devDependencies:
   '@iconify-json/carbon':
     specifier: ^1.1.21
     version: 1.1.21
+  '@iconify-json/formkit':
+    specifier: ^1.1.2
+    version: 1.1.2
+  '@iconify-json/tdesign':
+    specifier: ^1.1.0
+    version: 1.1.0
+  '@iconify-json/uiw':
+    specifier: ^1.1.8
+    version: 1.1.8
+  '@iconify-json/vscode-icons':
+    specifier: ^1.1.28
+    version: 1.1.28
   '@nuxt/devtools':
     specifier: latest
     version: 1.0.0-beta.0(nuxt@3.7.3)(rollup@3.29.3)(vite@4.4.9)
@@ -112,6 +124,9 @@ devDependencies:
   '@types/crypto-js':
     specifier: ^4.1.2
     version: 4.1.2
+  '@types/fs-extra':
+    specifier: ^11.0.2
+    version: 11.0.2
   '@types/jsonwebtoken':
     specifier: ^9.0.3
     version: 9.0.3
@@ -1169,28 +1184,29 @@ packages:
     resolution: {integrity: sha512-/+vcQUPa4yzARQDzz1BBkNtFvXv5t2iknF57RRoEm1Xg3oKOnrvK7hMono0MtQg4aTvPH2nJoa0/qczQ7CB40w==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: false
+    dev: true
 
   /@iconify-json/tdesign@1.1.0:
     resolution: {integrity: sha512-yb50t3dK4lwMU4T5M5wAQU21K5UAwm2f8A4gdvR2G9oC3enRSX3QFMlSoBp/JdnL0OeT1vAvB+JgQQk2oWwKYg==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: false
+    dev: true
 
   /@iconify-json/uiw@1.1.8:
     resolution: {integrity: sha512-0zcCLH3zH4LFEorAKgGPlKiZxy0uE/my0VZAMlL+D0wGaJ1olQdPM05SyVMIHaZX6yYUuj4NkSbAbFQRuYU7fw==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: false
+    dev: true
 
   /@iconify-json/vscode-icons@1.1.28:
     resolution: {integrity: sha512-B2slvmqiwzBI4vrkJAuHn3wSDHJ2XNjapUVaeuPr5qXM3FY/HoCKE/gFIbTNHFRi5oLNC8c1huRLo1yITn15GQ==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: false
+    dev: true
 
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
+    dev: true
 
   /@iconify/utils@2.1.10:
     resolution: {integrity: sha512-0/+5hxjzCZ9RoYpqxnOzbnpQyMdZRuHcMxPJeuX+x/aZkAAD/N4TajDjAPT7LpX+M0bfLExj/p0bbDkUfp0lrg==}
@@ -1267,6 +1283,10 @@ packages:
   /@kwsites/promise-deferred@1.1.1:
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
     dev: true
+
+  /@lylajs/core@1.3.1:
+    resolution: {integrity: sha512-KA3g2M/ch2jfrHVByX/s5ioEtppE8SY1dgSaCBxle7Xp2bNEtfYNn8qrQ+LjqGBZlBlQCvLIcm1xrx3YoSxFmQ==}
+    dev: false
 
   /@mapbox/node-pre-gyp@1.0.11:
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
@@ -2691,6 +2711,13 @@ packages:
   /@types/estree@1.0.2:
     resolution: {integrity: sha512-VeiPZ9MMwXjO32/Xu7+OwflfmeoRwkE/qzndw42gGtgJwZopBnzy2gD//NN1+go1mADzkDcqf/KnFRSjTJ8xJA==}
 
+  /@types/fs-extra@11.0.2:
+    resolution: {integrity: sha512-c0hrgAOVYr21EX8J0jBMXGLMgJqVf/v6yxi0dLaJboW9aQPh16Id+z6w2Tx1hm+piJOLv8xPfVKZCLfjPw/IMQ==}
+    dependencies:
+      '@types/jsonfile': 6.1.2
+      '@types/node': 20.7.0
+    dev: true
+
   /@types/http-proxy@1.17.12:
     resolution: {integrity: sha512-kQtujO08dVtQ2wXAuSFfk9ASy3sug4+ogFR8Kd8UgP8PEuc1/G/8yjYRmp//PcDNJEUKOza/MrQu15bouEUCiw==}
     dependencies:
@@ -2699,6 +2726,12 @@ packages:
 
   /@types/json-schema@7.0.13:
     resolution: {integrity: sha512-RbSSoHliUbnXj3ny0CNFOoxrIDV6SUGyStHsvDqosw6CkdPV8TtWGlfecuK4ToyMEAql6pzNxgCFKanovUzlgQ==}
+    dev: true
+
+  /@types/jsonfile@6.1.2:
+    resolution: {integrity: sha512-8t92P+oeW4d/CRQfJaSqEwXujrhH4OEeHRjGU3v1Q8mUS8GPF3yiX26sw4svv6faL2HfBtGTe2xWIoVgN3dy9w==}
+    dependencies:
+      '@types/node': 20.7.0
     dev: true
 
   /@types/jsonwebtoken@9.0.3:
@@ -5000,7 +5033,6 @@ packages:
       graceful-fs: 4.2.11
       jsonfile: 6.1.0
       universalify: 2.0.0
-    dev: true
 
   /fs-minipass@2.1.0:
     resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
@@ -5760,7 +5792,6 @@ packages:
       universalify: 2.0.0
     optionalDependencies:
       graceful-fs: 4.2.11
-    dev: true
 
   /jsonparse@1.3.1:
     resolution: {integrity: sha512-POQXvpdL69+CluYsillJ7SUhKvytYjW9vG/GKpnf+xP8UWgYEM/RaMzHHofbALDiKbbP1W8UEYmgGl39WkPZsg==}
@@ -5986,6 +6017,12 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
     dev: true
+
+  /lyla@1.3.1:
+    resolution: {integrity: sha512-ltDDVBTBgYBrSTuaClF1yYzYLlpSQU7O0RHHxHhlfPz4N/CGk3Cs8HJpvVQ5pCTUe7YDzFLVA69VmIajuAwh8g==}
+    dependencies:
+      '@lylajs/core': 1.3.1
+    dev: false
 
   /magic-string-ast@0.3.0:
     resolution: {integrity: sha512-0shqecEPgdFpnI3AP90epXyxZy9g6CRZ+SZ7BcqFwYmtFEnZ1jpevcV5HoyVnlDS9gCnc1UIg3Rsvp3Ci7r8OA==}
@@ -8552,7 +8589,6 @@ packages:
   /universalify@2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
-    dev: true
 
   /unocss@0.56.2(@unocss/webpack@0.56.2)(postcss@8.4.30)(rollup@3.29.3)(vite@4.4.9):
     resolution: {integrity: sha512-ZEj8/9OVv6zyuwSVWRGDULHeUdFgTnUAN3Hn8prysfbCI4x06xzsu46xLV9SoHE4eOJ1eSUs7YaJHGKFOocsQQ==}

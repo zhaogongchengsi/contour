@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, type SelectOption, type UploadFileInfo } from 'naive-ui'
+import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, type SelectOption, type UploadFileInfo, type UploadCustomRequestOptions } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
+import { lyla } from 'lyla'
 
 const store = useEditDataStore()
 
@@ -23,14 +24,43 @@ const renderLabel = (option: SelectOption): VNodeChild => {
 	return h('div', { class: ["sm-icon", option.label] })
 }
 
-const fileList = ref<UploadFileInfo[]>([
-	// {
-	// 	id: 'c',
-	// 	name: '我是自带url的图片.png',
-	// 	status: 'finished',
-	// 	url: 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'
-	// }
-])
+const fileList = ref<UploadFileInfo[]>([])
+
+const onFinish = (options: { file: UploadFileInfo }) => {
+
+	console.log(options.file);
+
+}
+
+const customRequest = ({
+	file,
+	headers,
+	withCredentials,
+	action,
+	onFinish,
+	onError,
+	onProgress
+}: UploadCustomRequestOptions) => {
+	const formData = new FormData()
+	formData.append(store.name, file.file as File)
+
+	lyla
+		.post(action as string, {
+			withCredentials,
+			headers: headers as Record<string, string>,
+			body: formData,
+			onUploadProgress: ({ percent }) => {
+				onProgress({ percent: Math.ceil(percent) })
+			}
+		})
+		.then(({ json }) => {
+			onFinish()
+		})
+		.catch((error) => {
+			onError()
+		})
+
+}
 
 
 </script>
@@ -67,8 +97,8 @@ const fileList = ref<UploadFileInfo[]>([
 				</template>
 			</n-dynamic-input>
 			<h4 class="text-4 font-bold text-gray-400">二维码</h4>
-			<n-upload class="app-file-upload"
-				:default-file-list="fileList" list-type="image-card">
+			<n-upload class="app-file-upload" action="/api/upload" :name="($route.params.name as string)" @finish="onFinish"
+				:custom-request="customRequest" :default-file-list="fileList" list-type="image-card">
 				<div class="md-icon i-carbon:upload" />
 			</n-upload>
 		</div>
