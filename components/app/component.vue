@@ -112,7 +112,7 @@ const removeFile = async ({ file }: { file: UploadFileInfo, fileList: UploadFile
 				</template>
 			</n-dynamic-input>
 			<h4 class="text-4 font-bold text-gray-400">二维码</h4>
-			<n-upload class="app-file-upload" action="/api/file/upload" @remove="removeFile" :custom-request="customRequest"
+			<n-upload :max="3" class="app-file-upload" action="/api/file/upload" accept="image/*" @remove="removeFile" :custom-request="customRequest"
 				list-type="image-card">
 				<div class="md-icon i-carbon:upload" />
 			</n-upload>

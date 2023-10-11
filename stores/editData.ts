@@ -10,6 +10,7 @@ export const useEditDataStore = defineStore('editData', () => {
 	const route = useRoute()
 	const name = useStorage<string>(defineStorageKey('name'), route.params.name as string)
 	const setName = (n: string) => (name.value = n)
+	setName(route.params.name as string)
 
 	const background = useStorage(defineStorageKey('background'), '#18A058')
 	const setBackground = (b: string) => (background.value = b)
