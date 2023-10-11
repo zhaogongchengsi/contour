@@ -1,18 +1,15 @@
-import { useUpload } from "../utils/upload";
+import { UploadInfo } from "~/types";
 
 export default defineEventHandler(async (event) => {
 
 	const files = await readMultipartFormData(event) || []
 
 	const { sava } = useUpload()
-	const urls = []
+	const urls: UploadInfo[] = []
 
 	for (const { name, filename, data } of files) {
-		const { url, name: n } = await sava(filename!, name!, data)
-		urls.push({
-			url,
-			name: n
-		})
+		const info = await sava(filename!, name!, data)
+		urls.push(info)
 	}
 
 	return sendSuccess(urls)

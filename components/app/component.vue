@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, type SelectOption, type UploadFileInfo, type UploadCustomRequestOptions } from 'naive-ui'
+import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, type SelectOption, type UploadFileInfo, type UploadCustomRequestOptions, useMessage } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
 import { lyla } from 'lyla'
+import { UploadInfo } from '~/types';
+import { removeFileApi } from '~/composables/api';
 
 const store = useEditDataStore()
+const messageApi = useMessage()
 
 const selectOptions = ref([
 	{
@@ -22,14 +25,6 @@ const selectOptions = ref([
 
 const renderLabel = (option: SelectOption): VNodeChild => {
 	return h('div', { class: ["sm-icon", option.label] })
-}
-
-const fileList = ref<UploadFileInfo[]>([])
-
-const onFinish = (options: { file: UploadFileInfo }) => {
-
-	console.log(options.file);
-
 }
 
 const customRequest = ({
@@ -54,6 +49,17 @@ const customRequest = ({
 			}
 		})
 		.then(({ json }) => {
+			const { code, data, message } = json as AppResponse<UploadInfo[]>
+
+			if (!code) {
+				messageApi.error(message)
+				console.log(message)
+				onError()
+				return
+			}
+
+			data && store.setQRCode(data[0])
+
 			onFinish()
 		})
 		.catch((error) => {
@@ -62,6 +68,15 @@ const customRequest = ({
 
 }
 
+const removeFile = async ({ file }: { file: UploadFileInfo, fileList: UploadFileInfo[] }) => {
+	const { code, message, data } = await removeFileApi(file.name, store.name)
+	if (!code) {
+		messageApi.error(message)
+		return
+	}
+
+	data && store.removeQRCode(data)
+}
 
 </script>
 
@@ -97,8 +112,8 @@ const customRequest = ({
 				</template>
 			</n-dynamic-input>
 			<h4 class="text-4 font-bold text-gray-400">二维码</h4>
-			<n-upload class="app-file-upload" action="/api/upload" :name="($route.params.name as string)" @finish="onFinish"
-				:custom-request="customRequest" :default-file-list="fileList" list-type="image-card">
+			<n-upload class="app-file-upload" action="/api/file/upload" @remove="removeFile" :custom-request="customRequest"
+				list-type="image-card">
 				<div class="md-icon i-carbon:upload" />
 			</n-upload>
 		</div>

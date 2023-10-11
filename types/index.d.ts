@@ -13,7 +13,7 @@ declare module "Nodejs" {
 	}
 }
 
-export declare type AvatarUri =  `url:${string}` | `text:${string}` | `emoji:${string}`
+export declare type AvatarUri = `url:${string}` | `text:${string}` | `emoji:${string}`
 
 export declare interface RenderPlaneProps {
 	name: string
@@ -33,8 +33,13 @@ export declare interface RenderPlaneProps {
 	contacts?: ContactInfo[]
 }
 
-
 export declare interface ContactInfo {
 	value: string
 	type: 'qq' | 'mail' | 'phone'
+}
+
+export declare interface UploadInfo {
+	name: fileName,
+	url: string,
+	id: string,
 }

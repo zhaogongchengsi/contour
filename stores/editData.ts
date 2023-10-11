@@ -1,7 +1,7 @@
 
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import { AvatarUri, ContactInfo } from '~/types'
+import type { AvatarUri, ContactInfo, UploadInfo } from '~/types'
 
 const defineStorageKey = (key: string) => `contour-edit-${key}`
 
@@ -25,6 +25,18 @@ export const useEditDataStore = defineStore('editData', () => {
 
 	const contacts = useStorage<ContactInfo[]>(defineStorageKey('contact'), [])
 
+	const QRCodes = useStorage<UploadInfo[]>(defineStorageKey('QR-codes'), [])
+
+	const setQRCode = (info: UploadInfo) => {
+		QRCodes.value.push(info)
+	}
+
+	const removeQRCode = (info: UploadInfo) => {
+		QRCodes.value = QRCodes.value.filter((item) => {
+			return item.id !== info.id
+		})
+	}
+
 	const createContact = (): ContactInfo => {
 		return {
 			value: '',
@@ -44,6 +56,9 @@ export const useEditDataStore = defineStore('editData', () => {
 		description,
 		setDescription,
 		contacts,
-		createContact
+		createContact,
+		QRCodes,
+		setQRCode,
+		removeQRCode
 	}
 })
