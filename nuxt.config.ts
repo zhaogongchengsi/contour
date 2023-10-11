@@ -25,7 +25,8 @@ export default defineNuxtConfig({
       key: process.env.JWT_KEY,
       // 过期时间 see https://github.com/vercel/ms
       exp: '1h'
-    }
+    },
+    upload: process.env.UPLOAD_PATH
   },
   devtools: { enabled: true },
   modules: [
