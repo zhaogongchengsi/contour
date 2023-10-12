@@ -3,8 +3,6 @@ import { NTabs, NTabPane, useMessage } from 'naive-ui'
 import { loginApi } from '~/composables/api';
 import { setExp, setToken } from '~/utils/storage';
 
-const name = useRoute().params.name as string
-
 const messageApi = useMessage()
 
 const login = async (value: any) => {
@@ -31,7 +29,7 @@ const register = async (value: any) => {
 
 <template>
 	<div class="container mx-auto py-10 sm:my-15 md:my-20 px-3 md:px-0">
-		<n-tabs class="max-w-150 mx-auto" :default-value="name" animated>
+		<n-tabs class="max-w-150 mx-auto" :default-value="($route.params.name as string)" animated>
 			<n-tab-pane name="login" tab="登录">
 				<AppAuthForm button-text="登录" @submit="login" />
 			</n-tab-pane>

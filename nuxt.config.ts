@@ -51,8 +51,7 @@ export default defineNuxtConfig({
     ],
   },
   colorMode: {
-    classSuffix: '',
-    dataValue: 'light'
+    classSuffix: ''
   },
   components: {
     "dirs": [
