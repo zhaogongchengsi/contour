@@ -5,6 +5,7 @@ import { VNodeChild, h } from 'vue';
 import { lyla } from 'lyla'
 import { UploadInfo } from '~/types';
 import { removeFileApi } from '~/composables/api';
+import { icons } from '~/composables/constants'
 
 const store = useEditDataStore()
 const messageApi = useMessage()
@@ -113,10 +114,17 @@ const removeFile = async ({ file }: { file: UploadFileInfo, fileList: UploadFile
 				</template>
 			</n-dynamic-input>
 			<h4 class="text-4 font-bold text-gray-400">二维码</h4>
-			<n-upload :max="3" class="app-file-upload" action="/api/file/upload" accept="image/*" @remove="removeFile" :custom-request="customRequest"
-				list-type="image-card">
+			<n-upload :max="3" class="app-file-upload" action="/api/file/upload" accept="image/*" @remove="removeFile"
+				:custom-request="customRequest" list-type="image-card">
 				<div class="md-icon i-carbon:upload" />
 			</n-upload>
+			<h4 class="text-4 font-bold text-gray-400">小组件</h4>
+			<div class="grid grid-cols-5 gap-3">
+				<div v-for="icon of icons" :key="icon.label" class="h-full flex flex-col items-center cursor-pointer">
+					<component :is="icon.component" class="h-12" />
+					<span class="text-3">{{ icon.label }}</span>
+				</div>
+			</div>
 		</div>
 	</ui-affix-modal>
 </template>

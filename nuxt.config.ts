@@ -69,6 +69,11 @@ export default defineNuxtConfig({
         path: '~/components/render',
         global: true,
         prefix: 'render'
+      },
+      {
+        path: '~/components/icons',
+        global: true,
+        prefix: 'icon'
       }
     ]
   },

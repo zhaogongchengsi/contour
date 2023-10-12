@@ -1,3 +1,9 @@
+import zhihu from '~/components/icons/zhihu.vue'
+import apple from '~/components/icons/apple.vue'
+import figma from '~/components/icons/figma.vue'
+import github from '~/components/icons/github.vue'
+import tiktok from '~/components/icons/tiktok.vue'
+
 
 export const editDataProviderKey = Symbol('edit-data-provider-key')
 
@@ -30,4 +36,32 @@ export const images = [
 	'url(/wakllhave-bg2.png) no-repeat center center',
 	'url(/wallhaven-6deqk7_1920x1080.png) no-repeat center center',
 	'url(/web.png) no-repeat center center',
+]
+
+export const icons = [
+	{
+		label: '知乎',
+		component: zhihu,
+		key: 'zhihu'
+	},
+	{
+		label: 'Apple',
+		component: apple,
+		key: 'apple'
+	},
+	{
+		label: 'Figma',
+		component: figma,
+		key: 'figma'
+	},
+	{
+		label: 'GitHub',
+		component: github,
+		key: 'github'
+	},
+	{
+		label: '抖音',
+		component: tiktok,
+		key: 'tiktok'
+	}
 ]
