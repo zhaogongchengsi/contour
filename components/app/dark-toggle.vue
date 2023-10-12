@@ -1,17 +1,9 @@
 <script setup lang="ts">
 import { NSwitch } from 'naive-ui'
-
-const colorMode = useColorMode()
-const active = ref(false)
-
-watchEffect(() => {
-	active.value ? colorMode.preference = 'dark' : colorMode.preference = 'light'
-})
-
 </script>
 
 <template>
-	<n-switch v-model:value="active" size="small">
+	<n-switch size="small">
 		<template #checked-icon>
 			<div class="md-icon i-carbon:moon" />
 		</template>

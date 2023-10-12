@@ -66,10 +66,10 @@ const store = useEditDataStore()
 				</n-grid>
 			</n-checkbox-group>
 		</div>
-		<template #footer>
+		<!-- <template #footer>
 			<div class="p-3">
 				<AppDarkToggle />
 			</div>
-		</template>
+		</template> -->
 	</ui-affix-modal>
 </template>
