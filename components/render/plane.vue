@@ -16,9 +16,10 @@ provide<RenderPlaneProps>(editDataProviderKey, props)
 <template>
 	<main class="w-full min-h-screen relative flex px-3 sm:px-10 md:px-30 lg:px-50 xl:px-80 2xl:px-150"
 		:style="{ background: props.background }">
-		<div class="w-full py-15 z-20 flex flex-col gap-5">
+		<div class="w-full py-15 z-20 flex flex-col gap-5" :style="{color: props.color}">
 			<render-header />
 			<render-contact />
+			<render-card-wrapper />
 		</div>
 		<div class="render-bg z-10" :class="{
 			'bg-frosted': props.frosted,
