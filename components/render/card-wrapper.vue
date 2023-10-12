@@ -8,28 +8,12 @@ const list = ref([
 	{ id: 0 },
 	{ id: 1 },
 	{ id: 2 },
-	{ id: 3 },
-	{ id: 4 },
-	{ id: 5 },
-	{ id: 6 },
-	{ id: 7 },
-	{ id: 8 },
-	{ id: 9 },
-	{ id: 10 },
-	{ id: 11 },
-	{ id: 12 },
-	{ id: 13 },
-	{ id: 14 },
-	{ id: 15 },
 	{ id: 16 },
 	{ id: 17 },
 	{ id: 18 },
 	{ id: 19, row: 2, col: 2 },
 	{ id: 20 },
 	{ id: 21 },
-	{ id: 22 },
-	{ id: 23, row: 4, col: 4 },
-	{ id: 24 },
 	{ id: 25 },
 	{ id: 26, row: 4, col: 2 },
 	{ id: 27 },
@@ -42,7 +26,8 @@ const list = ref([
 
 <template>
 	<div class="w-full">
-		<component :is="isClient ? draggable : draggablex" :list="list" class="card-wrapper-grid"  item-key="id">
+		<component :is="isClient ? draggable : draggablex" :animation="500" :list="list" class="card-wrapper-grid"
+			item-key="id">
 			<template #item="{ element }">
 				<ui-card-size :row="element.row" :col="element.col">
 					<div class="w-full h-full bg-purple-900">
