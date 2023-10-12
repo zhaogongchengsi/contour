@@ -18,6 +18,7 @@ export declare type AvatarUri = `url:${string}` | `text:${string}` | `emoji:${st
 export declare interface RenderPlaneProps {
 	name: string
 	background?: string
+	color?: string
 	description?: string
 	avatar: AvatarUri,
 	edit?: boolean

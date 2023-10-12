@@ -17,6 +17,7 @@ const store = useEditDataStore()
     :avatar="store.avatar"
     :name="store.name"
     :background="store.background"
+    :color="store.color"
     :description="store.description"
     :contacts="store.contacts"
   />

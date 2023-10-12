@@ -15,6 +15,8 @@ export const useEditDataStore = defineStore('editData', () => {
 	const background = useStorage(defineStorageKey('background'), '#18A058')
 	const setBackground = (b: string) => (background.value = b)
 
+	const color = useStorage<string>(defineStorageKey('color'), '#fff')
+
 	const avatar = useStorage<AvatarUri>(defineStorageKey('avatar'), 'emoji:😎')
 	const setAvatar = (a: AvatarUri) => (avatar.value = a)
 
@@ -50,6 +52,7 @@ export const useEditDataStore = defineStore('editData', () => {
 		setName,
 		background,
 		setBackground,
+		color,
 		avatar,
 		setAvatar,
 		styles,

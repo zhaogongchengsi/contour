@@ -2,7 +2,6 @@
 import { RenderPlaneProps } from '~/types';
 
 const props = withDefaults(defineProps<RenderPlaneProps>(), {
-	background: '#fff',
 	center: false,
 	blur: false,
 	frosted: false,

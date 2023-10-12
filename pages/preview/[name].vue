@@ -12,7 +12,7 @@ store.setName(route.params.name as string)
 </script>
 
 <template>
-	<render-plane :frosted="store.styles.includes('frosted')" :center="store.styles.includes('center')"
+	<render-plane :color="store.color" :frosted="store.styles.includes('frosted')" :center="store.styles.includes('center')"
 		:blur="store.styles.includes('blur')" :ltalic="store.styles.includes('ltalic')" :avatar="store.avatar"
 		:name="store.name" :background="store.background" :description="store.description" :contacts="store.contacts" />
 	<div class="fixed right-10 top-5 bg-white dark:bg-dark-800 p-3 rounded-md flex flex-col gap-3 z-999 print:hidden">

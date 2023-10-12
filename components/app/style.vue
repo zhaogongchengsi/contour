@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NCheckbox, NCheckboxGroup, NGi, NGrid, NRadioButton, NRadioGroup, NScrollbar, NTabPane, NTabs, NTooltip } from 'naive-ui'
+import { NCheckbox, NCheckboxGroup, NGi, NGrid, NRadioButton, NRadioGroup, NScrollbar, NTabPane, NTabs, NTooltip, NColorPicker } from 'naive-ui'
 
 const store = useEditDataStore()
 </script>
@@ -66,6 +66,12 @@ const store = useEditDataStore()
             </NScrollbar>
           </NTabPane>
         </NTabs>
+      </div>
+      <h4 class="px-3 text-4 font-bold text-gray-400">
+          文本颜色
+      </h4>
+      <div class="px-3">
+        <n-color-picker v-model:value="store.color" />
       </div>
       <h4 class="px-3 text-4 font-bold text-gray-400">
         设置
