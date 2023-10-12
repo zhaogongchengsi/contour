@@ -3,12 +3,12 @@ import { NSwitch } from 'naive-ui'
 </script>
 
 <template>
-	<n-switch size="small">
-		<template #checked-icon>
-			<div class="md-icon i-carbon:moon" />
-		</template>
-		<template #unchecked-icon>
-			<div class="md-icon i-carbon:sun" />
-		</template>
-	</n-switch>
+  <NSwitch size="small">
+    <template #checked-icon>
+      <div class="i-carbon:moon md-icon" />
+    </template>
+    <template #unchecked-icon>
+      <div class="md-icon i-carbon:sun" />
+    </template>
+  </NSwitch>
 </template>

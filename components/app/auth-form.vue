@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { isClient, useInterval } from '@vueuse/core'
-import { NForm, NFormItem, NInput, NButton, type FormInst, useMessage } from 'naive-ui'
+import { NForm, NFormItem, NInput, NButton, useMessage } from 'naive-ui'
+import type { FormInst } from 'naive-ui'
 
 interface AuthFormProps {
 	buttonText: string

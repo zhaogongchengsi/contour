@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, type SelectOption, type UploadFileInfo, type UploadCustomRequestOptions, useMessage } from 'naive-ui'
+import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, useMessage } from 'naive-ui'
+import type { SelectOption, UploadFileInfo, UploadCustomRequestOptions } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
 import { lyla } from 'lyla'
 import { UploadInfo } from '~/types';
