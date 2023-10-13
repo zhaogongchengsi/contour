@@ -57,3 +57,18 @@ export declare interface IconInfo {
 	image: string;
 	background?: string;
 }
+
+export declare type CardSize = `${number}-${number}`
+
+export declare interface CardConfig {
+	edit?: boolean
+	id: number
+	icon: IconInfo;
+	size: CardSize;
+	link: string
+	buttonStyle: 'windows' | 'android' | 'apple'
+	image: string
+	background: string | LinearGradient
+}
+
+export declare type CardFormValue = Omit<CardConfig, "icon" | "id">
