@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { useMessage, NForm, NFormItem, NButton, NTabs, NTabPane, NScrollbar, NRadioGroup, NRadioButton, NInput } from 'naive-ui'
+import { NForm, NFormItem, NButton, NTabs, NTabPane, NScrollbar, NRadioGroup, NRadioButton, NInput } from 'naive-ui'
 import type { FormInst } from 'naive-ui'
 
-const message = useMessage()
+const material = useMaterial()
 const formRef = ref<FormInst | null>(null)
 const formValue = ref({})
 
 </script>
 
 <template>
-	<div class="flex items-center gap-3">
-		<div class="w-100">123</div>
+	<div>
 		<n-form class="flex-1" ref="formRef" :label-width="80" :model="formValue">
 			<n-form-item label="链接">
 				<NInput placeholder="请输入链接" />
@@ -38,14 +37,15 @@ const formValue = ref({})
 					<NTabPane name="color" tab="纯颜色">
 						<NScrollbar class="h-50 max-h-80">
 							<div class="grid grid-cols-8 w-full gap-3">
-								<ui-bg-card v-for="item of swatches" :key="item" :value="item" />
+								<ui-bg-card v-for="item of material.colors" :key="item" :value="item" />
 							</div>
 						</NScrollbar>
 					</NTabPane>
 					<NTabPane name="gradientColor" tab="渐变色">
 						<NScrollbar class="h-50 max-h-80">
 							<div class="grid grid-cols-8 w-full gap-3">
-								<ui-bg-card v-for="item of generateColor" :key="item" :value="item" />
+								<ui-bg-card v-for="(item, index) of material.generateColor" :key="index"
+									:value="material.generateColorStyle(item)" />
 							</div>
 						</NScrollbar>
 					</NTabPane>

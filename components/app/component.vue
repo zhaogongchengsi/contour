@@ -129,7 +129,7 @@ const removeFile = async ({ file }: { file: UploadFileInfo, fileList: UploadFile
 			</div>
 		</div>
 		<n-modal v-model:show="showModal">
-			<div class="w-230 bg-white/80 border border-white/30 rounded-md backdrop-blur-md" >
+			<div class="w-150 bg-white/80 border border-white/30 rounded-md backdrop-blur-md fixed top-10 right-10" >
 				<div class="flex justify-between items-center border-b-1 primary-border-color px-2 py-1">
 					<h3>创建小卡片</h3>
 					<div class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500" @click="showModal = false" />

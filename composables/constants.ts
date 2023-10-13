@@ -4,7 +4,6 @@ import figma from '~/components/icons/figma.vue'
 import github from '~/components/icons/github.vue'
 import tiktok from '~/components/icons/tiktok.vue'
 
-
 export const editDataProviderKey = Symbol('edit-data-provider-key')
 
 export const swatches = [
@@ -38,7 +37,7 @@ export const images = [
 	'url(/web.png) no-repeat center center',
 ]
 
-export const icons = [
+export const icons: any = [
 	{
 		label: '知乎',
 		component: zhihu,

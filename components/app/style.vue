@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import { NCheckbox, NCheckboxGroup, NGi, NGrid, NRadioButton, NRadioGroup, NScrollbar, NTabPane, NTabs, NTooltip, NColorPicker } from 'naive-ui'
+import { NCheckbox, NCheckboxGroup, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTooltip, NColorPicker } from 'naive-ui'
+import { LinearGradient } from '~/types';
 
 const store = useEditDataStore()
+const material = useMaterial()
+
+const generateColor = (config: LinearGradient) => {
+  return `linear-gradient(${config.direction}, ${config.colors.join(', ')})`
+}
 </script>
 
 <template>
@@ -31,7 +37,7 @@ const store = useEditDataStore()
             <NScrollbar class="h-50 max-h-80">
               <div class="grid grid-cols-4 w-full gap-3">
                 <ui-bg-card
-                  v-for="item of swatches" :key="item"
+                  v-for="item of material.colors" :key="item"
                   :active="store.background === item" :value="item" @click="store.setBackground(item)"
                 />
               </div>
@@ -41,8 +47,8 @@ const store = useEditDataStore()
             <NScrollbar class="h-50 max-h-80">
               <div class="grid grid-cols-4 w-full gap-3">
                 <ui-bg-card
-                  v-for="item of generateColor" :key="item"
-                  :active="store.background === item" :value="item" @click="store.setBackground(item)"
+                  v-for="(item, index) of material.generateColor" :key="index"
+                  :active="store.background === material.generateColorStyle(item)" :value="material.generateColorStyle(item)" @click="store.setBackground(material.generateColorStyle(item))"
                 />
               </div>
             </NScrollbar>

@@ -44,3 +44,9 @@ export declare interface UploadInfo {
 	url: string,
 	id: string,
 }
+
+export declare interface LinearGradient {
+	direction: string,
+	colors: string[]
+	id: number
+}
