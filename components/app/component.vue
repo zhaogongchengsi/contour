@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, useMessage } from 'naive-ui'
+import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, useMessage, NModal } from 'naive-ui'
 import type { SelectOption, UploadFileInfo, UploadCustomRequestOptions } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
 import { lyla } from 'lyla'
@@ -9,6 +9,7 @@ import { icons } from '~/composables/constants'
 
 const store = useEditDataStore()
 const messageApi = useMessage()
+const showModal = ref(false)
 
 const selectOptions = ref([
 	{
@@ -120,12 +121,24 @@ const removeFile = async ({ file }: { file: UploadFileInfo, fileList: UploadFile
 			</n-upload>
 			<h4 class="text-4 font-bold text-gray-400">小组件</h4>
 			<div class="grid grid-cols-5 gap-3">
-				<div v-for="icon of icons" :key="icon.label" class="h-full flex flex-col items-center cursor-pointer">
+				<div v-for="icon of icons" @click="showModal = true" :key="icon.label"
+					class="h-full flex flex-col items-center cursor-pointer">
 					<component :is="icon.component" class="h-12" />
 					<span class="text-3">{{ icon.label }}</span>
 				</div>
 			</div>
 		</div>
+		<n-modal v-model:show="showModal">
+			<div class="w-230 bg-white/80 border border-white/30 rounded-md backdrop-blur-md" >
+				<div class="flex justify-between items-center border-b-1 primary-border-color px-2 py-1">
+					<h3>创建小卡片</h3>
+					<div class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500" @click="showModal = false" />
+				</div>
+				<div class="p-3">
+					<app-card-from />
+				</div>
+			</div>
+		</n-modal>
 	</ui-affix-modal>
 </template>
 

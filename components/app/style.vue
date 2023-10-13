@@ -23,14 +23,6 @@ const store = useEditDataStore()
     </template>
     <div class="flex flex-1 flex-col gap-3">
       <h4 class="px-3 text-4 font-bold text-gray-400">
-        按钮风格
-      </h4>
-      <NRadioGroup class="w-full justify-center px-3">
-        <NRadioButton label="Apple" />
-        <NRadioButton label="Android" />
-        <NRadioButton label="Windows" />
-      </NRadioGroup>
-      <h4 class="px-3 text-4 font-bold text-gray-400">
         背景颜色
       </h4>
       <div class="px-3">
