@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import { NInput, NDynamicInput, NInputGroup, NSelect, NModal } from 'naive-ui'
+import { NInput, NDynamicInput, NInputGroup, NSelect } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
 import icons from '~/assets/icons.json'
-import { CardConfig, CardFormValue, IconInfo } from '~/types';
+import { useCardFormModal } from '~/stores/cardForm';
+import type { IconInfo } from '~/types';
 
 const store = useEditDataStore()
-const showModal = ref(false)
-const title = ref('创建小卡片')
-const currenIcon = ref<IconInfo>()
+const modalStore = useCardFormModal()
 
 const selectOptions = ref([
 	{
@@ -30,18 +29,13 @@ const renderLabel = (option: SelectOption): VNodeChild => {
 }
 
 const addCard = (icon: IconInfo) => {
-	currenIcon.value = icon
-	title.value = icon.label
-	showModal.value = true
+	modalStore.icon = icon
+	modalStore.title = icon.label
+	
+	modalStore.reset()
+	modalStore.show()
 }
 
-const onCancel = () => {
-	showModal.value = false
-}
-
-const onCommit = (value: CardFormValue) => {
-	console.log('创建', value)
-}
 
 </script>
 
@@ -67,7 +61,7 @@ const onCommit = (value: CardFormValue) => {
 						</n-input-group>
 					</div>
 				</template>
-				<template #action="{ index, create, remove, move }">
+				<template #action="{ index, create, remove }">
 					<div class="flex items-center gap-3 ml-3">
 						<div class="sm-icon cursor-pointer opacity-80 hover:opacity-100 i-uiw:plus"
 							@click="() => create(index)" />
@@ -88,17 +82,6 @@ const onCommit = (value: CardFormValue) => {
 				</div>
 			</div>
 		</div>
-		<n-modal v-model:show="showModal">
-			<div class="w-150 bg-white border border-white/30 rounded-md fixed top-10 right-10">
-				<div class="flex justify-between items-center border-b-1 primary-border-color px-2 py-1">
-					<h3>创建<span class="mx-1 font-bold text-purple-500">{{ title }}</span>卡片</h3>
-					<div class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500" @click="showModal = false" />
-				</div>
-				<div class="p-3">
-					<app-card-from @cancel="onCancel" @commit="onCommit" />
-				</div>
-			</div>
-		</n-modal>
 	</ui-affix-modal>
 </template>
 
