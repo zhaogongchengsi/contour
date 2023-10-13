@@ -1,10 +1,66 @@
 <script setup lang="ts">
-import { NForm, NFormItem, NButton, NTabs, NTabPane, NScrollbar, NRadioGroup, NRadioButton, NInput } from 'naive-ui'
-import type { FormInst } from 'naive-ui'
+import { useMessage, NForm, NFormItem, NButton, NTabs, NTabPane, NScrollbar, NRadioGroup, NRadioButton, NInput, NUpload } from 'naive-ui'
+import type { FormInst, UploadFileInfo, UploadCustomRequestOptions } from 'naive-ui'
+import { lyla } from 'lyla'
+import { UploadInfo } from '~/types';
+import { removeFileApi } from '~/composables/api';
 
+const messageApi = useMessage()
 const material = useMaterial()
 const formRef = ref<FormInst | null>(null)
 const formValue = ref({})
+const store = useEditDataStore()
+
+const customRequest = ({
+	file,
+	headers,
+	withCredentials,
+	action,
+	onFinish,
+	onError,
+	onProgress
+}: UploadCustomRequestOptions) => {
+	const formData = new FormData()
+	formData.append(store.name, file.file as File)
+
+	lyla
+		.post(action as string, {
+			withCredentials,
+			headers: headers as Record<string, string>,
+			body: formData,
+			onUploadProgress: ({ percent }) => {
+				onProgress({ percent: Math.ceil(percent) })
+			}
+		})
+		.then(({ json }) => {
+			const { code, data, message } = json as AppResponse<UploadInfo[]>
+
+			if (!code) {
+				messageApi.error(message)
+				console.log(message)
+				onError()
+				return
+			}
+
+			data && store.setQRCode(data[0])
+
+			onFinish()
+		})
+		.catch((error) => {
+			onError()
+		})
+
+}
+
+const removeFile = async ({ file }: { file: UploadFileInfo, fileList: UploadFileInfo[] }) => {
+	const { code, message, data } = await removeFileApi(file.name, store.name)
+	if (!code) {
+		messageApi.error(message)
+		return
+	}
+
+	data && store.removeQRCode(data)
+}
 
 </script>
 
@@ -31,6 +87,12 @@ const formValue = ref({})
 					<NRadioButton label="Android" value="android" />
 					<NRadioButton label="Windows" value="windows" />
 				</n-radio-group>
+			</n-form-item>
+			<n-form-item label="图片">
+				<n-upload :max="3" class="app-file-upload" action="/api/file/upload" accept="image/*" @remove="removeFile"
+					:custom-request="customRequest" list-type="image-card">
+					<div class="md-icon i-carbon:upload" />
+				</n-upload>
 			</n-form-item>
 			<n-form-item label="背景">
 				<NTabs type="segment" animated size="small">

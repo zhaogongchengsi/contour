@@ -1,14 +1,10 @@
 <script lang="ts" setup>
-import { NInput, NDynamicInput, NInputGroup, NSelect, NUpload, useMessage, NModal } from 'naive-ui'
-import type { SelectOption, UploadFileInfo, UploadCustomRequestOptions } from 'naive-ui'
+import { NInput, NDynamicInput, NInputGroup, NSelect, NModal } from 'naive-ui'
+import type { SelectOption } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
-import { lyla } from 'lyla'
-import { UploadInfo } from '~/types';
-import { removeFileApi } from '~/composables/api';
 import { icons } from '~/composables/constants'
 
 const store = useEditDataStore()
-const messageApi = useMessage()
 const showModal = ref(false)
 
 const selectOptions = ref([
@@ -30,55 +26,8 @@ const renderLabel = (option: SelectOption): VNodeChild => {
 	return h('div', { class: ["sm-icon", option.label] })
 }
 
-const customRequest = ({
-	file,
-	headers,
-	withCredentials,
-	action,
-	onFinish,
-	onError,
-	onProgress
-}: UploadCustomRequestOptions) => {
-	const formData = new FormData()
-	formData.append(store.name, file.file as File)
+const addCard = () => {
 
-	lyla
-		.post(action as string, {
-			withCredentials,
-			headers: headers as Record<string, string>,
-			body: formData,
-			onUploadProgress: ({ percent }) => {
-				onProgress({ percent: Math.ceil(percent) })
-			}
-		})
-		.then(({ json }) => {
-			const { code, data, message } = json as AppResponse<UploadInfo[]>
-
-			if (!code) {
-				messageApi.error(message)
-				console.log(message)
-				onError()
-				return
-			}
-
-			data && store.setQRCode(data[0])
-
-			onFinish()
-		})
-		.catch((error) => {
-			onError()
-		})
-
-}
-
-const removeFile = async ({ file }: { file: UploadFileInfo, fileList: UploadFileInfo[] }) => {
-	const { code, message, data } = await removeFileApi(file.name, store.name)
-	if (!code) {
-		messageApi.error(message)
-		return
-	}
-
-	data && store.removeQRCode(data)
 }
 
 </script>
@@ -114,14 +63,9 @@ const removeFile = async ({ file }: { file: UploadFileInfo, fileList: UploadFile
 					</div>
 				</template>
 			</n-dynamic-input>
-			<h4 class="text-4 font-bold text-gray-400">二维码</h4>
-			<n-upload :max="3" class="app-file-upload" action="/api/file/upload" accept="image/*" @remove="removeFile"
-				:custom-request="customRequest" list-type="image-card">
-				<div class="md-icon i-carbon:upload" />
-			</n-upload>
 			<h4 class="text-4 font-bold text-gray-400">小组件</h4>
 			<div class="grid grid-cols-5 gap-3">
-				<div v-for="icon of icons" @click="showModal = true" :key="icon.label"
+				<div v-for="icon of icons" @click="addCard(icon)" :key="icon.label"
 					class="h-full flex flex-col items-center cursor-pointer">
 					<component :is="icon.component" class="h-12" />
 					<span class="text-3">{{ icon.label }}</span>
@@ -129,7 +73,7 @@ const removeFile = async ({ file }: { file: UploadFileInfo, fileList: UploadFile
 			</div>
 		</div>
 		<n-modal v-model:show="showModal">
-			<div class="w-150 bg-white/80 border border-white/30 rounded-md backdrop-blur-md fixed top-10 right-10" >
+			<div class="w-150 bg-white border border-white/30 rounded-md fixed top-10 right-10" >
 				<div class="flex justify-between items-center border-b-1 primary-border-color px-2 py-1">
 					<h3>创建小卡片</h3>
 					<div class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500" @click="showModal = false" />
