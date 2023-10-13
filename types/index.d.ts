@@ -50,3 +50,10 @@ export declare interface LinearGradient {
 	colors: string[]
 	id: number
 }
+
+export declare interface IconInfo {
+	label: string;
+	name: string;
+	image: string;
+	background?: string;
+}

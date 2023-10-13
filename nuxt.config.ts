@@ -50,9 +50,6 @@ export default defineNuxtConfig({
       ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
     ],
   },
-  // colorMode: {
-  //   classSuffix: ''
-  // },
   components: {
     "dirs": [
       {
@@ -69,11 +66,6 @@ export default defineNuxtConfig({
         path: '~/components/render',
         global: true,
         prefix: 'render'
-      },
-      {
-        path: '~/components/icons',
-        global: true,
-        prefix: 'icon'
       }
     ]
   },

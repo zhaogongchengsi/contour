@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { NCheckbox, NCheckboxGroup, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTooltip, NColorPicker } from 'naive-ui'
-import { LinearGradient } from '~/types';
 
 const store = useEditDataStore()
 const material = useMaterial()
 
-const generateColor = (config: LinearGradient) => {
-  return `linear-gradient(${config.direction}, ${config.colors.join(', ')})`
-}
 </script>
 
 <template>
@@ -36,37 +32,38 @@ const generateColor = (config: LinearGradient) => {
           <NTabPane name="color" tab="纯颜色">
             <NScrollbar class="h-50 max-h-80">
               <div class="grid grid-cols-4 w-full gap-3">
-                <ui-bg-card
-                  v-for="item of material.colors" :key="item"
-                  :active="store.background === item" :value="item" @click="store.setBackground(item)"
-                />
+                <ui-bg-card v-for="item of material.colors" :key="item" :active="store.background === item"
+                  @click="store.setBackground(item)">
+                  <div class="w-full h-full" :style="{ background: item }" />
+                </ui-bg-card>
               </div>
             </NScrollbar>
           </NTabPane>
           <NTabPane name="gradientColor" tab="渐变色">
             <NScrollbar class="h-50 max-h-80">
               <div class="grid grid-cols-4 w-full gap-3">
-                <ui-bg-card
-                  v-for="(item, index) of material.generateColor" :key="index"
-                  :active="store.background === material.generateColorStyle(item)" :value="material.generateColorStyle(item)" @click="store.setBackground(material.generateColorStyle(item))"
-                />
+                <ui-bg-card v-for="(item, index) of material.generateColor" :key="index"
+                  :active="store.background === material.generateColorStyle(item)"
+                  @click="store.setBackground(material.generateColorStyle(item))">
+                  <div class="w-full h-full" :style="{ background: material.generateColorStyle(item) }" />
+                </ui-bg-card>
               </div>
             </NScrollbar>
           </NTabPane>
           <NTabPane name="image" tab="图片">
             <NScrollbar class="max-h-80 min-h-50 px-3">
               <div class="grid grid-cols-3 w-full gap-3">
-                <ui-bg-card
-                  v-for="item of images" :key="item"
-                  :active="store.background === item" :value="`${item}/ 100% 100%`" @click="store.setBackground(item)"
-                />
+                <ui-bg-card v-for="item of material.images" :key="item"
+                  :active="store.background === item" @click="store.setBackground(`url(${item})`)" >
+                  <img class="w-full h-full object-contain" :src="item" />
+                </ui-bg-card>
               </div>
             </NScrollbar>
           </NTabPane>
         </NTabs>
       </div>
       <h4 class="px-3 text-4 font-bold text-gray-400">
-          文本颜色
+        文本颜色
       </h4>
       <div class="px-3">
         <n-color-picker v-model:value="store.color" />
@@ -76,10 +73,18 @@ const generateColor = (config: LinearGradient) => {
       </h4>
       <NCheckboxGroup v-model:value="store.styles" class="px-3" @update-value="store.setStyles">
         <NGrid :y-gap="8" :cols="2">
-          <NGi><NCheckbox size="medium" label="磨砂" value="frosted" /></NGi>
-          <NGi><NCheckbox size="medium" label="模糊" value="blur" /></NGi>
-          <NGi><NCheckbox size="medium" label="居中" value="center" /></NGi>
-          <NGi><NCheckbox size="medium" label="斜体" value="ltalic" /></NGi>
+          <NGi>
+            <NCheckbox size="medium" label="磨砂" value="frosted" />
+          </NGi>
+          <NGi>
+            <NCheckbox size="medium" label="模糊" value="blur" />
+          </NGi>
+          <NGi>
+            <NCheckbox size="medium" label="居中" value="center" />
+          </NGi>
+          <NGi>
+            <NCheckbox size="medium" label="斜体" value="ltalic" />
+          </NGi>
         </NGrid>
       </NCheckboxGroup>
     </div>

@@ -1,0 +1,68 @@
+[
+	{
+		"label": "知乎",
+		"name": "zhihu",
+		"image": "/icons/zhihu.svg",
+		"background": "#0c6dfe"
+	},
+	{
+		"label": "Apple",
+		"name": "apple",
+		"image": "/icons/apple.png",
+		"background": ""
+	},
+	{
+		"label": "Figma",
+		"name": "figma",
+		"image": "/icons/figma.png",
+		"background": ""
+	},
+	{
+		"label": "GitHub",
+		"name": "github",
+		"image": "/icons/github.png",
+		"background": ""
+	},
+	{
+		"label": "Instagram",
+		"name": "instagram",
+		"image": "/icons/instagram.png",
+		"background": ""
+	},
+	{
+		"label": "Javascript",
+		"name": "js",
+		"image": "/icons/js.png",
+		"background": ""
+	},
+	{
+		"label": "Python",
+		"name": "python",
+		"image": "/icons/python.png",
+		"background": ""
+	},
+	{
+		"label": "Telegram",
+		"name": "telegram",
+		"image": "/icons/telegram.png",
+		"background": ""
+	},
+	{
+		"label": "抖音",
+		"name": "tiktok",
+		"image": "/icons/tiktok.png",
+		"background": ""
+	},
+	{
+		"label": "X",
+		"name": "twitter",
+		"image": "/icons/twitter.png",
+		"background": ""
+	},
+	{
+		"label": "Youtube",
+		"name": "youtube",
+		"image": "/icons/youtube.png",
+		"background": ""
+	}
+]
