@@ -8,9 +8,17 @@ body {
 	min-height: 100vh;
 }
 
+:root {
+	--card-size: 80px;
+	--card-gap-x: 10px;
+	--card-gap-y: 10px;
+}
+
 body::-webkit-scrollbar {
 	width: 5px;
 	height: 5px;
+
+	/* background-image: linear-gradient(); */
 }
 
 body::-webkit-scrollbar-track {

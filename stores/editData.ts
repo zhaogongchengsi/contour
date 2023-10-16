@@ -28,18 +28,6 @@ export const useEditDataStore = defineStore('editData', () => {
 
 	const contacts = useStorage<ContactInfo[]>(defineStorageKey('contact'), [])
 
-	const QRCodes = useStorage<UploadInfo[]>(defineStorageKey('QR-codes'), [])
-
-	const setQRCode = (info: UploadInfo) => {
-		QRCodes.value.push(info)
-	}
-
-	const removeQRCode = (info: UploadInfo) => {
-		QRCodes.value = QRCodes.value.filter((item) => {
-			return item.id !== info.id
-		})
-	}
-
 	const createContact = (): ContactInfo => {
 		return {
 			value: '',
@@ -49,20 +37,8 @@ export const useEditDataStore = defineStore('editData', () => {
 
 	const cards = useStorage<CardConfig[]>(defineStorageKey('cards') ,[])
 
-	const createCard = (config: Omit<CardConfig , 'id'>) => {
-		const len = cards.value.length
-		if (len === 0) {
-			cards.value.push({
-				id: 0,
-				...config
-			})
-			return
-		}
-		const afterCard = cards.value[len - 1]
-		cards.value.push({
-			id: afterCard.id + 1,
-			...config
-		})
+	const createCard = (config: CardConfig) => {
+		cards.value.push(config)
 	}
 
 	return {
@@ -79,9 +55,6 @@ export const useEditDataStore = defineStore('editData', () => {
 		setDescription,
 		contacts,
 		createContact,
-		QRCodes,
-		setQRCode,
-		removeQRCode,
 		cards,
 		createCard
 	}

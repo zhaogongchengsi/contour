@@ -4,16 +4,11 @@ import { isClient } from '@vueuse/core'
 
 const data = usePlaneData()
 
-const list = ref<{ id: number, row?: number, col?: number }[]>([
-	{ id: 0 },
-	{ id: 1 },
-])
-
 </script>
 
 <template>
 	<div class="w-full">
-		<draggable tag="div" v-if="isClient && data.edit" :animation="500" :list="list" class="card-wrapper-grid"
+		<draggable tag="div" v-if="isClient && data.edit" :animation="500" :list="data.cards" class="card-wrapper-grid"
 			item-key="id">
 			<template #item="{ element }">
 				<ui-card-size :row="element.row" :col="element.col">
@@ -24,9 +19,9 @@ const list = ref<{ id: number, row?: number, col?: number }[]>([
 			</template>
 		</draggable>
 		<div v-else class="card-wrapper-grid">
-			<template v-for="element of list" :key="element.id">
-				<ui-card-size  :row="element.row" :col="element.col">
-					<div class="w-full h-full bg-purple-900">
+			<template v-for="element of data.cards" :key="element.id">
+				<ui-card-size  :row="element.size.row" :col="element.size.col">
+					<div class="w-full h-full bg-purple-900" :class="`card-size_${element.size.row}-${element.size.col}`">
 						{{ element.id }}
 					</div>
 				</ui-card-size>
@@ -37,10 +32,6 @@ const list = ref<{ id: number, row?: number, col?: number }[]>([
 
 <style>
 .card-wrapper-grid {
-	--card-size: 80px;
-	--card-gap-x: 10px;
-	--card-gap-y: 10px;
-
 	display: grid;
 	grid-template-columns: repeat(auto-fill, var(--card-size));
 	grid-template-rows: repeat(auto-fill, var(--card-size));

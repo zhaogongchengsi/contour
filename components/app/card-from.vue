@@ -9,6 +9,8 @@ const material = useMaterial()
 const formRef = ref<FormInst | null>(null)
 const uploadRef = ref<UploadInst | null>(null)
 
+const size = ref('1x1')
+
 const modalStore = useCardFormModal()
 
 const emit = defineEmits<{
@@ -20,6 +22,13 @@ const bgIsActive = (value: string | LinearGradient) :boolean => {
 	return typeof value === "string" ? value === modalStore.formValue.background : value.id === (modalStore.formValue.background as LinearGradient).id
 }
 
+const sizeUpdate = (value: string) => {
+	const [row, col] = size.value.split('-')
+	console.log(row, col)
+
+	modalStore.formValue.size.row = Number(row)
+	modalStore.formValue.size.col = Number(col)
+}
 
 </script>
 
@@ -30,7 +39,7 @@ const bgIsActive = (value: string | LinearGradient) :boolean => {
 				<NInput placeholder="请输入链接" v-model:value="modalStore.formValue.link" />
 			</n-form-item>
 			<n-form-item label="按钮大小">
-				<n-radio-group class="w-full justify-center" v-model:value="modalStore.formValue.size">
+				<n-radio-group class="w-full justify-center" v-model:value="size" @update:value="sizeUpdate">
 					<NRadioButton label="1x1" value="1-1" />
 					<NRadioButton label="2x2" value="2-2" />
 					<NRadioButton label="1x2" value="1-2" />
@@ -58,7 +67,7 @@ const bgIsActive = (value: string | LinearGradient) :boolean => {
 					<NTabPane name="color" tab="纯颜色">
 						<NScrollbar class="h-50 max-h-80">
 							<div class="grid grid-cols-8 w-full gap-3">
-								<ui-bg-card v-for="item of material.colors" :active="bgIsActive(item)" :key="item">
+								<ui-bg-card v-for="item of material.colors" @click="modalStore.formValue.background = item" :active="bgIsActive(item)" :key="item">
 									<div class="w-full h-full" :style="{ background: item }" />
 								</ui-bg-card>
 							</div>
@@ -67,7 +76,7 @@ const bgIsActive = (value: string | LinearGradient) :boolean => {
 					<NTabPane name="gradientColor" tab="渐变色">
 						<NScrollbar class="h-50 max-h-80">
 							<div class="grid grid-cols-8 w-full gap-3">
-								<ui-bg-card v-for="(item, index) of material.generateColor" :active="bgIsActive(item)" :key="index">
+								<ui-bg-card v-for="(item, index) of material.generateColor" @click="modalStore.formValue.background = item" :active="bgIsActive(item)" :key="index">
 									<div class="w-full h-full" :style="{ background: material.generateColorStyle(item) }" />
 								</ui-bg-card>
 							</div>

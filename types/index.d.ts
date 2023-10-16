@@ -32,6 +32,7 @@ export declare interface RenderPlaneProps {
 	ltalic?: boolean
 	// 联系方式
 	contacts?: ContactInfo[]
+	cards?: CardConfig[]
 }
 
 export declare interface ContactInfo {
@@ -58,7 +59,14 @@ export declare interface IconInfo {
 	background?: string;
 }
 
-export declare type CardSize = `${number}-${number}`
+export declare type CardSizeString = `${number}-${number}`
+
+export declare interface CardSize {
+	row: number;
+	col: number
+}
+
+export declare type CardButtonStyle = 'windows' | 'android' | 'apple'
 
 export declare interface CardConfig {
 	edit?: boolean
@@ -66,7 +74,7 @@ export declare interface CardConfig {
 	icon: IconInfo;
 	size: CardSize;
 	link: string
-	buttonStyle: 'windows' | 'android' | 'apple'
+	buttonStyle: CardButtonStyle
 	image: string
 	background: string | LinearGradient
 }
