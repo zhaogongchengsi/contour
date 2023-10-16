@@ -1,21 +1,12 @@
 <script setup lang="ts">
-import { CardButtonStyle, IconInfo, LinearGradient } from '~/types';
+import { computed, provide } from 'vue';
+import { options, key } from './props'
+import cardIcon from './card-icon.vue'
+import cardInner from './card-inner.vue'
+import cardImageUpload from './card-image-upload.vue'
 
-const props = withDefaults(defineProps<{
-	row?: number | string,
-	col?: number | string,
-	icon?: IconInfo;
-	link?: string
-	buttonStyle?: CardButtonStyle
-	image?: string
-	background?: string | LinearGradient
-}>(), {
-	row: 1,
-	col: 1,
-	link: '#',
-	background: '#fff',
-	buttonStyle: 'apple',
-})
+const props = defineProps(options)
+
 
 const background = computed(() => {
 	return typeof props.background === 'string' ? props.background : `linear-gradient(${props.background?.direction}, ${props.background?.colors.join(', ')})`
@@ -31,6 +22,7 @@ const buttonClass = computed(() => {
 			return 'rounded-8'
 	}
 })
+
 const size = computed(() => {
 	const _row = Number(props.row)
 	const _col = Number(props.col)
@@ -40,30 +32,69 @@ const size = computed(() => {
 		area: _row * _col
 	}
 })
+
 const cardStyle = computed(() => {
 	return {
-		background: background.value, 
-		width: `calc(var(--card-size) * ${props.row})`, 
+		background: background.value,
+		width: `calc(var(--card-size) * ${props.row})`,
 		height: `calc(var(--card-size) * ${props.col})`
 	}
 })
 
+provide(key, props)
+
 </script>
 
 <template>
-	<ui-card-size :row="size.row" :col="size.col" :style="cardStyle" :class="buttonClass" class="w-full h-full overflow-hidden">
-		<a :href="link" class="flex w-full h-full px-[var(--card-gap-x)] py-[var(--card-gap-y)]" target="_blank">
-			<div v-if="icon" :style="{ background: icon.background || 'transparent' }" :class="[
-				buttonClass,
-				`card-icon_${row}x${col}`
-			]">
-				<img :src="icon.image" class="w-full h-full object-contain" :alt="icon.name">
-			</div>
-		</a>
+	<ui-card-size :row="size.row" :col="size.col" :style="cardStyle" :class="buttonClass"
+		class="w-full h-full overflow-hidden">
+		<card-inner>
+			<template #icon>
+				<card-icon :image="$props.icon?.image!" :background="$props.icon?.background" :class="buttonClass" :name="$props.icon?.name" />
+			</template>
+			<template #image>
+				<card-image-upload  v-if="!$props.image" />
+				<div v-else class="w-full h-full">
+					<img :src="$props.image" alt="">
+				</div>
+			</template>
+		</card-inner>
 	</ui-card-size>
 </template>
 
 <style>
+.card-inner_1x1 {
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr;
+	grid-template-areas: 'icon';
+}
+
+.card-inner_2x2 {
+	width: 100%;
+	height: 100%;
+	grid-template-rows: repeat(4, 1fr);
+	grid-template-columns: repeat(4, 1fr);
+
+	grid-template-areas:
+		'image image image icon'
+		"image image image ."
+		"image image image ."
+		"name name name name";
+}
+
+.card-inner_icon {
+	grid-area: icon;
+}
+
+.card-inner_image,
+.card-inner_image_upload {
+	grid-area: image;
+}
+
+.card-inner_name {
+	grid-area: name;
+}
+
 .card-icon_1x1 {
 	width: 100%;
 	height: 100%;

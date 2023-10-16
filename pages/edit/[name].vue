@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NModal } from 'naive-ui'
 import { useCardFormModal } from '~/stores/cardForm';
+import card from '~/components/card/card.vue'
 
 definePageMeta({
   layout: 'edit',
@@ -26,7 +27,7 @@ const modalStore = useCardFormModal()
       </div>
       <div class="p-3 flex items-center justify-center gap-3">
         <div class="flex-1 flex justify-center items-center">
-          <ui-card :icon="modalStore.icon" :background="modalStore.formValue.background" :button-style="modalStore.formValue.buttonStyle" :col="modalStore.formValue.size.col" :row="modalStore.formValue.size.row" />
+          <card edit :icon="modalStore.icon" :background="modalStore.formValue.background" :image="modalStore.formValue.image" :button-style="modalStore.formValue.buttonStyle" :col="modalStore.formValue.size.col" :row="modalStore.formValue.size.row" />
         </div>
         <app-card-from @cancel="modalStore.close" @commit="modalStore.close" />
       </div>

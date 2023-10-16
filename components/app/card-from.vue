@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMessage, NForm, NFormItem, NButton, NTabs, NTabPane, NScrollbar, NRadioGroup, NRadioButton, NInput, NUpload } from 'naive-ui'
-import type { FormInst, UploadInst } from 'naive-ui'
+import type { FormInst, UploadFileInfo, UploadInst } from 'naive-ui'
 import { useCardFormModal } from '~/stores/cardForm';
 import type { LinearGradient } from '~/types';
 
@@ -18,11 +18,14 @@ const emit = defineEmits<{
 	(e: 'cancel'): void
 }>()
 
-const bgIsActive = (value: string | LinearGradient) :boolean => {
+const bgIsActive = (value: string | LinearGradient): boolean => {
 	return typeof value === "string" ? value === modalStore.formValue.background : value.id === (modalStore.formValue.background as LinearGradient).id
 }
 
 const sizeUpdate = (value: string) => {
+	if (size.value === '1-1') {
+		modalStore.formValue.image = ''
+	}
 	const [row, col] = size.value.split('-')
 	modalStore.formValue.size.row = Number(row)
 	modalStore.formValue.size.col = Number(col)
@@ -54,27 +57,23 @@ const sizeUpdate = (value: string) => {
 					<NRadioButton label="Windows" value="windows" />
 				</n-radio-group>
 			</n-form-item>
-			<n-form-item label="图片">
-				<n-upload ref="uploadRef" :default-upload="false" :max="3" class="app-file-upload" action="/api/file/upload"
-					accept="image/*" list-type="image-card">
-					<div class="md-icon i-carbon:upload" />
-				</n-upload>
-			</n-form-item>
 			<n-form-item label="背景">
 				<NTabs type="segment" animated size="small">
 					<NTabPane name="color" tab="纯颜色">
-						<NScrollbar class="h-50 max-h-80">
+						<NScrollbar class="h-50 max-h-50">
 							<div class="grid grid-cols-8 w-full gap-3">
-								<ui-bg-card v-for="item of material.colors" @click="modalStore.formValue.background = item" :active="bgIsActive(item)" :key="item">
+								<ui-bg-card v-for="item of material.colors" @click="modalStore.formValue.background = item"
+									:active="bgIsActive(item)" :key="item">
 									<div class="w-full h-full" :style="{ background: item }" />
 								</ui-bg-card>
 							</div>
 						</NScrollbar>
 					</NTabPane>
 					<NTabPane name="gradientColor" tab="渐变色">
-						<NScrollbar class="h-50 max-h-80">
+						<NScrollbar class="h-50 max-h-50">
 							<div class="grid grid-cols-8 w-full gap-3">
-								<ui-bg-card v-for="(item, index) of material.generateColor" @click="modalStore.formValue.background = item" :active="bgIsActive(item)" :key="index">
+								<ui-bg-card v-for="(item, index) of material.generateColor"
+									@click="modalStore.formValue.background = item" :active="bgIsActive(item)" :key="index">
 									<div class="w-full h-full" :style="{ background: material.generateColorStyle(item) }" />
 								</ui-bg-card>
 							</div>
