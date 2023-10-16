@@ -40,28 +40,62 @@ const size = computed(() => {
 		area: _row * _col
 	}
 })
+const cardStyle = computed(() => {
+	return {
+		background: background.value, 
+		width: `calc(var(--card-size) * ${props.row})`, 
+		height: `calc(var(--card-size) * ${props.col})`
+	}
+})
 
 </script>
 
 <template>
-	<ui-card-size 
-		:row="size.row" 
-		:col="size.col"
-		:style="{ background: background, width: `calc(var(--card-size) * ${row})`, height: `calc(var(--card-size) * ${col})` }"
-		:class="buttonClass" 
-		class="w-full h-full overflow-hidden"
-	>
+	<ui-card-size :row="size.row" :col="size.col" :style="cardStyle" :class="buttonClass" class="w-full h-full overflow-hidden">
 		<a :href="link" class="flex w-full h-full px-[var(--card-gap-x)] py-[var(--card-gap-y)]" target="_blank">
-			<div v-if="icon" :style="{ background: icon.background || 'transparent' }"
-				class="flex items-center justify-center overflow-hidden" :class="[
-					buttonClass,
-					{
-						'w-full h-full': size.area === 1,
-						'w-[var(--card-size)] h-[var(--card-size)]': size.area > 1
-					}
-				]">
-				<img :src="icon.image" class="object-contain" :alt="icon.name">
+			<div v-if="icon" :style="{ background: icon.background || 'transparent' }" :class="[
+				buttonClass,
+				`card-icon_${row}x${col}`
+			]">
+				<img :src="icon.image" class="w-full h-full object-contain" :alt="icon.name">
 			</div>
 		</a>
 	</ui-card-size>
 </template>
+
+<style>
+.card-icon_1x1 {
+	width: 100%;
+	height: 100%;
+}
+
+.card-icon_2x2 {
+	width: var(--card-size);
+	height: var(--card-size);
+}
+
+.card-icon_1x2 {
+	width: calc(var(--card-size) - calc(var(--card-gap-x) * 2));
+	height: var(--card-size);
+}
+
+.card-icon_2x1 {
+	height: calc(var(--card-size) - calc(var(--card-gap-x) * 2));
+	width: var(--card-size);
+}
+
+.card-icon_2x4 {
+	width: 100%;
+	height: calc(var(--card-size) * 2);
+}
+
+.card-icon_4x2 {
+	height: calc(calc(var(--card-size) * 2) - calc(var(--card-gap-x) * 2));
+	width: calc(var(--card-size) * 2);
+}
+
+.card-icon_4x4 {
+	width: calc(var(--card-size) * 2);
+	height: calc(var(--card-size) * 2);
+}
+</style>

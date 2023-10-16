@@ -9,7 +9,7 @@ const material = useMaterial()
 const formRef = ref<FormInst | null>(null)
 const uploadRef = ref<UploadInst | null>(null)
 
-const size = ref('1x1')
+const size = ref('1-1')
 
 const modalStore = useCardFormModal()
 
@@ -24,8 +24,6 @@ const bgIsActive = (value: string | LinearGradient) :boolean => {
 
 const sizeUpdate = (value: string) => {
 	const [row, col] = size.value.split('-')
-	console.log(row, col)
-
 	modalStore.formValue.size.row = Number(row)
 	modalStore.formValue.size.col = Number(col)
 }
