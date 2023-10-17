@@ -5,9 +5,8 @@ import {
 	presetIcons,
 	presetTypography,
 	presetUno,
-	presetWebFonts,
 	transformerDirectives,
-	transformerVariantGroup
+	transformerVariantGroup,
 } from 'unocss'
 
 export default defineConfig({
@@ -25,14 +24,13 @@ export default defineConfig({
 		['primary-border-color', 'border-color-zinc-200 dark:border-color-gray-500/50']
 	],
 	theme: {
-		
+
 	},
 	presets: [
 		presetUno(),
 		presetAttributify(),
 		presetIcons(),
 		presetTypography(),
-		presetWebFonts({})
 	],
 	transformers: [transformerDirectives(), transformerVariantGroup()]
 })

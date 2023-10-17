@@ -1,26 +1,43 @@
 <script setup lang="ts">
+import { useVModel } from '@vueuse/core'
+import { emojiFaces } from '~/composables/emoji';
 
-const props = withDefaults(defineProps<{ value?: string }>(), {
-	value: ''
+const props = withDefaults(defineProps<{ value: string, prefix?: string, separator?: string }>(), {
+	prefix: '',
+	separator: ':'
 })
 
-const emit = defineEmits(["update:value", "change"])
+const emit = defineEmits(["update:value"])
 
-const { list } = useEmoji()
+const data = useVModel(props, 'value', emit)
 
-const itemClick = (value: { name: string, body: string }) => {
-	emit("update:value", value.name)
-	emit("change", value)
+const emoji = [...emojiFaces]
+
+const format = (value: string): string => {
+	return [props.prefix, value].filter(Boolean).join(props.separator)
+}
+
+const itemClick = (value: string) => {
+	const _value = format(value)
+	data.value = _value
 }
 
 </script>
 
 <template>
-	<ul class="grid grid-cols-9 gap-3 auto-rows-auto">
-		<li v-for="item of list" :key="item.name" :class="{ 'bg-gray-200/80': props.value === item.name }"
-			class="h-10 flex justify-center items-center px-1 cursor-pointer rounded-md hover:bg-gray-200/80"
-			@click="itemClick(item)">
-			<div class="h-8 w-8" v-html="item.body" />
-		</li>
-	</ul>
+	<div class="py-2">
+		<ul class="grid grid-cols-7 gap-3 auto-rows-auto">
+			<li v-for="item of emoji" :key="item" :class="{ 'bg-gray-200/80': data === format(item) }"
+				class="h-10 flex justify-center items-center px-1 cursor-pointer rounded-md hover:bg-gray-200/80"
+				@click="itemClick(item)">
+				<div class="text-7"> {{ item }} </div>
+			</li>
+		</ul>
+	</div>
 </template>
+
+<style>
+.emoji-family {
+	font-family: 'Noto Color Emoji', sans-serif;
+}
+</style>
