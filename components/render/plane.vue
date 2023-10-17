@@ -16,8 +16,18 @@ provide<RenderPlaneProps>(editDataProviderKey, props)
 <template>
 	<main class="w-full min-h-screen relative flex px-3 sm:px-10 md:px-30 lg:px-50 xl:px-80 2xl:px-150"
 		:style="{ background: props.background }">
-		<div class="w-full py-15 z-20 flex flex-col gap-5" :style="{color: props.color}">
-			<render-header />
+		<div class="w-full py-15 z-20 flex flex-col gap-5" :style="{ color: props.color }">
+			<render-header>
+				<template #avatar>
+					<ui-picture-selector>
+						<ui-avatar v-if="props.avatar" class="cursor-pointer" :src="props.avatar" :edit="props.edit" />
+					</ui-picture-selector>
+				</template>
+				<template #name>
+					{{ props.name }}
+				</template>
+				{{ props.description }}
+			</render-header>
 			<render-contact />
 			<render-card-wrapper />
 		</div>
