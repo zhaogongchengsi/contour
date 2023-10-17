@@ -98,6 +98,12 @@ export default defineNuxtConfig({
           ? ['naive-ui', 'vueuc']
           : []
     }
+  },
+  nitro: {
+    prerender: {
+      ignore: ['/edit/**'],
+      routes: ['/']
+    }
   }
 })
 
