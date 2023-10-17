@@ -25,11 +25,11 @@ const modalStore = useCardFormModal()
         <h3>创建<span class="mx-1 font-bold text-purple-500">{{ modalStore.title }}</span>卡片</h3>
         <div class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500" @click="modalStore.close" />
       </div>
-      <div class="p-3 flex items-center justify-center gap-3">
-        <div class="flex-1 flex justify-center items-center">
+      <div class="p-3 flex items-center justify-between gap-3">
+        <div class="w-1/2 h-full flex justify-center items-center">
           <card edit :icon="modalStore.icon" :background="modalStore.formValue.background" :image="modalStore.formValue.image" :button-style="modalStore.formValue.buttonStyle" :col="modalStore.formValue.size.col" :row="modalStore.formValue.size.row" />
         </div>
-        <app-card-from @cancel="modalStore.close" @commit="modalStore.close" />
+        <app-card-from class="flex-1" @cancel="modalStore.close" @commit="modalStore.close" />
       </div>
     </div>
   </n-modal>

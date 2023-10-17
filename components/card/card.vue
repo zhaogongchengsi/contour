@@ -14,11 +14,11 @@ const background = computed(() => {
 const buttonClass = computed(() => {
 	switch (props.buttonStyle) {
 		case 'windows':
-			return 'rounded-xl'
+			return 'rounded-lg'
 		case 'android':
-			return 'rounded-full'
+			return 'rounded-2xl'
 		case 'apple':
-			return 'rounded-8'
+			return 'rounded-xl'
 	}
 })
 
@@ -52,11 +52,12 @@ provide(key, props)
 				<card-icon :image="$props.icon?.image!" :background="$props.icon?.background" :class="buttonClass" :name="$props.icon?.name" />
 			</template>
 			<template #image>
-				<card-image-upload  v-if="!$props.image" />
+				<card-image-upload  v-if="!$props.image && props.edit" />
 				<div v-else class="w-full h-full">
 					<img :src="$props.image" alt="">
 				</div>
 			</template>
+			<span>{{ $props.icon?.label }}</span>
 		</card-inner>
 	</ui-card-size>
 </template>

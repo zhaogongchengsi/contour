@@ -3,11 +3,19 @@ import { useCardProps } from './props'
 import { figureTranslate } from './utils'
 import cardLayoutOneOne from './layout/card-layout-one-one.vue';
 import cardLayoutTwoTwo from './layout/card-layout-two-two.vue'
+import cardLayoutOneTwo from './layout/card-layout-one-two.vue'
+import cardLayoutTwoOne from './layout/card-layout-two-one.vue'
+import cardLayoutTwoFour from './layout/card-layout-two-four.vue'
+import cardLayoutFourTwo from './layout/card-layout-four-two.vue'
 
 defineOptions({
    components: {
       cardLayoutOneOne,
-      cardLayoutTwoTwo
+      cardLayoutTwoTwo,
+      cardLayoutOneTwo,
+      cardLayoutTwoOne,
+      cardLayoutTwoFour,
+      cardLayoutFourTwo
    }
 })
 
@@ -27,6 +35,9 @@ const componentName = computed(() => {
       </template>
       <template #image>
          <slot name="image" />
+      </template>
+      <template #default>
+         <slot />
       </template>
    </component>
 </template>

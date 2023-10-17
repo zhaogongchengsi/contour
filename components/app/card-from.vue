@@ -47,7 +47,6 @@ const sizeUpdate = (value: string) => {
 					<NRadioButton label="2x1" value="2-1" />
 					<NRadioButton label="2x4" value="2-4" />
 					<NRadioButton label="4x2" value="4-2" />
-					<NRadioButton label="4x4" value="4-4" />
 				</n-radio-group>
 			</n-form-item>
 			<n-form-item label="按钮风格">

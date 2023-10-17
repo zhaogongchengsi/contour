@@ -8,7 +8,9 @@ import CardTag from '../card-tag.vue'
 			<div class="w-full h-[var(--width)]">
 				<slot name="image" />
 			</div>
-			<div>123</div>
+			<div class="w-full flex justify-center items-center text-white font-bold overflow-hidden truncate">
+				<slot />
+			</div>
 		</div>
 		<div class="right-wrapper">
 			<slot name="icon" />
