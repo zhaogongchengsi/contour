@@ -9,7 +9,9 @@ const data = usePlaneData()
       'flex-col justify-center items-center h-auto': data.center,
     }"
   >
-    <ui-avatar v-if="data.avatar" :src="data.avatar" :edit="data.edit" />
+    <ui-picture-selector>
+      <ui-avatar v-if="data.avatar" class="cursor-pointer" :src="data.avatar" :edit="data.edit" />
+    </ui-picture-selector>
     <div :style="{color: data.color}" class="h-full w-full flex flex-1 flex-col" :class="data.description ? 'justify-between' : 'justify-center'">
       <h1
         class="text-13 font-bold"

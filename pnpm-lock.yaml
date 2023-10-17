@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@iconify-json/emojione':
+    specifier: ^1.1.7
+    version: 1.1.7
   '@juggle/resize-observer':
     specifier: ^3.4.0
     version: 3.4.0
@@ -1308,6 +1311,12 @@ packages:
       '@iconify/types': 2.0.0
     dev: true
 
+  /@iconify-json/emojione@1.1.7:
+    resolution: {integrity: sha512-A7iYDLGmvg6VIAcNZugzbZc7klJlZAVy9ea3H6STfOJe3Nt0AltdehOl5ZhIuAHbtJDFqX/ZuEySOhxfnkdOyg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
   /@iconify-json/formkit@1.1.2:
     resolution: {integrity: sha512-/+vcQUPa4yzARQDzz1BBkNtFvXv5t2iknF57RRoEm1Xg3oKOnrvK7hMono0MtQg4aTvPH2nJoa0/qczQ7CB40w==}
     dependencies:
@@ -1334,7 +1343,6 @@ packages:
 
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-    dev: true
 
   /@iconify/utils@2.1.10:
     resolution: {integrity: sha512-0/+5hxjzCZ9RoYpqxnOzbnpQyMdZRuHcMxPJeuX+x/aZkAAD/N4TajDjAPT7LpX+M0bfLExj/p0bbDkUfp0lrg==}

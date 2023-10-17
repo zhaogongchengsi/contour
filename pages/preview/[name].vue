@@ -22,6 +22,5 @@ store.setName(route.params.name as string)
 			<div class="md-icon i-carbon:reply" />
 			<span class="text-2">编辑</span>
 		</button>
-		<AppDarkToggle />
 	</div>
 </template>
