@@ -1,35 +1,47 @@
 <script setup lang="ts">
-import { RenderPlaneProps } from '~/types';
 
-const props = withDefaults(defineProps<RenderPlaneProps>(), {
+const props = withDefaults(defineProps<{
+	// 磨砂
+	frosted?: boolean
+	// 模糊
+	blur?: boolean
+	// 居中
+	center?: boolean
+	// 斜体
+	ltalic?: boolean,
+	// 背景颜色
+	background?: string
+}>(), {
 	center: false,
 	blur: false,
 	frosted: false,
 	ltalic: false,
-	description: ''
+	background: 'transparent'
 })
 
-provide<RenderPlaneProps>(editDataProviderKey, props)
+provide(editDataProviderKey, props)
 
 </script>
 
 <template>
-	<main class="w-full min-h-screen relative flex px-3 sm:px-10 md:px-30 lg:px-50 xl:px-80 2xl:px-150"
+	<main class="w-full min-h-screen relative flex px-3 sm:px-10 md:px-30 lg:px-50 xl:px-100 2xl:px-150"
 		:style="{ background: props.background }">
-		<div class="w-full py-15 z-20 flex flex-col gap-5" :style="{ color: props.color }">
+		<div class="w-full py-15 z-20 flex flex-col gap-5">
 			<render-header>
 				<template #avatar>
-					<ui-picture-selector>
-						<ui-avatar v-if="props.avatar" class="cursor-pointer" :src="props.avatar" :edit="props.edit" />
-					</ui-picture-selector>
+					<slot name="avatar" />
 				</template>
 				<template #name>
-					{{ props.name }}
+					<slot name="name" />
 				</template>
-				{{ props.description }}
+				<slot name="desc" />
 			</render-header>
-			<render-contact />
-			<render-card-wrapper />
+			<div v-if="$slots.contact">
+				<slot name="contact"/>
+			</div>
+			<div class="bg-red" v-if="$slots.card">
+				<slot name="card" />
+			</div>
 		</div>
 		<div class="render-bg z-10" :class="{
 			'bg-frosted': props.frosted,
