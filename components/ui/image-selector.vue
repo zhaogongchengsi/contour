@@ -1,14 +1,22 @@
 <script setup lang="ts">
 
+
 const images = ['github.webp', 'grid_01.webp', 'grid_10.webp', 'grid.webp', 'img2.webp'].map(i => `/images/${i}`)
-const props = defineProps<{ value: string }>()
+
+const props = withDefaults(defineProps<{ value: string, prefix?: string, separator?: string }>(), {
+	prefix: '',
+	separator: ':'
+})
 
 const emit = defineEmits(["update:value", 'change'])
 const data = useVModel(props, 'value', emit)
 
+const format = (value: string): string => {
+	return [props.prefix, value].filter(Boolean).join(props.separator)
+}
+
 const itemClick = (value: string) => {
-	data.value = value
-	emit("change", value)
+	data.value = format(value)
 }
 
 
@@ -22,7 +30,7 @@ const itemClick = (value: string) => {
 		</div>
 		<ul class="grid grid-cols-3 gap-2 auto-rows-auto">
 			<li v-for="url of images" class="h-24 p-2 hover:bg-gray-200/80 cursor-pointer rounded-md" :key="url"
-				:class="{ 'bg-gray-200/80': data === url }" @click="itemClick(url)">
+				:class="{ 'bg-gray-200/80': data === format(url) }" @click="itemClick(url)">
 				<div class="h-full">
 					<img class="w-full h-full object-cover rounded-md" :src="url" alt="">
 				</div>

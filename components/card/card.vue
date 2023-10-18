@@ -35,8 +35,6 @@ const size = computed(() => {
 const cardStyle = computed(() => {
 	return {
 		background: background.value,
-		// width: `calc(calc(var(--card-size) * ${props.row}) + calc(var(--card-gap-x) * ${size.value.row - 1}))`,
-		// height: `calc(calc(var(--card-size) * ${props.col}) + calc(var(--card-gap-y) * ${size.value.col - 1}))`
 	}
 })
 
@@ -49,15 +47,15 @@ provide(key, props)
 		class="w-full h-full overflow-hidden">
 		<card-inner>
 			<template #icon>
-				<card-icon :image="$props.icon?.image!" :background="$props.icon?.background" :class="buttonClass" :name="$props.icon?.name" />
+				<card-icon :image="$props.icon?.image!" :background="$props.icon?.background" :class="buttonClass"
+					:name="$props.icon?.name" />
 			</template>
 			<template #image>
-				<card-image-upload  v-if="!$props.image && props.edit" />
-				<div v-else class="w-full h-full">
-					<img :src="$props.image" alt="">
-				</div>
+				<slot  name="image" />
 			</template>
-			<span>{{ $props.icon?.label }}</span>
+			<slot>
+				{{ $props.icon?.label }}
+			</slot>
 		</card-inner>
 	</ui-card-size>
 </template>

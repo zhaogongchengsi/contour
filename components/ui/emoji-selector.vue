@@ -18,8 +18,7 @@ const format = (value: string): string => {
 }
 
 const itemClick = (value: string) => {
-	const _value = format(value)
-	data.value = _value
+	data.value = format(value)
 }
 
 </script>

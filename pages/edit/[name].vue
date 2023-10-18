@@ -19,7 +19,7 @@ const modalStore = useCardFormModal()
     :center="store.styles.includes('center')" :blur="store.styles.includes('blur')"
     :ltalic="store.styles.includes('ltalic')" :color="store.color">
     <template #avatar>
-      <ui-picture-selector>
+      <ui-picture-selector v-model:value="store.avatar">
         <ui-avatar :src="store.avatar"></ui-avatar>
       </ui-picture-selector>
     </template>
@@ -38,9 +38,17 @@ const modalStore = useCardFormModal()
     <template #card>
       <draggable tag="div" :animation="500" :list="store.cards" class="card-wrapper-grid" item-key="id">
         <template #item="{ element }">
-          <card edit :icon="element.icon" :background="element.background"
-            :image="element.image" :button-style="element.buttonStyle"
-            :col="element.size.col" :row="element.size.row" />
+          <card edit :icon="element.icon" :background="element.background" :image="element.image"
+            :button-style="element.buttonStyle" :col="element.size.col" :row="element.size.row">
+            <template #image>
+              <ui-picture-selector>
+                <div class="w-full h-full bg-red">
+                  asd
+                </div>
+              </ui-picture-selector>
+            </template>
+            {{ element.label }}
+          </card>
         </template>
       </draggable>
     </template>
@@ -56,7 +64,14 @@ const modalStore = useCardFormModal()
         <div class="w-1/2 h-full flex justify-center items-center">
           <card edit :icon="modalStore.icon" :background="modalStore.formValue.background"
             :image="modalStore.formValue.image" :button-style="modalStore.formValue.buttonStyle"
-            :col="modalStore.formValue.size.col" :row="modalStore.formValue.size.row" />
+            :col="modalStore.formValue.size.col" :row="modalStore.formValue.size.row">
+            <template #image>
+              <ui-picture-selector v-model:value="modalStore.formValue.image">
+                <ui-picture :src="modalStore.formValue.image" />
+              </ui-picture-selector>
+            </template>
+            {{ modalStore.icon?.label }}
+          </card>
         </div>
         <app-card-from class="flex-1" @cancel="modalStore.close" @commit="modalStore.close" />
       </div>

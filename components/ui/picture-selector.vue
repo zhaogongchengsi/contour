@@ -3,12 +3,15 @@ import { NPopover, NTabs, NTabPane, NScrollbar } from 'naive-ui'
 
 const value = ref('')
 const props = defineProps<{ value?: string }>()
-const emit = defineEmits(["update:value"])
+const emit = defineEmits(["update:value", 'change'])
 const data = useVModel(props, 'value', emit)
 
-watch(value, (newValue) => {
-	data.value = newValue	
+watch(value, (newValue) => {	
+	data.value = newValue
+	emit('change', newValue)
 })
+
+provide('ui-picture-selector', value)
 
 </script>
 
@@ -21,7 +24,7 @@ watch(value, (newValue) => {
 			<n-tabs type="bar" animated placement="bottom" size="small">
 				<n-tab-pane name="image" tab="图片">
 					<n-scrollbar class="h-80">
-						<ui-image-selector v-model:value="value" />
+						<ui-image-selector prefix="url" v-model:value="value" />
 					</n-scrollbar>
 				</n-tab-pane>
 				<n-tab-pane name="emoji" tab="表情">

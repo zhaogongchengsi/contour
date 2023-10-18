@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<{
 	ltalic?: boolean,
 	// 背景颜色
 	background?: string
+	// 字体颜色
 	color?: string
 }>(), {
 	color: '#fff',
