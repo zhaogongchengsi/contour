@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
 		const oldUser = await prisma.user.findFirst({
 			where: {
-				email: body.account
+				account: body.account
 			}
 		})
 
@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
 
 		const user = await prisma.user.create({
 			data: {
-				email: body.account,
+				account: body.account,
 				password: encrypt(body.password),
 				uid: randomUUID(),
 			}

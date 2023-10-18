@@ -49,14 +49,14 @@ export const useEditDataStore = defineStore('editData', () => {
 
 		console.log('保存');
 		
-		console.log(name);		
+		console.log(name);
 		console.log(cards.value);
 		console.log(background);
 		console.log(color);
 		console.log(styles);
 		console.log(description);
 		console.log(contacts);
-		
+
 	}
 
 	return {
