@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useLoadingBar } from 'naive-ui'
+import { useLoadingBar, useMessage } from 'naive-ui'
+import { uploadPicture } from '~/composables/upload';
 
 const images = ref(['github.webp', 'grid_01.webp', 'grid_10.webp', 'grid.webp', 'img2.webp'].map(i => `/images/${i}`))
 
@@ -11,6 +12,7 @@ const props = withDefaults(defineProps<{ value: string, prefix?: string, separat
 })
 
 const m = 1024 * 1024
+const { error } = useMessage()
 const loadingBar = useLoadingBar()
 const emit = defineEmits(["update:value", 'change'])
 const data = useVModel(props, 'value', emit)
@@ -29,10 +31,26 @@ const itemClick = (value: string) => {
 
 onChange(async (files) => {
 	const file = files![0]
-	console.log(file.size / m);
-	
-	const url = URL.createObjectURL(file)
-	images.value.push(url)
+	if (file.size / m > 2.5) {
+		error('上传图片最大不得大于2M')
+		return
+	}
+
+	loadingBar.start()
+
+	uploadPicture(file, {
+		name: props.name,
+		url: props.action
+	}).then(([info]) => {
+		images.value.push(info.url)
+		loadingBar.finish()
+	}).catch(err => {
+		error(err)
+		loadingBar.error()
+	})
+
+	// const url = URL.createObjectURL(file)
+	// images.value.push(url)
 })
 
 </script>

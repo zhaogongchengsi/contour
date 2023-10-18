@@ -1,8 +1,36 @@
 import { lyla } from 'lyla'
-import type { FormInst, UploadFileInfo, UploadInst, UploadCustomRequestOptions } from 'naive-ui'
+import type { UploadFileInfo, UploadCustomRequestOptions } from 'naive-ui'
 import { UploadInfo } from '~/types'
 
 // todo: 上传文件
+
+export interface UploadPictureOptions {
+	name: string
+	url: string
+}
+
+export function uploadPicture(file: File, { url, name }: UploadPictureOptions): Promise<UploadInfo[]> {
+	const formData = new FormData()
+	formData.append(name, file)
+	return new Promise((resolve, reject) => {
+		lyla
+			.post(url, {
+				body: formData,
+				// headers: {
+				// 	"content-type": 'multipart/form-data'
+				// }
+			}).then(({ json }) => {
+				const { code, data, message } = json as AppResponse<UploadInfo[]>
+				if (code) {
+					resolve(data)
+				} else {
+					reject(message)
+				}
+			}).catch(reject)
+	})
+
+
+}
 
 export const customRequest = ({
 	file,
