@@ -11,7 +11,9 @@ const props = withDefaults(defineProps<{
 	ltalic?: boolean,
 	// 背景颜色
 	background?: string
+	color?: string
 }>(), {
+	color: '#fff',
 	center: false,
 	blur: false,
 	frosted: false,
@@ -26,7 +28,7 @@ provide(editDataProviderKey, props)
 <template>
 	<main class="w-full min-h-screen relative flex px-3 sm:px-10 md:px-30 lg:px-50 xl:px-100 2xl:px-150"
 		:style="{ background: props.background }">
-		<div class="w-full py-15 z-20 flex flex-col gap-5">
+		<div class="w-full py-15 z-20 flex flex-col gap-5" :style="{color: color}">
 			<render-header>
 				<template #avatar>
 					<slot name="avatar" />
@@ -39,7 +41,7 @@ provide(editDataProviderKey, props)
 			<div v-if="$slots.contact">
 				<slot name="contact"/>
 			</div>
-			<div class="bg-red" v-if="$slots.card">
+			<div v-if="$slots.card">
 				<slot name="card" />
 			</div>
 		</div>

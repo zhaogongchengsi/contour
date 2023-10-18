@@ -2,29 +2,64 @@
 import { NModal } from 'naive-ui'
 import { useCardFormModal } from '~/stores/cardForm';
 import card from '~/components/card/card.vue'
+import draggable from "vuedraggable";
 
 definePageMeta({
   layout: 'edit',
 })
 
+const store = useEditDataStore()
+const modalStore = useCardFormModal()
+
 </script>
 
 <template>
-  <render-plane background="rgb(74 222 128)">
+  <app-component />
+  <render-plane :background="store.background" :frosted="store.styles.includes('frosted')"
+    :center="store.styles.includes('center')" :blur="store.styles.includes('blur')"
+    :ltalic="store.styles.includes('ltalic')" :color="store.color">
     <template #avatar>
-      <div class="w-full h-full bg-purple-600">avatar</div>
+      <ui-picture-selector>
+        <ui-avatar :src="store.avatar"></ui-avatar>
+      </ui-picture-selector>
     </template>
     <template #name>
-      一个名字
+      {{ store.name }}
     </template>
     <template #desc>
-      一段描述
+      {{ store.description }}
     </template>
     <template #contact>
-      联系方式
+      <ui-contact-wrapper>
+        <ui-contact-item v-for="contact of store.contacts" :key="contact.value" :value="contact.value"
+          :type="contact.type" />
+      </ui-contact-wrapper>
     </template>
     <template #card>
-      卡片
+      <draggable tag="div" :animation="500" :list="store.cards" class="card-wrapper-grid" item-key="id">
+        <template #item="{ element }">
+          <card edit :icon="element.icon" :background="element.background"
+            :image="element.image" :button-style="element.buttonStyle"
+            :col="element.size.col" :row="element.size.row" />
+        </template>
+      </draggable>
     </template>
   </render-plane>
+  <app-style />
+  <n-modal v-model:show="modalStore.isShow">
+    <div class="w-250 bg-white border border-white/30 rounded-md">
+      <div class="flex justify-between items-center border-b-1 primary-border-color px-2 py-1">
+        <h3>创建<span class="mx-1 font-bold text-purple-500">{{ modalStore.title }}</span>卡片</h3>
+        <div class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500" @click="modalStore.close" />
+      </div>
+      <div class="p-3 flex items-center justify-between gap-3">
+        <div class="w-1/2 h-full flex justify-center items-center">
+          <card edit :icon="modalStore.icon" :background="modalStore.formValue.background"
+            :image="modalStore.formValue.image" :button-style="modalStore.formValue.buttonStyle"
+            :col="modalStore.formValue.size.col" :row="modalStore.formValue.size.row" />
+        </div>
+        <app-card-from class="flex-1" @cancel="modalStore.close" @commit="modalStore.close" />
+      </div>
+    </div>
+  </n-modal>
 </template>

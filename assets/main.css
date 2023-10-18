@@ -14,6 +14,14 @@ body {
 	--card-gap-y: 10px;
 }
 
+.card-wrapper-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, var(--card-size));
+	grid-template-rows: repeat(auto-fill, var(--card-size));
+	grid-auto-flow: dense;
+	grid-gap: var(--card-gap-x) var(--card-gap-y);
+}
+
 body::-webkit-scrollbar {
 	width: 5px;
 	height: 5px;

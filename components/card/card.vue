@@ -35,8 +35,8 @@ const size = computed(() => {
 const cardStyle = computed(() => {
 	return {
 		background: background.value,
-		width: `calc(var(--card-size) * ${props.row})`,
-		height: `calc(var(--card-size) * ${props.col})`
+		// width: `calc(calc(var(--card-size) * ${props.row}) + calc(var(--card-gap-x) * ${size.value.row - 1}))`,
+		// height: `calc(calc(var(--card-size) * ${props.col}) + calc(var(--card-gap-y) * ${size.value.col - 1}))`
 	}
 })
 

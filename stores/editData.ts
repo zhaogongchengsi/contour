@@ -35,7 +35,59 @@ export const useEditDataStore = defineStore('editData', () => {
 		}
 	}
 
-	const cards = useStorage<CardConfig[]>(defineStorageKey('cards') ,[])
+	const cards = useStorage<CardConfig[]>(defineStorageKey('cards'), [
+		{
+			id: 1,
+			icon: {
+				label: "知乎",
+				name: "zhihu",
+				image: "/icons/zhihu.svg",
+				background: "#0c6dfe"
+			},
+			size: {
+				col: 1,
+				row: 1
+			},
+			link: '#',
+			buttonStyle: 'windows',
+			image: '',
+			background: '#fff'
+		},
+		{
+			id: 2,
+			icon: {
+				label: "知乎",
+				name: "zhihu",
+				image: "/icons/zhihu.svg",
+				background: "#0c6dfe"
+			},
+			size: {
+				col: 2,
+				row: 2
+			},
+			link: '#',
+			buttonStyle: 'windows',
+			image: '',
+			background: '#f12342'
+		},
+		{
+			id: 3,
+			icon: {
+				label: "知乎",
+				name: "zhihu",
+				image: "/icons/zhihu.svg",
+				background: "#0c6dfe"
+			},
+			size: {
+				col: 4,
+				row: 2
+			},
+			link: '#',
+			buttonStyle: 'windows',
+			image: '',
+			background: '#fff234'
+		}
+	])
 
 	const createCard = (config: CardConfig) => {
 		cards.value.push(config)

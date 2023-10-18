@@ -27,10 +27,10 @@ const textSize = (text: string) => {
 </script>
 
 <template>
-	<div class="w-30 h-30 bg-white overflow-hidden rounded-full flex justify-center items-center" :class="{
+	<div class="w-full h-full bg-white overflow-hidden rounded-full flex justify-center items-center" :class="{
 		'p-1': avatar.type === 'url',
 	}">
-		<span v-if="avatar.type === 'emoji'" class="text-16">{{ avatar.value }}</span>
+		<span v-if="avatar.type === 'emoji'" class="text-8 sm:text-10 md:text-12 lg:text-16">{{ avatar.value }}</span>
 		<span v-else-if="avatar.type === 'text'" :style="textSize(avatar.value)" class="w-full font-bold text-purple-500">{{ avatar.value }}</span>
 		<img v-else :src="avatar.value" class="w-full h-full rounded-full" />
 	</div>
