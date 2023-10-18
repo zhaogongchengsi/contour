@@ -37,7 +37,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@unocss/nuxt',
-    // '@nuxtjs/color-mode',
     '@vueuse/nuxt',
     'pinceau/nuxt',
     '@pinia/nuxt',
@@ -48,9 +47,8 @@ export default defineNuxtConfig({
   ],
   pinia: {
     autoImports: [
-      // automatically imports `defineStore`
-      'defineStore', // import { defineStore } from 'pinia'
-      ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+      'defineStore',
+      ['defineStore', 'definePiniaStore'],
     ],
   },
   components: {
