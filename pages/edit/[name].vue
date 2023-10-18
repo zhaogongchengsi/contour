@@ -31,7 +31,7 @@ const createCard = () => {
     :center="store.styles.includes('center')" :blur="store.styles.includes('blur')"
     :ltalic="store.styles.includes('ltalic')" :color="store.color">
     <template #avatar>
-      <ui-picture-selector v-model:value="store.avatar">
+      <ui-picture-selector v-model:value="store.avatar" :name="($route.params.name as string)">
         <ui-avatar :src="store.avatar"></ui-avatar>
       </ui-picture-selector>
     </template>
@@ -53,7 +53,7 @@ const createCard = () => {
           <card edit :icon="element.icon" :background="element.background" :button-style="element.buttonStyle"
             :col="element.size.col" :row="element.size.row">
             <template #image>
-              <ui-picture-selector v-model:value="element.image">
+              <ui-picture-selector v-model:value="element.image" :name="($route.params.name as string)">
                 <div class="w-full h-full">
                   <ui-picture :src="element.image" :alt="String(element.id)" />
                 </div>
@@ -78,7 +78,7 @@ const createCard = () => {
             :button-style="modalStore.formValue.buttonStyle" :col="modalStore.formValue.size.col"
             :row="modalStore.formValue.size.row">
             <template #image>
-              <ui-picture-selector v-model:value="modalStore.formValue.image">
+              <ui-picture-selector v-model:value="modalStore.formValue.image" :name="($route.params.name as string)">
                 <ui-picture :src="modalStore.formValue.image" />
               </ui-picture-selector>
             </template>

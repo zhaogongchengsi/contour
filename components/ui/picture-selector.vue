@@ -3,8 +3,10 @@ import { NPopover, NTabs, NTabPane, NScrollbar, NLoadingBarProvider } from 'naiv
 
 const loadingBarTargetRef = ref<undefined | HTMLElement>(undefined)
 const value = ref('')
-const props = withDefaults(defineProps<{ value?: string; separator?: string }>(), {
-	separator: ':'
+const props = withDefaults(defineProps<{ value?: string; separator?: string; action?: string; name?: string }>(), {
+	separator: ':',
+	action: '/api/file/upload',
+	name: ''
 })
 
 const emit = defineEmits(["update:value", 'change'])
@@ -30,7 +32,7 @@ provide('ui-picture-selector-separator', props.separator)
 				<n-tabs type="bar" animated placement="bottom" size="small" >
 					<n-tab-pane name="image" tab="图片" display-directive="show">
 						<n-scrollbar class="h-80">
-							<ui-image-selector prefix="url" v-model:value="value" />
+							<ui-image-selector prefix="url" :name="$props.name" :action="$props.action" v-model:value="value" />
 						</n-scrollbar>
 					</n-tab-pane>
 					<n-tab-pane name="emoji" tab="表情" display-directive="show">

@@ -3,16 +3,18 @@ import { useLoadingBar } from 'naive-ui'
 
 const images = ref(['github.webp', 'grid_01.webp', 'grid_10.webp', 'grid.webp', 'img2.webp'].map(i => `/images/${i}`))
 
-const props = withDefaults(defineProps<{ value: string, prefix?: string, separator?: string }>(), {
+const props = withDefaults(defineProps<{ value: string, prefix?: string, separator?: string, action?: string, name?: string }>(), {
 	prefix: '',
-	separator: ':'
+	separator: ':',
+	action: '',
+	name: ''
 })
 
 const m = 1024 * 1024
 const loadingBar = useLoadingBar()
 const emit = defineEmits(["update:value", 'change'])
 const data = useVModel(props, 'value', emit)
-const { files, open, reset, onChange } = useFileDialog({
+const { open, onChange } = useFileDialog({
 	accept: 'image/*',
 	multiple: false
 })
