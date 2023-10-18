@@ -2,7 +2,10 @@
 import { NPopover, NTabs, NTabPane, NScrollbar } from 'naive-ui'
 
 const value = ref('')
-const props = defineProps<{ value?: string }>()
+const props = withDefaults(defineProps<{ value?: string; separator?: string }>(), {
+	separator: ':'
+})
+
 const emit = defineEmits(["update:value", 'change'])
 const data = useVModel(props, 'value', emit)
 
@@ -11,7 +14,8 @@ watch(value, (newValue) => {
 	emit('change', newValue)
 })
 
-provide('ui-picture-selector', value)
+provide('ui-picture-selector-value', value)
+provide('ui-picture-selector-separator', props.separator)
 
 </script>
 

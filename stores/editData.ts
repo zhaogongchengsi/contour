@@ -35,62 +35,28 @@ export const useEditDataStore = defineStore('editData', () => {
 		}
 	}
 
-	const cards = useStorage<CardConfig[]>(defineStorageKey('cards'), [
-		{
-			id: 1,
-			icon: {
-				label: "知乎",
-				name: "zhihu",
-				image: "/icons/zhihu.svg",
-				background: "#0c6dfe"
-			},
-			size: {
-				col: 1,
-				row: 1
-			},
-			link: '#',
-			buttonStyle: 'windows',
-			image: '',
-			background: '#fff'
-		},
-		{
-			id: 2,
-			icon: {
-				label: "知乎",
-				name: "zhihu",
-				image: "/icons/zhihu.svg",
-				background: "#0c6dfe"
-			},
-			size: {
-				col: 2,
-				row: 2
-			},
-			link: '#',
-			buttonStyle: 'windows',
-			image: '',
-			background: '#f12342'
-		},
-		{
-			id: 3,
-			icon: {
-				label: "知乎",
-				name: "zhihu",
-				image: "/icons/zhihu.svg",
-				background: "#0c6dfe"
-			},
-			size: {
-				col: 4,
-				row: 2
-			},
-			link: '#',
-			buttonStyle: 'windows',
-			image: '',
-			background: '#fff234'
-		}
-	])
+	const cardCurredId = useStorage<number>(defineStorageKey('id'), 0)
+	const getId = () => (cardCurredId.value + 1)
+
+	const cards = useStorage<CardConfig[]>(defineStorageKey('cards'), [])
 
 	const createCard = (config: CardConfig) => {
 		cards.value.push(config)
+	}
+
+
+	const save = () => {
+
+		console.log('保存');
+		
+		console.log(name);		
+		console.log(cards.value);
+		console.log(background);
+		console.log(color);
+		console.log(styles);
+		console.log(description);
+		console.log(contacts);
+		
 	}
 
 	return {
@@ -108,6 +74,9 @@ export const useEditDataStore = defineStore('editData', () => {
 		contacts,
 		createContact,
 		cards,
-		createCard
+		createCard,
+		save,
+		cardCurredId,
+		getId
 	}
 })

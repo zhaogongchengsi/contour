@@ -4,6 +4,10 @@ import { NCheckbox, NCheckboxGroup, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTo
 const store = useEditDataStore()
 const material = useMaterial()
 
+const save = () => {
+  store.save()
+}
+
 </script>
 
 <template>
@@ -13,14 +17,22 @@ const material = useMaterial()
         <h3 class="text-4 font-bold">
           样式
         </h3>
-        <RouterLink :to="`/preview/${store.name}`" class="flex items-center">
+        <div class="flex gap-5 items-center">
           <NTooltip trigger="hover">
             <template #trigger>
-              <button class="md-icon i-carbon:view" />
+              <button class="w-5 h-5 i-carbon:export hover:text-purple-500" @click="save" />
             </template>
-            预览
+            保存并发布
           </NTooltip>
-        </RouterLink>
+          <RouterLink :to="`/preview/${store.name}`" class="flex items-center">
+            <NTooltip trigger="hover">
+              <template #trigger>
+                <button class="w-5 h-5 i-carbon:view hover:text-purple-500" />
+              </template>
+              预览
+            </NTooltip>
+          </RouterLink>
+        </div>
       </div>
     </template>
     <div class="flex flex-1 flex-col gap-3">
@@ -53,8 +65,8 @@ const material = useMaterial()
           <NTabPane name="image" tab="图片">
             <NScrollbar class="max-h-80 min-h-50 px-3">
               <div class="grid grid-cols-3 w-full gap-3">
-                <ui-bg-card v-for="item of material.images" :key="item"
-                  :active="store.background === item" @click="store.setBackground(`url(${item})`)" >
+                <ui-bg-card v-for="item of material.images" :key="item" :active="store.background === item"
+                  @click="store.setBackground(`url(${item})`)">
                   <img class="w-full h-full object-contain" :src="item" />
                 </ui-bg-card>
               </div>

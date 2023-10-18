@@ -7,7 +7,6 @@ import type { LinearGradient } from '~/types';
 const messageApi = useMessage()
 const material = useMaterial()
 const formRef = ref<FormInst | null>(null)
-const uploadRef = ref<UploadInst | null>(null)
 
 const size = ref('1-1')
 

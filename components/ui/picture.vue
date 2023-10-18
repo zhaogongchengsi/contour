@@ -3,21 +3,21 @@
 const props = withDefaults(defineProps<{
 	src?: string
 	alt?: string
+	separator?: string
 }>(), {
 	src: '',
-	alt: ''
+	alt: '',
+	separator: ':'
 })
 
-const value = inject('ui-picture-selector')
+const value = inject('ui-picture-selector-value')
+const separator = inject('ui-picture-selector-separator')
 
 const info = computed(() => {
-	const src = unref(props.src || value) as string
-
-	console.log(src);
-	
+	const src = unref(props.src || value) as string	
 	const info = src.split(':')
 	// url:https://xx -> [url, https, //xxx]
-	return { type: info[0], value: info.slice(1).join(':') }
+	return { type: info[0], value: info.slice(1).join(unref(props.separator || separator || ':') as string) }
 })
 
 </script>
