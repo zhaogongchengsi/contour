@@ -15,7 +15,7 @@ export default defineConfig({
 		['md-icon', 'w-8 h-8'],
 		['lg-icon', 'w-8 h-8'],
 		['xl-icon', 'w-10 h-10'],
-		['link', 'text-2 sm:text-3 font-mono md:text-5 hover:underline  underline-offset-5 hover:text-purple-500 decoration-purple-500'],
+		['link', 'text-4 sm:text-5 font-mono md:text-6 hover:underline  underline-offset-5 hover:text-purple-500 decoration-purple-500'],
 		['primary-button', 'w-full h-10 md:h-12 bg-purple-500 hover:bg-purple-400 text-white rounded-md'],
 		['primary-input', 'bg-transparent outline-none flex-1'],
 		['from-item', 'flex gap-5 h-10 md:h-14 text-4 md:text-5 border-b px-2 focus-within:border-color-purple-500'],
