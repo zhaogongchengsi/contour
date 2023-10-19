@@ -20,6 +20,7 @@ declare interface User {
 	email: string;
 	id: number;
 	name: null;
+	avatar: string
 	password: string;
 	state: number;
 	uid: string;

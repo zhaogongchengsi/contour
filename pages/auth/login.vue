@@ -11,13 +11,13 @@ import { debounce } from 'perfect-debounce'
 
 const loading = ref(false)
 const code = ref('')
-
+const userStore = useUserInfo()
 const { success, error } = useMessage()
 const { counter, reset, pause, resume } = useInterval(1000, { controls: true, immediate: false })
 const formRef = ref<FormInst>()
 const fromValue = reactive({
-	account: '',
-	password: '',
+	account: 'zzh1586169624@163.com',
+	password: 'zhaozunhong..3132',
 	code: '',
 	id: ''
 })
@@ -50,14 +50,26 @@ const rules: FormRules = {
 }
 
 const submit = async () => {
+
 	formRef.value?.validate((errors) => {
-		if (!errors) {
-			success('验证成功')
-		} else {
-			console.log(errors)
-			error('验证失败')
-		}
+		if (errors) return
+		loginApi(fromValue).then(({ code, data, message }) => {
+			if (!code) {
+				error(message)
+				return
+			}
+
+			const { authorization, user } = data!
+			userStore.logged(user, authorization)
+
+			success('登陆成功')
+		}).catch(err => {
+			console.log(err);
+		})
+
 	})
+
+	await getCode()
 }
 
 const seconds = 10
@@ -97,11 +109,17 @@ const resetCode = async () => {
 						</div>
 					</div>
 				</n-form-item>
-				<div class="flex gap-5">
-					<button attr-type="button" @click="submit">登录</button>
-					<button @click="resetForm">重置</button>
+				<div class="flex gap-6">
+					<button class="button-primary" attr-type="button" @click="submit">登录</button>
+					<button class="button-primary" @click="resetForm">重置</button>
 				</div>
 			</n-form>
 		</div>
 	</div>
 </template>
+
+<style>
+.button-primary {
+	@apply px-3 py-2 ring-1 rounded ring-purple-300 hover:ring-purple-500
+}
+</style>

@@ -1,7 +1,7 @@
 
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import type { AvatarUri, CardConfig, ContactInfo, UploadInfo } from '~/types'
+import type { AvatarUri, CardConfig, ContactInfo } from '~/types'
 
 const defineStorageKey = (key: string) => `contour-edit-${key}`
 
