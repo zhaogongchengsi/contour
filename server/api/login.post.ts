@@ -27,9 +27,10 @@ export default defineEventHandler(async (event) => {
 		return sendFail('密码错误')
 	}
 
-	const { token, exp } = issueToken(user.uid)
+	const { token, exp } = issueToken(user.uid!)
 
-	user.password = ''
+	// @ts-ignore
+	delete user.password
 
 	return sendSuccess<AppUserResponse>({
 		authorization: {

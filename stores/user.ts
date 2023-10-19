@@ -1,11 +1,16 @@
-import { useStorage } from '@vueuse/core'
+import { useStorage, createGlobalState } from '@vueuse/core'
 
 const defineKey = (value: string) => `contour-user-${value}`
 
-export const useUserInfo = defineStore('user-info', () => {
-	const user = useStorage<User | null>(defineKey('info'), null)
-	const token = useStorage(defineKey('token'), '')
-	const expired = useStorage(defineKey('expired'), 0)
+const INFO_KEY = defineKey('info')
+const TOKEN_KEY = defineKey('token')
+const EXPIRED_KEY = defineKey('expired')
+
+export const useUserInfo = createGlobalState(() => {
+
+	const user = useStorage<User | Record<string, string>>(INFO_KEY, {})
+	const token = useStorage(TOKEN_KEY, '')
+	const expired = useStorage(EXPIRED_KEY, 0)
 
 	const logging = (u: User, auth: Authorization) => {
 		user.value = u
@@ -13,10 +18,16 @@ export const useUserInfo = defineStore('user-info', () => {
 		expired.value = auth.exp
 	}
 
-	const logged = () :boolean => {
-		if (!token) {
+	const logged = () :boolean => {		
+		if (!token.value) {
 			return false
 		}
+		if (timeExpired(expired.value)) {
+			return false
+		}
+
+		console.log(user);
+		
 
 		return true
 	}

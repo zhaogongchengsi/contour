@@ -32,11 +32,11 @@ export default defineEventHandler(async (event) => {
 			data: {
 				account: body.account,
 				password: encrypt(body.password),
-				uid: randomUUID(),
 			}
 		})
 
-		user.password = ''
+		// @ts-ignore
+		delete user.password
 
 		return sendSuccess(user, '注册成功')
 

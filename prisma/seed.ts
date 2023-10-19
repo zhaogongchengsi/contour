@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client'
 import { encrypt } from '../server/utils/hash'
-import { randomUUID } from 'uncrypto'
 
 const prisma = new PrismaClient()
 
@@ -9,7 +8,6 @@ async function main() {
 		data: {
 			account: 'abcdefg@qq.com',
 			password: encrypt('abcdefg123..'),
-			uid: randomUUID(),
 		}
 	})
 

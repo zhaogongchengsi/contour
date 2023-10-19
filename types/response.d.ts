@@ -17,7 +17,7 @@ declare interface Authorization {
 
 declare interface User {
 	createdAt: string;
-	email: string;
+	account: string;
 	id: number;
 	name: null;
 	avatar: string
