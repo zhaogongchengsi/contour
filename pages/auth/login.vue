@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { isClient, useInterval } from '@vueuse/core'
 import { NForm, NFormItem, NInput, useMessage } from 'naive-ui'
-import type { FormInst, FormRules, FormItemRule } from 'naive-ui'
+import type { FormInst, FormRules } from 'naive-ui'
 import { onMounted, reactive, ref, watch } from 'vue';
 import { account, password, code as codeRole } from '~/utils/rules';
-import { emailReg, phoneReg } from '~/utils/reg';
 
 import { debounce } from 'perfect-debounce'
+
+const config = useRuntimeConfig()
 
 
 const loading = ref(false)
@@ -16,8 +17,8 @@ const { success, error } = useMessage()
 const { counter, reset, pause, resume } = useInterval(1000, { controls: true, immediate: false })
 const formRef = ref<FormInst>()
 const fromValue = reactive({
-	account: 'zzh1586169624@163.com',
-	password: 'zhaozunhong..3132',
+	account: import.meta.dev ? config.public.init.user : '',
+	password: import.meta.dev ? config.public.init.pass : '',
 	code: '',
 	id: ''
 })
@@ -60,7 +61,7 @@ const submit = async () => {
 			}
 
 			const { authorization, user } = data!
-			userStore.logged(user, authorization)
+			userStore.logging(user, authorization)
 
 			success('登陆成功')
 		}).catch(err => {

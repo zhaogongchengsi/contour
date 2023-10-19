@@ -12,7 +12,11 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "dbpush": "prisma db push",
+    "dbseed": "prisma db seed",
     "studio": "prisma studio --port 7890"
+  },
+  "prisma": {
+    "seed": "esno ./prisma/seed.ts"
   },
   "dependencies": {
     "@iconify-json/emojione": "^1.1.7",
@@ -69,6 +73,7 @@
     "@vueuse/nuxt": "^10.4.1",
     "bun-types": "^1.0.3",
     "eslint": "^8.51.0",
+    "esno": "^0.17.0",
     "nuxt": "^3.7.3",
     "pinceau": "^0.20.1",
     "sass": "^1.69.3",

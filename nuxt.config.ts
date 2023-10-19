@@ -17,7 +17,11 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      base: process.env.APP_BASE || 'contour-app'
+      base: process.env.APP_BASE || 'contour-app',
+      init: {
+        user: 'abcdefg@qq.com',
+        pass: 'abcdefg123..'
+      }
     },
     captchaExpert: 3,
     email: {
