@@ -7,8 +7,10 @@ export default defineEventHandler(async (event) => {
 	const { sava } = useUpload()
 	const urls: UploadInfo[] = []
 
+
 	for (const { name, filename, data } of files) {
 		const info = await sava(filename!, name!, data)
+
 		urls.push(info)
 	}
 

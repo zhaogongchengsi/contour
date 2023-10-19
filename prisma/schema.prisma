@@ -12,17 +12,19 @@ datasource db {
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  uid        String    @unique
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @map("updated_at")
-  name       String?   @unique
-  // 0 封禁 1 未审核 2 通过
-  state      Int       @default(1)
-  account    String    @unique
-  password   String
+  id        Int       @id @default(autoincrement())
+  uid       String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  name      String?   @unique
+  avatar    String?   @default("/avatar.png")
 
-  profile    Profile?
+  // 0 封禁 1 未审核 2 通过
+  state    Int    @default(1)
+  account  String @unique
+  password String
+
+  profile Profile?
 }
 
 model File {
@@ -40,14 +42,13 @@ model Profile {
   updatedAt DateTime? @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  name        String   @unique
-  background  String   @default("transparent")
-  color       String   @default("#ffffff")
+  background  String  @default("transparent")
+  color       String  @default("#ffffff")
   description String?
-  avatar      String?
   styles      String?
 
-  contact     Json?
+  contact Json?
+  cards   Card[]
 
   user   User @relation(fields: [userId], references: [id])
   userId Int  @unique
@@ -58,15 +59,16 @@ model Card {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")
 
-	sort  Int
-	icon  Json
-	size  String
-	link  String
-	buttonStyle String
-	image String
+  profileId Int
+  profile   Profile @relation(fields: [profileId], references: [id])
 
- // 纯颜色 渐变色 背景图
-	background String
+  sort        Int
+  icon        Json
+  size        String
+  link        String
+  buttonStyle String @map("button_style")
+  image       String
+
+  // 纯颜色 渐变色 背景图
+  background String
 }
-
-
