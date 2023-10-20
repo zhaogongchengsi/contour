@@ -32,6 +32,7 @@ import { themeOverrides } from '../theme'
   background: linear-gradient(var(--direction), var(--color-a), var(--color-b));
 }
 
+
 .app-main {
   min-height: calc(100vh - $dt('page.header.height.default') - $dt('page.footer.height.default'));
 

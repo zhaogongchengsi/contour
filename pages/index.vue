@@ -25,7 +25,7 @@ const submit = async () => {
 <template>
 	<div class="flex flex-col items-center py-10 container mx-auto">
 		<h3 class="text-8 sm:text-12 md:text-15 lg:text-20 font-bold">开始吧！ 🤳</h3>
-		<div class="mt-20 h-15 sm:h-18 md:h-20 bg-purple-100 px-4 py-2 flex gap-3 rounded-md shadow-md">
+		<div class="mt-20 h-15 sm:h-18 md:h-20 bg-purple-100 px-4 py-2 flex gap-3 rounded-md shadow-lg">
 			<input v-model="name"
 				class="w-50 sm:w-70 md:w-90 h-full rounded-md bg-transparent outline-none text-4 md:text-6" type="text"
 				placeholder="输入你的名称或者昵称">
