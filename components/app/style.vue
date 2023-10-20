@@ -1,11 +1,34 @@
 <script setup lang="ts">
-import { NCheckbox, NCheckboxGroup, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTooltip, NColorPicker } from 'naive-ui'
+import { NCheckbox, NCheckboxGroup, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTooltip, NColorPicker, useDialog } from 'naive-ui'
 
 const store = useEditDataStore()
 const material = useMaterial()
+const useState = useUserInfo()
+const dialog = useDialog()
+const router = useRouter()
+const route = useRoute()
 
 const save = () => {
-  store.save()
+  if (!useState.logged()) {
+    dialog.warning({
+      title: '靓仔',
+      content: '未登录，是否登录？',
+      positiveText: '登录',
+      negativeText: '我就凑个热闹',
+      onPositiveClick: () => {
+        router.push({
+          path: `/auth/login?id=${route.params.name}`,
+        })
+      },
+      onNegativeClick: () => {
+        console.log('不确定');
+      }
+    })
+    return
+  }
+
+  console.log('登录');
+  // store.save()
 }
 
 </script>

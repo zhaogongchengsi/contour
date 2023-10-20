@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { isClient, useInterval } from '@vueuse/core'
-import { NForm, NFormItem, NInput, useMessage } from 'naive-ui'
+import { NForm, NFormItem, NInput, useMessage, NDivider } from 'naive-ui'
 import type { FormInst, FormRules } from 'naive-ui'
 import { onMounted, reactive, ref, watch } from 'vue';
 import { account, password, code as codeRole } from '~/utils/rules';
@@ -17,6 +17,7 @@ const { success, error } = useMessage()
 const { counter, reset, pause, resume } = useInterval(1000, { controls: true, immediate: false })
 const formRef = ref<FormInst>()
 const fromValue = reactive({
+	name: '',
 	account: import.meta.dev ? config.public.init.user : '',
 	password: import.meta.dev ? config.public.init.pass : '',
 	code: '',
@@ -91,6 +92,9 @@ const resetCode = async () => {
 	<div class="container mx-auto my-10 px-5 flex justify-center">
 		<div class="w-full max-w-200">
 			<n-form ref="formRef" :label-width="80" :model="fromValue" :rules="rules">
+				<n-form-item label="名称" path="name">
+					<n-input v-model:value="fromValue.name" placeholder="请输入名称" />
+				</n-form-item>
 				<n-form-item label="邮箱" path="account">
 					<n-input v-model:value="fromValue.account" placeholder="请输入邮箱" />
 				</n-form-item>
@@ -110,6 +114,10 @@ const resetCode = async () => {
 						</div>
 					</div>
 				</n-form-item>
+				<div class="flex items-center mb-5 justify-between">
+					<span class=" hover:text-purple-500" >密码忘了!</span>
+					<router-link class=" hover:text-purple-500" to="/auth/register">没账号，去注册！</router-link>
+				</div>
 				<div class="flex gap-6">
 					<button class="button-primary" attr-type="button" @click="submit">登录</button>
 					<button class="button-primary" @click="resetForm">重置</button>
