@@ -26,7 +26,7 @@ const options = computed(() => {
     {
       icon: createIcon('i-carbon:user-admin'),
       key: 'user-name',
-      label: browser ? (user && user.value?.account)  : '',
+      label: browser ? (user && user.value?.account) : '',
       disabled: true
     },
     {
@@ -53,8 +53,8 @@ const options = computed(() => {
 
 const select = (key: string) => {
   if (key === 'logout') {
-     userStore.logout()
-     user.value = null     
+    userStore.logout()
+    user.value = null
   }
 
 }
@@ -62,8 +62,8 @@ const select = (key: string) => {
 </script>
 
 <template>
-  <header class="bg-white/08 backdrop-blur-md">
-    <div class="mx-auto flex items-center justify-between px-3 py-3 container md:py-5">
+  <header class="bg-white/08 backdrop-blur-md app-default-header">
+    <div class="mx-auto h-full flex items-center justify-between px-3 py-3 container md:py-5">
       <div class="flex items-center gap-3">
         <AppLogo />
         <h1 class="title text-4 font-bold md:text-8 sm:text-6">
@@ -84,3 +84,17 @@ const select = (key: string) => {
     </div>
   </header>
 </template>
+
+<style lang="scss">
+.app-default-header {
+  height: $dt('page.header.height.default');
+
+  @md {
+    height: $dt('page.header.height.md');
+  }
+
+  @lg {
+    height: $dt('page.header.height.lg');
+  }
+}
+</style>

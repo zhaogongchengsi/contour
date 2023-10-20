@@ -1,19 +1,28 @@
 import { defineTheme } from 'pinceau'
 
 export default defineTheme({
+  media: {
+    // @sm
+    sm: '(min-width: 640px)',
+    // @md
+    md: '(min-width: 768px)',
+    lg: '(min-width: 1024px)',
+    xl: '(min-width: 1280px)',
+    '2xl': '(min-width: 1536px)',
+  },
   page: {
     header: {
       height: {
-        default: 40,
-        md: 60,
-        lg: 80
+        default: '45px',
+        md: '60px',
+        lg: '80px'
       }
     },
     footer: {
        height: {
-        default: 40,
-        md: 60,
-        lg: 80
+        default: '40px',
+        md: '60px',
+        lg: '80px'
       }
     }
   },
@@ -30,7 +39,7 @@ export default defineTheme({
       600: '#9333ea',
       700: '#7e22ce',
       800: '#6b21a8',
-      900: '#581c87'
+      900: '#581c87',
       950: '#3b0764'
     },
     gray: {

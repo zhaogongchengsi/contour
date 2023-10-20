@@ -17,7 +17,7 @@ import { themeOverrides } from '../theme'
   </NConfigProvider>
 </template>
 
-<style>
+<style lang="scss">
 .app-container {
   --direction: 110deg;
 
@@ -33,6 +33,14 @@ import { themeOverrides } from '../theme'
 }
 
 .app-main {
-  height: calc(100vh - 50px);
+  min-height: calc(100vh - $dt('page.header.height.default') - $dt('page.footer.height.default'));
+
+  @md {
+    min-height: calc(100vh - $dt('page.header.height.md') - $dt('page.footer.height.md'));
+  }
+
+  @lg {
+    min-height: calc(100vh - $dt('page.header.height.lg') - $dt('page.footer.height.lg'));
+  }
 }
 </style>
