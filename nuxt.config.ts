@@ -44,11 +44,15 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'pinceau/nuxt',
     '@pinia/nuxt',
+    'nuxt-lodash'
   ],
   css: [
     '@unocss/reset/tailwind.css',
     'assets/main.css'
   ],
+  lodash: {
+    prefix: "_",
+  },
   pinia: {
     autoImports: [
       'defineStore',

@@ -5,6 +5,7 @@ import { message } from '~/composables/discrete'
 
 const router = useRouter()
 const name = ref<string>('')
+const userStore = useUserInfo()
 
 const submit = async () => {
 	const url = unref(name)

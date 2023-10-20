@@ -8,7 +8,7 @@ const EXPIRED_KEY = defineKey('expired')
 
 export const useUserInfo = createGlobalState(() => {
 
-	const user = useStorage<User | Record<string, string>>(INFO_KEY, {})
+	const user = useStorage<User | any>(INFO_KEY, {})
 	const token = useStorage(TOKEN_KEY, '')
 	const expired = useStorage(EXPIRED_KEY, 0)
 
@@ -18,18 +18,22 @@ export const useUserInfo = createGlobalState(() => {
 		expired.value = auth.exp
 	}
 
-	const logged = () :boolean => {		
+	const logged = () :boolean => {
 		if (!token.value) {
 			return false
 		}
 		if (timeExpired(expired.value)) {
 			return false
-		}
-
-		console.log(user);
-		
+		}		
 
 		return true
+	}
+
+
+	const logout = () => {
+		user.value = {}
+		token.value = ''
+		expired.value = 0
 	}
 
 	return {
@@ -37,6 +41,7 @@ export const useUserInfo = createGlobalState(() => {
 		token,
 		expired,
 		logging,
-		logged
+		logged,
+		logout
 	}
 })

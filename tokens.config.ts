@@ -1,20 +1,37 @@
 import { defineTheme } from 'pinceau'
 
 export default defineTheme({
+  page: {
+    header: {
+      height: {
+        default: 40,
+        md: 60,
+        lg: 80
+      }
+    },
+    footer: {
+       height: {
+        default: 40,
+        md: 60,
+        lg: 80
+      }
+    }
+  },
   color: {
     black: '#0B0A0A',
     white: '#ffffff',
     primary: {
-      50: '#F1FCFF',
-      100: '#DCF7FF',
-      200: '#C5F2FF',
-      300: '#82E3FF',
-      400: '#55E1FF',
-      500: '#1AD6FF',
-      600: '#09A0C1',
-      700: '#024757',
-      800: '#00232B',
-      900: '#001A1F'
+      50: '#faf5ff',
+      100: '#f3e8ff',
+      200: '#e9d5ff',
+      300: '#d8b4fe',
+      400: '#c084fc',
+      500: '#a855f7',
+      600: '#9333ea',
+      700: '#7e22ce',
+      800: '#6b21a8',
+      900: '#581c87'
+      950: '#3b0764'
     },
     gray: {
       50: '#FBFBFB',
@@ -27,54 +44,6 @@ export default defineTheme({
       700: '#36332E',
       800: '#201E1B',
       900: '#121110'
-    },
-    red: {
-      50: '#FFF9F8',
-      100: '#FFF3F0',
-      200: '#FFDED7',
-      300: '#FFA692',
-      400: '#FF7353',
-      500: '#FF3B10',
-      600: '#BB2402',
-      700: '#701704',
-      800: '#340A01',
-      900: '#1C0301'
-    },
-    blue: {
-      50: '#F2FAFF',
-      100: '#DFF3FF',
-      200: '#C6EAFF',
-      300: '#A1DDFF',
-      400: '#64C7FF',
-      500: '#1AADFF',
-      600: '#0069A6',
-      700: '#014267',
-      800: '#002235',
-      900: '#00131D'
-    },
-    green: {
-      50: '#ECFFF7',
-      100: '#DEFFF1',
-      200: '#C3FFE6',
-      300: '#86FBCB',
-      400: '#3CEEA5',
-      500: '#0DD885',
-      600: '#00B467',
-      700: '#006037',
-      800: '#002817',
-      900: '#00190F'
-    },
-    yellow: {
-      50: '#FFFCEE',
-      100: '#FFF6D3',
-      200: '#FFF0B1',
-      300: '#FFE372',
-      400: '#FFDC4E',
-      500: '#FBCA05',
-      600: '#CBA408',
-      700: '#614E02',
-      800: '#292100',
-      900: '#1B1500'
     },
     shadow: {
       initial: '{color.gray.400}',
@@ -90,32 +59,4 @@ export default defineTheme({
     '2xl': '0px 25px 50px -12px {color.shadow}',
     none: '0px 0px 0px 0px transparent'
   },
-  typography: {
-    color: {
-      primary: {
-        50: '{color.primary.50}',
-        100: '{color.primary.100}',
-        200: '{color.primary.200}',
-        300: '{color.primary.300}',
-        400: '{color.primary.400}',
-        500: '{color.primary.500}',
-        600: '{color.primary.600}',
-        700: '{color.primary.700}',
-        800: '{color.primary.800}',
-        900: '{color.primary.900}'
-      },
-      secondary: {
-        50: '{color.gray.50}',
-        100: '{color.gray.100}',
-        200: '{color.gray.200}',
-        300: '{color.gray.300}',
-        400: '{color.gray.400}',
-        500: '{color.gray.500}',
-        600: '{color.gray.600}',
-        700: '{color.gray.700}',
-        800: '{color.gray.800}',
-        900: '{color.gray.900}'
-      }
-    }
-  }
 })

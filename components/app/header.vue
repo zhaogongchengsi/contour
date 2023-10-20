@@ -4,49 +4,59 @@ import { NDropdown, NAvatar } from 'naive-ui'
 const app = useAppConfig()
 
 const user = ref<User | null>(null)
-const useUserStore = useUserInfo()
+const userStore = useUserInfo()
+
+const browser = import.meta.browser
 
 onMounted(() => {
-  if (import.meta.browser && useUserStore.logged()) {
-    user.value = useUserStore.user.value as User
+  if (browser && userStore.logged()) {
+    user.value = userStore.user.value as User
   }
+})
+
+watch(userStore.user, (u) => {
+  user.value = isEmpty(u) ? null : u as User
 })
 
 const createIcon = (name: string) => () => h('div', { class: ['md-icon', name] })
 
 
-const options = [
-  // {
-  //   icon: createIcon('i-carbon:user-admin'),
-  //   key: 'user-name',
-  //   label: useUserStore.user.value.account,
-  //   disabled: true
-  // },
-  // {
-  //   key: 'divider-user',
-  //   type: 'divider'
-  // },
-  {
-    icon: createIcon('i-carbon:logout'),
-    label: '注销登陆',
-    key: 'logout'
-  },
-  {
-    icon: createIcon('i-carbon:magic-wand-filled'),
-    label: '创建主页',
-    key: 'create',
-    // show: !!user.value?.name
-  },
-  {
-    icon: createIcon('i-carbon:settings'),
-    label: '设置主页',
-    key: 'setting',
-    // show: user.value?.name
-  },
-]
+const options = computed(() => {
+  return [
+    {
+      icon: createIcon('i-carbon:user-admin'),
+      key: 'user-name',
+      label: browser ? (user && user.value?.account)  : '',
+      disabled: true
+    },
+    {
+      key: 'divider-user',
+      type: 'divider'
+    },
+    {
+      icon: createIcon('i-carbon:magic-wand-filled'),
+      label: '配置主页',
+      key: 'page',
+    },
+    {
+      key: 'divider-setting',
+      type: 'divider'
+    },
+    {
+      icon: createIcon('i-carbon:logout'),
+      label: '注销登陆',
+      key: 'logout'
+    },
+  ]
+})
+
 
 const select = (key: string) => {
-  console.log(key);
+  if (key === 'logout') {
+     userStore.logout()
+     user.value = null     
+  }
+
 }
 
 </script>
@@ -60,10 +70,10 @@ const select = (key: string) => {
           {{ app.title }}
         </h1>
       </div>
-      <n-dropdown v-if="user" :options="options" trigger="hover" @select="select">
+      <n-dropdown v-if="user != null" :options="options" trigger="hover" @select="select">
         <n-avatar round size="medium" :src="user.avatar" />
       </n-dropdown>
-      <div v-else class="flex items-center gap-5">
+      <div v-if="user === null" class="flex items-center gap-5">
         <RouterLink class="link" to="/auth/register">
           注册
         </RouterLink>
