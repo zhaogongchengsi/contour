@@ -2,9 +2,9 @@ import { useStorage, createGlobalState } from '@vueuse/core'
 
 const defineKey = (value: string) => `contour-user-${value}`
 
-const INFO_KEY = defineKey('info')
-const TOKEN_KEY = defineKey('token')
-const EXPIRED_KEY = defineKey('expired')
+export const INFO_KEY = defineKey('info')
+export const TOKEN_KEY = defineKey('token')
+export const EXPIRED_KEY = defineKey('expired')
 
 export const useUserInfo = createGlobalState(() => {
 

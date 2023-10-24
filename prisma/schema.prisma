@@ -16,15 +16,21 @@ model User {
   uid       String?   @unique @default(uuid())
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")
-  name      String?   @unique
-  avatar    String?   @default("/avatar.png")
 
   // 0 封禁 1 未审核 2 通过
   state    Int    @default(1)
   account  String @unique
   password String
 
-  profile Profile?
+  name      String?   @unique
+  avatar    String?   @default("/avatar.png")
+  background  String  @default("transparent")
+  color       String  @default("#ffffff")
+  description String?
+  styles      String?
+
+  contact Json?
+  cards   Card[]
 }
 
 model File {
@@ -36,31 +42,10 @@ model File {
   type String
 }
 
-model Profile {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
-
-  background  String  @default("transparent")
-  color       String  @default("#ffffff")
-  description String?
-  styles      String?
-
-  contact Json?
-  cards   Card[]
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int  @unique
-}
-
 model Card {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")
-
-  profileId Int
-  profile   Profile @relation(fields: [profileId], references: [id])
 
   sort        Int
   icon        Json
@@ -71,4 +56,6 @@ model Card {
 
   // 纯颜色 渐变色 背景图
   background String
+  User       User?  @relation(fields: [userId], references: [uid])
+  userId     String?
 }

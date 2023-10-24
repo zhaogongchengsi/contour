@@ -1,4 +1,4 @@
-
+import { User, Card } from '@prisma/client'
 
 declare module "Nodejs" {
 	interface Env {
@@ -79,3 +79,6 @@ export declare interface CardConfig {
 }
 
 export declare type CardFormValue = Omit<CardConfig, "icon" | "id">
+
+
+export declare type NoteData = Omit<Profile, 'createdAt' | 'updatedAt' | 'deletedAt'> & { cards: CardConfig[] }

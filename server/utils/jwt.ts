@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import ms from 'ms'
 
-export function issueToken(payload: string) {
+export function issueToken(payload: any) {
 
 	const config = useRuntimeConfig()
 	const iss = Date.now()
@@ -21,4 +21,19 @@ export function issueToken(payload: string) {
 	}
 }
 
+export function verifyToken (token: string) {
+	return new Promise((resolve, reject) => {
+		const config = useRuntimeConfig()
+		jwt.verify(token, config.jwt.key, (err: any, decoded: any) => {
+			if (err) {
+				reject(err)
+			}
+			resolve(decoded)
+		});
+	})
+}
+
+export function readAuthInfo(e: any) {
+	return e.context.auth as { uuid: string, id: string }
+}
 

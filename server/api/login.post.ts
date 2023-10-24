@@ -27,7 +27,10 @@ export default defineEventHandler(async (event) => {
 		return sendFail('密码错误')
 	}
 
-	const { token, exp } = issueToken(user.uid!)
+	const { token, exp } = issueToken({
+		uuid: user.uid!,
+		id: user.id,
+	})
 
 	// @ts-ignore
 	delete user.password
