@@ -7,6 +7,8 @@ const router = useRouter()
 const name = ref<string>('')
 const edit = useEditDataStore()
 
+name.value = edit.name
+
 const submit = async () => {
 	const url = unref(name)
 	const { success, message: msg } = await isName(url)
@@ -27,7 +29,7 @@ const submit = async () => {
 	<div class="flex flex-col items-center py-10 container mx-auto">
 		<h3 class="text-8 sm:text-12 md:text-15 lg:text-20 font-bold">开始吧！ 🤳</h3>
 		<div class="mt-20 h-15 sm:h-18 md:h-20 bg-purple-100 px-4 py-2 flex gap-3 rounded-md shadow-lg">
-			<input v-model="name"
+			<input v-model="name" :disabled="edit.name != ''"
 				class="w-50 sm:w-70 md:w-90 h-full rounded-md bg-transparent outline-none text-4 md:text-6" type="text"
 				placeholder="输入你的名称或者昵称">
 			<button @click="submit"

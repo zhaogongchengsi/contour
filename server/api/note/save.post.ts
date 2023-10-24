@@ -3,14 +3,13 @@ import { NoteData } from '~/types'
 
 export default defineEventHandler(async (e) => {
 
-	const body = await readBody(e) as NoteData
+	const { name, avatar, cards, color, background, styles, contact } = await readBody<NoteData>(e)
 
-	if (!body.name) {
+	if (!name) {
 		return sendFail('缺少名称')
 	}
 
 	const { uuid, id } = readAuthInfo(e)
-
 
 	await prisma.user.update({
 		where: {
@@ -18,13 +17,43 @@ export default defineEventHandler(async (e) => {
 			uid: uuid
 		},
 		data: {
-			name: body.name,
-			avatar: body.avatar,
+			name,
+			avatar,
+			color,
+			background,
+			styles: styles.join('-'),
+			contact
 		}
 	})
 
-	console.log(uuid, id);
+	await prisma.card.deleteMany({
+		where: {
+			userId: uuid
+		}
+	})
 
+	if (cards.length > 0) {
+		
+		await prisma.card.createMany({
+			data: cards.map((card) => {
+				const { row, col } = card.size
 
-	return 'note'
+				const background = typeof card.background === 'string' ? card.background : `linear-gradient(${card.background?.direction}, ${card.background?.colors.join(', ')})`
+
+				return {
+					link: card.link,
+					buttonStyle: card.buttonStyle,
+					image: card.image,
+					background: background as string,
+					icon: JSON.stringify(card.icon),
+					size: `${row}-${col}`,
+					sort: card.id,
+					userId: uuid
+				}
+			})
+		})
+
+	}
+
+	return sendSuccess(null, '操作成功')
 })

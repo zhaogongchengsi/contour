@@ -23,9 +23,9 @@ model User {
   password String
 
   name      String?   @unique
-  avatar    String?   @default("/avatar.png")
+  avatar    String?   @default("url:/avatar.png")
   background  String  @default("transparent")
-  color       String  @default("#ffffff")
+  color       String  @default("#333333")
   description String?
   styles      String?
 

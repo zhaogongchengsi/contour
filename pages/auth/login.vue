@@ -5,13 +5,11 @@ import type { FormInst, FormRules } from 'naive-ui'
 import { onMounted, reactive, ref, watch } from 'vue';
 import { account, password, code as codeRole } from '~/utils/rules';
 
-import { debounce } from 'perfect-debounce'
+// import { debounce } from 'perfect-debounce'
 
 const config = useRuntimeConfig()
 
 const store = useEditDataStore()
-
-console.log(store.name)
 
 const loading = ref(false)
 const code = ref('')
@@ -58,6 +56,9 @@ const submit = async () => {
 
 	formRef.value?.validate((errors) => {
 		if (errors) return
+
+		store.setName(fromValue.name)
+		
 		loginApi(fromValue).then(({ code, data, message }) => {
 			if (!code) {
 				error(message)

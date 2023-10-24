@@ -6,12 +6,13 @@ const prisma = new PrismaClient()
 async function main() {
 	const user = await prisma.user.create({
 		data: {
+			name: 'zhaozunhong',
 			account: 'abcdefg@qq.com',
 			password: encrypt('abcdefg123..'),
 		}
 	})
 
-	console.log(`初始化 用户 id:${user.id} 账号:${user.account}`)
+	console.log(`初始化 name: ${user.name} id:${user.id} account:${user.account}`)
 }
 
 main()

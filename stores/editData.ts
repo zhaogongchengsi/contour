@@ -34,7 +34,9 @@ export const useEditDataStore = defineStore('editData', () => {
 	}
 
 	const cardCurredId = useStorage<number>(defineStorageKey('id'), 0)
-	const getId = () => (cardCurredId.value + 1)
+	const getId = () => {
+		return cardCurredId.value = cardCurredId.value + 1
+	}
 
 	const cards = useStorage<CardConfig[]>(defineStorageKey('cards'), [])
 
@@ -45,7 +47,7 @@ export const useEditDataStore = defineStore('editData', () => {
 
 	const save = async () => {
 
-		console.log('保存');
+		console.log('123', cards.value);
 
 		const res = await noteSave({
 			name: name.value,
@@ -55,7 +57,12 @@ export const useEditDataStore = defineStore('editData', () => {
 			styles: styles.value,
 			description: description.value,
 			contacts: contacts.value,
-			cards: cards.value
+			cards: cards.value.map((card, index) => {
+				return {
+					..._CloneDeep(card),
+					id: index
+				}
+			})
 		})
 
 		console.log(res);

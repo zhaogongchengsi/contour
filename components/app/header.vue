@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { NDropdown, NAvatar } from 'naive-ui'
+import { AvatarUri } from '~/types';
 
 const app = useAppConfig()
 
@@ -71,7 +72,9 @@ const select = (key: string) => {
         </h1>
       </div>
       <n-dropdown v-if="user != null" :options="options" trigger="hover" @select="select">
-        <n-avatar round size="medium" :src="user.avatar" />
+        <div class="w-15 h-15 p-2 bg-white rounded-full">
+          <ui-avatar :src="(user.avatar as AvatarUri)" class="text-8" :alt="`${user.name} avatar`" />
+        </div>
       </n-dropdown>
       <div v-if="user === null" class="flex items-center gap-5">
         <RouterLink class="link" to="/auth/register">

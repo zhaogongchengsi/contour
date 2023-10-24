@@ -3,6 +3,7 @@ import { NModal } from 'naive-ui'
 import { useCardFormModal } from '~/stores/cardForm';
 import card from '~/components/card/card.vue'
 import draggable from "vuedraggable";
+import { clone, cloneDeep } from 'lodash';
 
 definePageMeta({
   layout: 'edit',
@@ -18,10 +19,12 @@ if (import.meta.browser) {
 
 const createCard = () => {
 
+  const id =  store.getId()
+
   store.createCard({
-    id: store.getId(),
+    id: id,
     icon: toValue(modalStore.icon!),
-    ...modalStore.formValue
+    ...cloneDeep(modalStore.formValue)
   })
 
   modalStore.close()
@@ -37,7 +40,7 @@ const createCard = () => {
     :ltalic="store.styles.includes('ltalic')" :color="store.color">
     <template #avatar>
       <ui-picture-selector v-model:value="store.avatar" :name="($route.params.name as string)">
-        <ui-avatar :src="store.avatar"></ui-avatar>
+        <ui-avatar :src="store.avatar" class="text-5 sm:text-8 md:text-12 lg:text-16" />
       </ui-picture-selector>
     </template>
     <template #name>
