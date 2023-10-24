@@ -10,6 +10,11 @@ definePageMeta({
 
 const store = useEditDataStore()
 const modalStore = useCardFormModal()
+const route = useRoute()
+
+if (import.meta.browser) {
+  store.setName(route.params.name as string)  
+}
 
 const createCard = () => {
 

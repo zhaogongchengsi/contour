@@ -5,7 +5,7 @@ import { message } from '~/composables/discrete'
 
 const router = useRouter()
 const name = ref<string>('')
-const userStore = useUserInfo()
+const edit = useEditDataStore()
 
 const submit = async () => {
 	const url = unref(name)
@@ -16,6 +16,7 @@ const submit = async () => {
 		return
 	}
 
+	edit.setName(url)
 	router.push(`/edit/${url}`)
 }
 

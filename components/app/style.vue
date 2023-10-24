@@ -1,34 +1,29 @@
 <script setup lang="ts">
-import { NCheckbox, NCheckboxGroup, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTooltip, NColorPicker, useDialog } from 'naive-ui'
+import { NCheckbox, NCheckboxGroup, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTooltip, NColorPicker, useMessage } from 'naive-ui'
 
+const { warning } = useMessage()
 const store = useEditDataStore()
 const material = useMaterial()
 const useState = useUserInfo()
-const dialog = useDialog()
 const router = useRouter()
-const route = useRoute()
+
+onMounted(() => {
+  if (import.meta.browser && !useState.logged()) {
+    warning('未登录，建议登录后在编辑', {
+      closable: true,
+      duration: 5000
+    })
+  }
+})
 
 const save = () => {
   if (!useState.logged()) {
-    dialog.warning({
-      title: '靓仔',
-      content: '未登录，是否登录？',
-      positiveText: '登录',
-      negativeText: '我就凑个热闹',
-      onPositiveClick: () => {
-        router.push({
-          path: `/auth/login?id=${route.params.name}`,
-        })
-      },
-      onNegativeClick: () => {
-        console.log('不确定');
-      }
-    })
+    warning('未登录，请先登录')
+    router.push('/auth/login')
     return
   }
 
-  console.log('登录');
-  // store.save()
+  store.save()
 }
 
 </script>
@@ -41,20 +36,26 @@ const save = () => {
           样式
         </h3>
         <div class="flex gap-5 items-center">
+          <NTooltip v-if="!useState.logged()">
+            <template #trigger>
+              <router-link to="/auth/login"> <i class="block w-5 h-5 i-carbon:login hover:text-purple-500" /> </router-link>
+            </template>
+            登录
+          </NTooltip>
           <NTooltip trigger="hover">
             <template #trigger>
               <button class="w-5 h-5 i-carbon:export hover:text-purple-500" @click="save" />
             </template>
             保存并发布
           </NTooltip>
-          <RouterLink :to="`/preview/${store.name}`" class="flex items-center">
-            <NTooltip trigger="hover">
-              <template #trigger>
-                <button class="w-5 h-5 i-carbon:view hover:text-purple-500" />
-              </template>
-              预览
-            </NTooltip>
-          </RouterLink>
+          <NTooltip trigger="hover">
+            <template #trigger>
+              <router-link :to="`/preview/${store.name}`" class="flex items-center">
+                <i class="block w-5 h-5 i-carbon:view hover:text-purple-500" />
+              </router-link>
+            </template>
+            预览
+          </NTooltip>
         </div>
       </div>
     </template>

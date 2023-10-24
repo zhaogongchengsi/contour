@@ -7,10 +7,8 @@ const defineStorageKey = (key: string) => `contour-edit-${key}`
 
 export const useEditDataStore = defineStore('editData', () => {
 
-	const route = useRoute()
-	const name = useStorage<string>(defineStorageKey('name'), route.params.name as string)
+	const name = useStorage<string>(defineStorageKey('name'), '')
 	const setName = (n: string) => (name.value = n)
-	setName(route.params.name as string)
 
 	const background = useStorage(defineStorageKey('background'), '#18A058')
 	const setBackground = (b: string) => (background.value = b)
@@ -45,17 +43,22 @@ export const useEditDataStore = defineStore('editData', () => {
 	}
 
 
-	const save = () => {
+	const save = async () => {
 
 		console.log('保存');
-		
-		console.log(name);
-		console.log(cards.value);
-		console.log(background);
-		console.log(color);
-		console.log(styles);
-		console.log(description);
-		console.log(contacts);
+
+		const res = await noteSave({
+			name: name.value,
+			color: color.value,
+			background: background.value,
+			avatar: avatar.value,
+			styles: styles.value,
+			description: description.value,
+			contacts: contacts.value,
+			cards: cards.value
+		})
+
+		console.log(res);
 
 	}
 

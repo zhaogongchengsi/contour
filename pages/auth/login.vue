@@ -9,6 +9,9 @@ import { debounce } from 'perfect-debounce'
 
 const config = useRuntimeConfig()
 
+const store = useEditDataStore()
+
+console.log(store.name)
 
 const loading = ref(false)
 const code = ref('')
@@ -17,7 +20,7 @@ const { success, error } = useMessage()
 const { counter, reset, pause, resume } = useInterval(1000, { controls: true, immediate: false })
 const formRef = ref<FormInst>()
 const fromValue = reactive({
-	name: '',
+	name: store.name || '',
 	account: import.meta.dev ? config.public.init.user : '',
 	password: import.meta.dev ? config.public.init.pass : '',
 	code: '',
