@@ -3,7 +3,7 @@ import { NModal } from 'naive-ui'
 import { useCardFormModal } from '~/stores/cardForm';
 import card from '~/components/card/card.vue'
 import draggable from "vuedraggable";
-import { clone, cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 definePageMeta({
   layout: 'edit',

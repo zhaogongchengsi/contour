@@ -30,7 +30,7 @@ provide(editDataProviderKey, props)
 	<main class="w-full min-h-screen relative flex px-3 sm:px-10 md:px-30 lg:px-50 xl:px-100 2xl:px-150"
 		:style="{ background: props.background }">
 		<div class="w-full py-15 z-20 flex flex-col gap-5" :style="{color: color}">
-			<render-header>
+			<render-header :center="$props.center" :ltalic="$props.ltalic" :color="props.color">
 				<template #avatar>
 					<slot name="avatar" />
 				</template>
