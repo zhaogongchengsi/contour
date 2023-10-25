@@ -19,15 +19,23 @@ export default defineTheme({
       }
     },
     footer: {
-       height: {
+      height: {
         default: '40px',
         md: '60px',
         lg: '80px'
       }
+    },
+    common: {
+      defaultMinHeight: {
+        // calc(100vh - $dt('page.header.height.lg') - $dt('page.footer.height.lg'))
+        initial: 'calc(100vh - {page.header.height.default} - {page.footer.height.default})',
+        md: 'calc(100vh - {page.header.height.md} - {page.footer.height.md})',
+        lg: 'calc(100vh - {page.header.height.lg} - {page.footer.height.lg})'
+      }
     }
   },
   color: {
-    black: '#0B0A0A',
+    black: 'rgba(18, 18, 18, 1)',
     white: '#ffffff',
     primary: {
       50: '#faf5ff',

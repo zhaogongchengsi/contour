@@ -42,22 +42,37 @@ const submit = async () => {
 	router.push(`/edit/${url}`)
 }
 
-
 </script>
 
 <template>
-	<div class="flex flex-col items-center py-10 container mx-auto">
-		<h3 class="text-8 sm:text-12 md:text-15 lg:text-20 font-bold">开始吧！ 🤳</h3>
-		<div class="mt-20 h-15 sm:h-18 md:h-20 bg-purple-100 px-4 py-2 flex gap-3 rounded-md shadow-lg">
-			<input v-model="name" :disabled="edit.name != ''"
-				class="w-50 sm:w-70 md:w-90 h-full rounded-md bg-transparent outline-none text-4 md:text-6" type="text"
-				placeholder="输入你的名称或者昵称">
+	<div
+		class="flex flex-col items-center pt-30 container mx-auto overflow-hidden min-h-100 sm:min-h-125  md:min-h-150 relative">
+		<h3 class="text-8 sm:text-12 md:text-15 lg:text-20 font-bold z-10">定制个人专属页面</h3>
+		<div
+			class="w-full px-5 sm:px-0 max-w-100  md:max-w-150 mx-auto mt-20 h-12 sm:h-15 md:h-18 flex gap-3 rounded-md shadow-lg z-10">
+			<div
+				class="bg-white/10 rounded-lg focus-within:bg-white/20 text-4 md:text-6 backdrop-blur focus-within:backdrop-blur-sm flex-1 h-full flex items-center px-4 gap-2">
+				<span class="block shrink-0">Talent :</span>
+				<input v-model="name" :disabled="edit.name != ''"
+					class="flex-1 h-full rounded-lg px-2 outline-none bg-transparent" type="text" placeholder="输入你的名称或者昵称">
+			</div>
 			<button @click="submit"
-				class="rounded-md h-full bg-purple-400 w-20 md:w-30 text-white text-4 md:text-6 shadow-lg flex items-center gap-2 justify-center">
-				<div class="md-icon i-carbon-edit" />
-				<span>提交</span>
+				class="rounded-lg h-full bg-white/80 hover:bg-white w-25 md:w-40 text-black text-4 md:text-6 flex items-center gap-4 justify-center">
+				<div class="w-5 h-5 md:w-7 md:h-7 i-carbon-edit" />
+				<span class="font-bold">提交</span>
 			</button>
+		</div>
+	</div>
+	<div class="container mx-auto px-3 my-5 sm:my-10 md:my-20 flex flex-col md:flex-row justify-between">
+		<h4>马上行动</h4>
+		<div class="w-1/2">
+			<span>现在就开始使用我的APP吧！</span>
+			<div>
+				<router-link to="/auth/register">立即注册</router-link>
+				<router-link to="/auth/login">立即登录</router-link>
+			</div>
 		</div>
 	</div>
 </template>
 
+<style></style>

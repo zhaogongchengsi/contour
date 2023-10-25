@@ -63,7 +63,7 @@ const select = (key: string) => {
 </script>
 
 <template>
-  <header class="bg-white/08 backdrop-blur-md app-default-header">
+  <header class="app-default-header">
     <div class="mx-auto h-full flex items-center justify-between px-3 py-3 container md:py-5">
       <div class="flex items-center gap-3">
         <AppLogo />

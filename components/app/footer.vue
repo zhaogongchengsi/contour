@@ -4,7 +4,7 @@ const app = useAppConfig()
 
 <template>
   <footer
-    class="app-default-footer border-t border-color-gray-200 dark:border-color-gray-800 w-full">
+    class="app-default-footer w-full">
     <div class="mx-auto h-full flex items-center justify-between px-3 py-3 container">
       <h3>{{ app.title }}</h3>
     </div>

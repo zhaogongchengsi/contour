@@ -1,10 +1,6 @@
-#__nuxt {
-	min-height: 100vh;
-}
-
 body {
-	background-color: #f5f5f5;
-	color: rgb(14, 14, 14);
+	background-color: $dt('color.black');
+	color: $dt('color.white') !important;
 	min-height: 100vh;
 }
 
