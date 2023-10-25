@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { isClient, useInterval } from '@vueuse/core'
-import { NForm, NFormItem, NInput, useMessage, NDivider } from 'naive-ui'
+import { NForm, NFormItem, NInput, useMessage } from 'naive-ui'
 import type { FormInst, FormRules } from 'naive-ui'
 import { onMounted, reactive, ref, watch } from 'vue';
 import { account, password, code as codeRole } from '~/utils/rules';
@@ -10,6 +10,8 @@ import { account, password, code as codeRole } from '~/utils/rules';
 const config = useRuntimeConfig()
 
 const store = useEditDataStore()
+
+const router = useRouter()
 
 const loading = ref(false)
 const code = ref('')
@@ -47,6 +49,12 @@ const resetForm = () => {
 }
 
 const rules: FormRules = {
+	name: [
+		{
+			required: true,
+			message: '请输入名称'
+		}
+	],
 	account,
 	password,
 	code: codeRole,
@@ -58,7 +66,7 @@ const submit = async () => {
 		if (errors) return
 
 		store.setName(fromValue.name)
-		
+
 		loginApi(fromValue).then(({ code, data, message }) => {
 			if (!code) {
 				error(message)
@@ -69,6 +77,9 @@ const submit = async () => {
 			userStore.logging(user, authorization)
 
 			success('登陆成功')
+
+			router.push(`/edit/${fromValue.name}`)
+
 		}).catch(err => {
 			console.log(err);
 		})
@@ -119,20 +130,13 @@ const resetCode = async () => {
 					</div>
 				</n-form-item>
 				<div class="flex items-center mb-5 justify-between">
-					<span class=" hover:text-purple-500" >密码忘了!</span>
+					<span class=" hover:text-purple-500">密码忘了!</span>
 					<router-link class=" hover:text-purple-500" to="/auth/register">没账号，去注册！</router-link>
 				</div>
-				<div class="flex gap-6">
-					<button class="button-primary" attr-type="button" @click="submit">登录</button>
-					<button class="button-primary" @click="resetForm">重置</button>
-				</div>
+				<button class="w-full block px-3 py-2 ring-1 rounded ring-purple-300 hover:ring-purple-500" attr-type="button"
+					@click="submit">登录</button>
 			</n-form>
 		</div>
 	</div>
 </template>
 
-<style>
-.button-primary {
-	@apply px-3 py-2 ring-1 rounded ring-purple-300 hover:ring-purple-500
-}
-</style>

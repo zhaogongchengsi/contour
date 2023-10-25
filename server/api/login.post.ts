@@ -12,10 +12,12 @@ export default defineEventHandler(async (event) => {
 	if (isPro() && !await verifyCaptcha(body.id, body.code)) {
 		return sendFail('验证码错误或过期')
 	}
+	
 
 	const user = await prisma.user.findFirst({
 		where: {
-			account: body.account
+			account: body.account,
+			name: body.name
 		}
 	})
 

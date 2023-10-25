@@ -31,7 +31,7 @@ const renderLabel = (option: SelectOption): VNodeChild => {
 const addCard = (icon: IconInfo) => {
 	modalStore.icon = icon
 	modalStore.title = icon.label
-	
+
 	modalStore.show()
 }
 
@@ -41,7 +41,11 @@ const addCard = (icon: IconInfo) => {
 <template>
 	<ui-affix-modal>
 		<template #header>
-			<div class="py-2 px-3 text-4 font-bold">{{ store.name }}</div>
+			<div class="flex items-center px-3 py-2">
+				<router-link to="/" class="p-1">
+					<img src="/logo.svg" class="w-7 h-7" />
+				</router-link>
+			</div>
 		</template>
 		<div class="flex-1 flex flex-col gap-3 px-3 pb-2">
 			<h4 class="text-4 font-bold text-gray-400">描述</h4>

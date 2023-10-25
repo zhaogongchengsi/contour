@@ -1,6 +1,7 @@
 import { object, string, InferType } from 'yup'
 
 export const userInfoSchema = object({
+	name: string().required('名称必填').min(3, '最短3位').max(20,'最长20位'),
 	account: string().required('账号必填').email('无效邮箱'),
 	password: string().required('密码必填').max(20, '密码最长20位').min(6, '密码最短为6位'),
 	id: string().required('验证码id必填').uuid('验证码id无效 (uuid)'),

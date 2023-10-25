@@ -22,6 +22,6 @@ export const password = [
 export const code = [
 	{
 		required: true,
-		message: '请输入密码'
+		message: '请输入验证码'
 	}
 ]

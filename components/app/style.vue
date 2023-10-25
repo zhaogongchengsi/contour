@@ -9,7 +9,7 @@ const router = useRouter()
 
 onMounted(() => {
   if (import.meta.browser && !useState.logged()) {
-    warning('未登录，建议登录后在编辑', {
+    warning('未登录，建议登录后再编辑', {
       closable: true,
       duration: 5000
     })

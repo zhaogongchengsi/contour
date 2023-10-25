@@ -7,7 +7,27 @@ const router = useRouter()
 const name = ref<string>('')
 const edit = useEditDataStore()
 
-name.value = edit.name
+const userInfo = useUserInfo()
+
+watch(userInfo.user, (u) => {
+	if (isEmpty(u)) {
+		name.value = ''
+		edit.setName('')
+	}
+})
+
+onMounted(() => {
+	if (!import.meta.browser || !userInfo.logged()) {
+		return
+	}
+
+	if (userInfo.user) {
+		const n = (userInfo.user.value as User).name!
+		name.value = n
+		edit.setName(n)
+	}
+
+})
 
 const submit = async () => {
 	const url = unref(name)
