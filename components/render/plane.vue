@@ -22,8 +22,6 @@ const props = withDefaults(defineProps<{
 	background: 'transparent'
 })
 
-provide(editDataProviderKey, props)
-
 </script>
 
 <template>
