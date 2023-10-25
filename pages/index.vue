@@ -63,16 +63,15 @@ const submit = async () => {
 			</button>
 		</div>
 	</div>
-	<div class="container mx-auto px-3 my-5 sm:my-10 md:my-20 flex flex-col md:flex-row justify-between">
-		<h4>马上行动</h4>
-		<div class="w-1/2">
-			<span>现在就开始使用我的APP吧！</span>
-			<div>
-				<router-link to="/auth/register">立即注册</router-link>
-				<router-link to="/auth/login">立即登录</router-link>
+	<div
+		class="container mx-auto px-3 my-5 sm:my-10 md:my-20 flex flex-col md:flex-row md:items-start items-center justify-between">
+		<h4 class="text-6 sm:text-8 md:text-10 font-bold">马上行动</h4>
+		<div class="w-full md:w-1/2 flex flex-col items-center md:items-start mt-10 md:mt-0">
+			<span class="text-5 text-white/60">现在就开始使用我的APP吧！</span>
+			<div class="flex mt-5 md:mt-8 gap-6 justify-center items-center sm:gap-7 md:gap-8">
+				<router-link class="primary-button primary-button-text primary-button-color" to="/auth/register">立即注册</router-link>
+				<router-link class="~ h-full primary-button-text-flip" to="/auth/login">立即登录</router-link>
 			</div>
 		</div>
 	</div>
 </template>
-
-<style></style>
