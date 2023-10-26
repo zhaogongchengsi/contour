@@ -90,14 +90,6 @@ const select = (key: string) => {
 
 <style lang="scss">
 .app-default-header {
-  height: $dt('page.header.height.default');
-
-  @md {
-    height: $dt('page.header.height.md');
-  }
-
-  @lg {
-    height: $dt('page.header.height.lg');
-  }
+  height: $dt('page.header.height');
 }
 </style>

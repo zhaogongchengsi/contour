@@ -7,6 +7,7 @@ import {
 	presetUno,
 	transformerDirectives,
 	transformerVariantGroup,
+	presetWebFonts
 } from 'unocss'
 
 export default defineConfig({
@@ -36,6 +37,14 @@ export default defineConfig({
 		presetAttributify(),
 		presetIcons(),
 		presetTypography(),
+		presetWebFonts({
+			provider: 'google',
+			fonts: {
+				sans: 'DM Sans',
+				serif: 'DM Serif Display',
+				mono: 'DM Mono',
+			},
+		})
 	],
 	transformers: [transformerDirectives(), transformerVariantGroup()]
 })

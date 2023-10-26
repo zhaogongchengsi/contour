@@ -13,25 +13,26 @@ export default defineTheme({
   page: {
     header: {
       height: {
-        default: '45px',
-        md: '60px',
-        lg: '80px'
+        initial: '60px',
+        md: '80px',
+        lg: '100px'
       }
     },
     footer: {
       height: {
-        default: '40px',
-        md: '60px',
-        lg: '80px'
+        initial: '60px',
+        md: '80px',
+        lg: '100px'
       }
     },
     common: {
-      defaultMinHeight: {
-        // calc(100vh - $dt('page.header.height.lg') - $dt('page.footer.height.lg'))
-        initial: 'calc(100vh - {page.header.height.default} - {page.footer.height.default})',
-        md: 'calc(100vh - {page.header.height.md} - {page.footer.height.md})',
-        lg: 'calc(100vh - {page.header.height.lg} - {page.footer.height.lg})'
-      }
+      // defaultMinHeight: {
+      //   // calc(100vh - $dt('page.header.height.lg') - $dt('page.footer.height.lg'))
+      //   initial: 'calc(100vh - {page.header.height.default} - {page.footer.height.default})',
+      //   md: 'calc(100vh - {page.header.height.md} - {page.footer.height.md})',
+      //   lg: 'calc(100vh - {page.header.height.lg} - {page.footer.height.lg})'
+      // }
+      defaultMinHeight: 'calc(100vh - {page.header.height} - {page.footer.height})'
     }
   },
   color: {
