@@ -6,9 +6,12 @@ const value = reactive({
 	id: ''
 })
 
-const props = withDefaults(defineProps<{ immediate?: boolean }>(), {
+const props = withDefaults(defineProps<{ immediate?: boolean, id?: string }>(), {
 	immediate: true
 })
+
+const emit = defineEmits(['update:id'])
+
 
 const { counter, reset, pause, resume } = useInterval(1000, { controls: true, immediate: false })
 
@@ -25,6 +28,8 @@ const getCode = async (oid?: string) => {
 	value.id = id
 	value.code = data
 
+	emit('update:id', id)
+	
 	loading.value = false
 }
 
@@ -51,7 +56,7 @@ defineExpose({
 <template>
 	<div class="h-10 sm:h-12 md:h-15 rounded gap-3 flex justify-center items-center">
 		<div v-if="!loading" class="flex-1 h-full bg-white/90 rounded-lg code-wrapper" v-html="value.code"></div>
-		<div v-else-if="loading" class="md-icon i-carbon-rotate-180 animate-spin" />
+		<div v-else-if="loading" class="flex-1 md-icon i-carbon-rotate-180 animate-spin" />
 		<div class="w-5 h-5 flex justify-center items-center">
 			<span v-if="counter" class="text-6">{{ counter }}</span>
 			<div v-else class="w-8 h-8 i-carbon:rotate-360 cursor-pointer" @click="resetCode" />

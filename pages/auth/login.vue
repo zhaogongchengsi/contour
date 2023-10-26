@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { useMessage } from 'naive-ui'
-import type { FormInst, FormRules } from 'naive-ui'
-import { account, password, code as codeRole } from '~/utils/rules';
 import { debounce } from 'perfect-debounce'
 
 const config = useRuntimeConfig()
@@ -9,7 +7,8 @@ const store = useEditDataStore()
 const router = useRouter()
 const userStore = useUserInfo()
 const { success, error } = useMessage()
-const formRef = ref<FormInst>()
+const formRef = ref()
+
 const fromValue = reactive({
 	name: store.name || '',
 	account: import.meta.dev ? config.public.init.user : '',
@@ -18,31 +17,9 @@ const fromValue = reactive({
 	id: ''
 })
 
-const resetForm = () => {
-	fromValue.code = ''
-	fromValue.account = ''
-	fromValue.password = ''
-}
-
-const rules: FormRules = {
-	name: [
-		{
-			required: true,
-			message: '请输入名称'
-		}
-	],
-	account,
-	password,
-	code: codeRole,
-}
-
-const submit = async () => {
-
-	formRef.value?.validate((errors) => {
-		if (errors) return
-
+const loginHandle = debounce(async () => {
+	formRef.value.validate().then(() => {
 		store.setName(fromValue.name)
-
 		loginApi(fromValue).then(({ code, data, message }) => {
 			if (!code) {
 				error(message)
@@ -59,12 +36,9 @@ const submit = async () => {
 		}).catch(err => {
 			console.log(err);
 		})
-
+	}).catch((err: any) => {
+		error('请重试')
 	})
-}
-
-const loginHandle = debounce(() => {
-	console.log('login')
 }, 300)
 
 </script>
@@ -72,13 +46,14 @@ const loginHandle = debounce(() => {
 <template>
 	<div class="container login-page-container mx-auto max-w-100 md:max-w-120 px-4 py-20 sm:py-30 md:py-30">
 		<h4 class="text-5 sm:text-8 md:text-10 font-bold mb-10 sm:mb-12 md:mb-15 text-center">登录</h4>
-		<ui-big-form class="w-full max-w-200 flex flex-col gap-5 sm:gap-8 md:gap-10">
-			<ui-big-input error type="text" v-model:value="fromValue.name" placeholder="请输入名称" />
-			<ui-big-input warning type="text" v-model:value="fromValue.account" placeholder="请输入账号" />
-			<ui-big-input success type="password" v-model:value="fromValue.password" placeholder="请输入密码" />
+		<ui-big-form ref="formRef" class="w-full max-w-200 flex flex-col gap-8 sm:gap-10 md:gap-12">
+			<ui-big-input validator="name" type="text" v-model:value="fromValue.name" placeholder="请输入名称" />
+			<ui-big-input validator="account" type="text" v-model:value="fromValue.account" placeholder="请输入账号" />
+			<ui-big-input validator="password" type="password" v-model:value="fromValue.password" placeholder="请输入密码" />
 			<div class="flex gap-2">
-				<ui-big-input wrapper-class="w-2/3" type="text" v-model:value="fromValue.code" placeholder="请输入验证码" />
-				<app-code class="flex-1" />
+				<ui-big-input validator="code" wrapper-class="w-2/3" type="text" v-model:value="fromValue.code"
+					placeholder="请输入验证码" />
+				<app-code v-model:id="fromValue.id" class="flex-1" />
 			</div>
 			<ui-big-button @click="loginHandle"
 				class="w-full h-10 sm:h-12 md:h-15 bg-white text-black rounded-lg">登录</ui-big-button>
