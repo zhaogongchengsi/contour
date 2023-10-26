@@ -3,7 +3,7 @@ import { randomUUID } from "uncrypto";
 import { useRedisCaptchaStorage } from './storage';
 import dayjs from 'dayjs';
 
-const option = { noise: 3, height: 34, width: 120 }
+const option = { noise: 3, height: 45, width: 80 }
 
 interface CaptchaValue {
 	issue: string,

@@ -26,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <NConfigProvider abstract :inline-theme="isClient" :theme-overrides="themeOverrides">
+  <NConfigProvider abstract :theme-overrides="themeOverrides">
     <NMessageProvider>
       <div :style="{'--base-size': `${value}` }" class="min-h-screen default-page-box" ref="el">
         <AppHeader class="backdrop-blur-md sticky top-0 z-99"

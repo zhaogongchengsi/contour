@@ -1,23 +1,14 @@
 <script setup lang="ts">
-import { isClient, useInterval } from '@vueuse/core'
-import { NForm, NFormItem, NInput, useMessage } from 'naive-ui'
+import { useMessage } from 'naive-ui'
 import type { FormInst, FormRules } from 'naive-ui'
-import { onMounted, reactive, ref, watch } from 'vue';
 import { account, password, code as codeRole } from '~/utils/rules';
-
-// import { debounce } from 'perfect-debounce'
+import { debounce } from 'perfect-debounce'
 
 const config = useRuntimeConfig()
-
 const store = useEditDataStore()
-
 const router = useRouter()
-
-const loading = ref(false)
-const code = ref('')
 const userStore = useUserInfo()
 const { success, error } = useMessage()
-const { counter, reset, pause, resume } = useInterval(1000, { controls: true, immediate: false })
 const formRef = ref<FormInst>()
 const fromValue = reactive({
 	name: store.name || '',
@@ -25,21 +16,6 @@ const fromValue = reactive({
 	password: import.meta.dev ? config.public.init.pass : '',
 	code: '',
 	id: ''
-})
-
-
-const getCode = async (oid?: string) => {
-	loading.value = true
-	const { id, data } = await (await fetch(`/api/security${oid ? `?id=${oid}` : ''}`)).json() as { id: string, data: string }
-	fromValue.id = id
-	code.value = data
-	loading.value = false
-}
-
-onMounted(async () => {
-	if (isClient) {
-		await getCode()
-	}
 })
 
 const resetForm = () => {
@@ -85,58 +61,38 @@ const submit = async () => {
 		})
 
 	})
-
-	await getCode()
 }
 
-const seconds = 10
-watch(counter, (value) => {
-	if (value < seconds) return
-	pause()
-	reset()
-})
-
-const resetCode = async () => {
-	resume()
-	await getCode()
-}
+const loginHandle = debounce(() => {
+	console.log('login')
+}, 300)
 
 </script>
 
 <template>
-	<div class="container mx-auto my-10 px-5 flex justify-center">
-		<div class="w-full max-w-200">
-			<n-form ref="formRef" :label-width="80" :model="fromValue" :rules="rules">
-				<n-form-item label="名称" path="name">
-					<n-input v-model:value="fromValue.name" placeholder="请输入名称" />
-				</n-form-item>
-				<n-form-item label="邮箱" path="account">
-					<n-input v-model:value="fromValue.account" placeholder="请输入邮箱" />
-				</n-form-item>
-				<n-form-item label="密码" path="password">
-					<n-input type="password" current-password v-model:value="fromValue.password" placeholder="请输入密码" />
-				</n-form-item>
-				<n-form-item label="验证码" path="code">
-					<div class="flex h-full w-full gap-3">
-						<n-input class="flex-1" v-model:value="fromValue.code" placeholder="请输入验证码" />
-						<div class="w-50 rounded flex gap-3 justify-center items-center">
-							<div v-if="!loading" class="w-full h-full bg-white/90" v-html="code"></div>
-							<div v-else-if="loading" class="md-icon i-carbon-rotate-180 animate-spin" />
-							<div class="w-10 h-10 flex justify-center items-center">
-								<span v-if="counter" class="text-6">{{ counter }}</span>
-								<div v-else class="w-8 h-8 i-carbon:rotate-360 cursor-pointer" @click="resetCode" />
-							</div>
-						</div>
-					</div>
-				</n-form-item>
-				<div class="flex items-center mb-5 justify-between">
-					<span class=" hover:text-purple-500">密码忘了!</span>
-					<router-link class=" hover:text-purple-500" to="/auth/register">没账号，去注册！</router-link>
-				</div>
-				<button class="w-full block px-3 py-2 ring-1 rounded ring-purple-300 hover:ring-purple-500" attr-type="button"
-					@click="submit">登录</button>
-			</n-form>
-		</div>
+	<div class="container login-page-container mx-auto max-w-100 md:max-w-120 px-4 py-20 sm:py-30 md:py-30">
+		<h4 class="text-5 sm:text-8 md:text-10 font-bold mb-10 sm:mb-12 md:mb-15 text-center">登录</h4>
+		<ui-big-form class="w-full max-w-200 flex flex-col gap-5 sm:gap-8 md:gap-10">
+			<ui-big-input error type="text" v-model:value="fromValue.name" placeholder="请输入名称" />
+			<ui-big-input warning type="text" v-model:value="fromValue.account" placeholder="请输入账号" />
+			<ui-big-input success type="password" v-model:value="fromValue.password" placeholder="请输入密码" />
+			<div class="flex gap-2">
+				<ui-big-input wrapper-class="w-2/3" type="text" v-model:value="fromValue.code" placeholder="请输入验证码" />
+				<app-code class="flex-1" />
+			</div>
+			<ui-big-button @click="loginHandle"
+				class="w-full h-10 sm:h-12 md:h-15 bg-white text-black rounded-lg">登录</ui-big-button>
+			<div class="flex justify-end gap-4">
+				<span class="text-3 sm:text-4 text-zinc-400">忘记密码？</span>
+				<router-link to="/auth/register" class="text-3 sm:text-4 text-zinc-400 hover:text-zinc-300">没有账号
+					先去注册</router-link>
+			</div>
+		</ui-big-form>
 	</div>
 </template>
 
+<style lang="scss">
+.login-page-container {
+	height: $dt('page.common.defaultMinHeight');
+}
+</style>

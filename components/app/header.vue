@@ -76,14 +76,6 @@ const select = (key: string) => {
           <ui-avatar :src="(user.avatar as AvatarUri)" class="text-8" :alt="`${user.name} avatar`" />
         </div>
       </n-dropdown>
-      <div v-if="user === null" class="flex items-center gap-5">
-        <RouterLink class="link" to="/auth/register">
-          注册
-        </RouterLink>
-        <RouterLink class="font-bold link" to="/auth/login">
-          登陆
-        </RouterLink>
-      </div>
     </div>
   </header>
 </template>
