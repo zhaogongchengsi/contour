@@ -13,7 +13,8 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { hid: 'description', name: 'description', content: 'Talent' }
       ]
-    }
+    },
+    // pageTransition: { name: 'page', mode: 'out-in' }
   },
   runtimeConfig: {
     public: {
