@@ -47,7 +47,7 @@ export const useEditDataStore = defineStore('editData', () => {
 
 	const save = async () => {
 
-		console.log('123', cards.value);
+		console.log('123', contacts);
 
 		const res = await noteSave({
 			name: name.value,

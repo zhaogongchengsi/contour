@@ -33,11 +33,9 @@ const contacts = computed(() => {
    if (!contact)
       return []
 
-   console.log(contact)
-
-   // return contact
-
+   return JSON.parse(contact as string)
 })
+
 
 </script>
 
@@ -55,9 +53,9 @@ const contacts = computed(() => {
             <span>{{ description || '这人很神秘，没有自我介绍' }}</span>
          </template>
          <template #contact>
-            <!-- <ui-contact-wrapper>
-               <ui-contact-item v-for="contact of []" :key="contact.value" :value="contact.value" :type="contact.type" />
-            </ui-contact-wrapper> -->
+            <ui-contact-wrapper>
+               <ui-contact-item v-for="contact of contacts" :key="contact.value" :value="contact.value" :type="contact.type" />
+            </ui-contact-wrapper>
          </template>
          <!-- <template #card>
             <div tag="div" :animation="500" :list="store.cards" class="card-wrapper-grid" item-key="id">

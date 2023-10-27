@@ -3,7 +3,7 @@ import { NoteData } from '~/types'
 
 export default defineEventHandler(async (e) => {
 
-	const { name, avatar, cards, color, background, styles, contact } = await readBody<NoteData>(e)
+	const { name, avatar, cards, color, background, styles, contacts } = await readBody<NoteData>(e)
 
 	if (!name) {
 		return sendFail('缺少名称')
@@ -22,7 +22,7 @@ export default defineEventHandler(async (e) => {
 			color,
 			background,
 			styles: styles.join('-'),
-			contact
+			contact: JSON.stringify(contacts)
 		}
 	})
 

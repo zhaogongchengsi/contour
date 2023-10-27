@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NCheckbox, NCheckboxGroup, NColorPicker, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTooltip, useMessage } from 'naive-ui'
 
-const { warning } = useMessage()
+const { warning, success } = useMessage()
 const store = useEditDataStore()
 const material = useMaterial()
 const useState = useUserInfo()
@@ -16,14 +16,33 @@ onMounted(() => {
   }
 })
 
-function save() {
+async function save() {
   if (!useState.logged()) {
     warning('未登录，请先登录')
     router.push('/auth/login')
     return
   }
 
-  store.save()
+  console.log(store.contacts)
+
+  const { code, message } = await noteSave({
+    name: store.name,
+    color: store.color,
+    background: store.background,
+    avatar: store.avatar,
+    styles: store.styles,
+    description: store.description,
+    contacts: store.contacts,
+    cards: store.cards.map((card, index) => {
+      return {
+        ..._CloneDeep(card),
+        id: index
+      }
+    })
+  })
+
+  code && success(message)
+
 }
 </script>
 
@@ -69,10 +88,8 @@ function save() {
           <NTabPane name="color" tab="纯颜色">
             <NScrollbar class="h-50 max-h-80">
               <div class="grid grid-cols-4 w-full gap-3">
-                <ui-bg-card
-                  v-for="item of material.colors" :key="item" :active="store.background === item"
-                  @click="store.setBackground(item)"
-                >
+                <ui-bg-card v-for="item of material.colors" :key="item" :active="store.background === item"
+                  @click="store.setBackground(item)">
                   <div class="h-full w-full" :style="{ background: item }" />
                 </ui-bg-card>
               </div>
@@ -81,11 +98,9 @@ function save() {
           <NTabPane name="gradientColor" tab="渐变色">
             <NScrollbar class="h-50 max-h-80">
               <div class="grid grid-cols-4 w-full gap-3">
-                <ui-bg-card
-                  v-for="(item, index) of material.generateColor" :key="index"
+                <ui-bg-card v-for="(item, index) of material.generateColor" :key="index"
                   :active="store.background === material.generateColorStyle(item)"
-                  @click="store.setBackground(material.generateColorStyle(item))"
-                >
+                  @click="store.setBackground(material.generateColorStyle(item))">
                   <div class="h-full w-full" :style="{ background: material.generateColorStyle(item) }" />
                 </ui-bg-card>
               </div>
@@ -94,10 +109,8 @@ function save() {
           <NTabPane name="image" tab="图片">
             <NScrollbar class="max-h-80 min-h-50 px-3">
               <div class="grid grid-cols-3 w-full gap-3">
-                <ui-bg-card
-                  v-for="item of material.images" :key="item" :active="store.background === item"
-                  @click="store.setBackground(`url(${item})`)"
-                >
+                <ui-bg-card v-for="item of material.images" :key="item" :active="store.background === item"
+                  @click="store.setBackground(`url(${item})`)">
                   <img class="h-full w-full object-contain" :src="item">
                 </ui-bg-card>
               </div>
