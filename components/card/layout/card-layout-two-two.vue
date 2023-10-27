@@ -3,20 +3,21 @@ import CardTag from '../card-tag.vue'
 </script>
 
 <template>
-	<card-tag class="card-two-two flex gap-x-[var(--card-gap-x)]">
-		<div class="left-wrapper flex flex-col justify-between">
-			<div class="w-full h-[var(--width)]">
-				<slot name="image" />
-			</div>
-			<div class="w-full flex justify-center items-center text-white font-bold overflow-hidden truncate">
-				<slot />
-			</div>
-		</div>
-		<div class="right-wrapper">
-			<slot name="icon" />
-		</div>
-	</card-tag>
+  <CardTag class="card-two-two flex gap-x-[var(--card-gap-x)]">
+    <div class="left-wrapper flex flex-col justify-between">
+      <div class="h-[var(--width)] w-full">
+        <slot name="image" />
+      </div>
+      <div class="w-full flex items-center justify-center overflow-hidden truncate font-bold text-white">
+        <slot />
+      </div>
+    </div>
+    <div class="right-wrapper">
+      <slot name="icon" />
+    </div>
+  </CardTag>
 </template>
+
 <style lang="scss">
 .card-two-two {
 

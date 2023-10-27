@@ -3,19 +3,19 @@ import CardTag from '../card-tag.vue'
 </script>
 
 <template>
-	<card-tag class="flex justify-start items-start">
-		<div class="h-full card-layout-four-two_image">
-			<slot name="image" />
-		</div>
-		<div class="w-35 mx-auto h-full flex justify-center items-center">
-			<div class="text-white font-bold w-full text-center overflow-hidden truncate">
-				<slot />
-			</div>
-		</div>
-		<div class="w-10">
-			<slot name="icon" />
-		</div>
-	</card-tag>
+  <CardTag class="flex items-start justify-start">
+    <div class="card-layout-four-two_image h-full">
+      <slot name="image" />
+    </div>
+    <div class="mx-auto h-full w-35 flex items-center justify-center">
+      <div class="w-full overflow-hidden truncate text-center font-bold text-white">
+        <slot />
+      </div>
+    </div>
+    <div class="w-10">
+      <slot name="icon" />
+    </div>
+  </CardTag>
 </template>
 
 <style>

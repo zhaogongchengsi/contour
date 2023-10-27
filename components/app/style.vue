@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NCheckbox, NCheckboxGroup, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTooltip, NColorPicker, useMessage } from 'naive-ui'
+import { NCheckbox, NCheckboxGroup, NColorPicker, NGi, NGrid, NScrollbar, NTabPane, NTabs, NTooltip, useMessage } from 'naive-ui'
 
 const { warning } = useMessage()
 const store = useEditDataStore()
@@ -11,12 +11,12 @@ onMounted(() => {
   if (import.meta.browser && !useState.logged()) {
     warning('未登录，建议登录后再编辑', {
       closable: true,
-      duration: 5000
+      duration: 5000,
     })
   }
 })
 
-const save = () => {
+function save() {
   if (!useState.logged()) {
     warning('未登录，请先登录')
     router.push('/auth/login')
@@ -25,7 +25,6 @@ const save = () => {
 
   store.save()
 }
-
 </script>
 
 <template>
@@ -35,23 +34,25 @@ const save = () => {
         <h3 class="text-4 font-bold">
           样式
         </h3>
-        <div class="flex gap-5 items-center">
+        <div class="flex items-center gap-5">
           <NTooltip v-if="!useState.logged()">
             <template #trigger>
-              <router-link to="/auth/login"> <i class="block w-5 h-5 i-carbon:login hover:text-purple-500" /> </router-link>
+              <router-link to="/auth/login">
+                <i class="i-carbon:login block h-5 w-5 hover:text-purple-500" />
+              </router-link>
             </template>
             登录
           </NTooltip>
           <NTooltip trigger="hover">
             <template #trigger>
-              <button class="w-5 h-5 i-carbon:export hover:text-purple-500" @click="save" />
+              <button class="i-carbon:export h-5 w-5 hover:text-purple-500" @click="save" />
             </template>
             保存并发布
           </NTooltip>
           <NTooltip trigger="hover">
             <template #trigger>
               <router-link :to="`/preview/${store.name}`" class="flex items-center">
-                <i class="block w-5 h-5 i-carbon:view hover:text-purple-500" />
+                <i class="i-carbon:view block h-5 w-5 hover:text-purple-500" />
               </router-link>
             </template>
             预览
@@ -68,9 +69,11 @@ const save = () => {
           <NTabPane name="color" tab="纯颜色">
             <NScrollbar class="h-50 max-h-80">
               <div class="grid grid-cols-4 w-full gap-3">
-                <ui-bg-card v-for="item of material.colors" :key="item" :active="store.background === item"
-                  @click="store.setBackground(item)">
-                  <div class="w-full h-full" :style="{ background: item }" />
+                <ui-bg-card
+                  v-for="item of material.colors" :key="item" :active="store.background === item"
+                  @click="store.setBackground(item)"
+                >
+                  <div class="h-full w-full" :style="{ background: item }" />
                 </ui-bg-card>
               </div>
             </NScrollbar>
@@ -78,10 +81,12 @@ const save = () => {
           <NTabPane name="gradientColor" tab="渐变色">
             <NScrollbar class="h-50 max-h-80">
               <div class="grid grid-cols-4 w-full gap-3">
-                <ui-bg-card v-for="(item, index) of material.generateColor" :key="index"
+                <ui-bg-card
+                  v-for="(item, index) of material.generateColor" :key="index"
                   :active="store.background === material.generateColorStyle(item)"
-                  @click="store.setBackground(material.generateColorStyle(item))">
-                  <div class="w-full h-full" :style="{ background: material.generateColorStyle(item) }" />
+                  @click="store.setBackground(material.generateColorStyle(item))"
+                >
+                  <div class="h-full w-full" :style="{ background: material.generateColorStyle(item) }" />
                 </ui-bg-card>
               </div>
             </NScrollbar>
@@ -89,9 +94,11 @@ const save = () => {
           <NTabPane name="image" tab="图片">
             <NScrollbar class="max-h-80 min-h-50 px-3">
               <div class="grid grid-cols-3 w-full gap-3">
-                <ui-bg-card v-for="item of material.images" :key="item" :active="store.background === item"
-                  @click="store.setBackground(`url(${item})`)">
-                  <img class="w-full h-full object-contain" :src="item" />
+                <ui-bg-card
+                  v-for="item of material.images" :key="item" :active="store.background === item"
+                  @click="store.setBackground(`url(${item})`)"
+                >
+                  <img class="h-full w-full object-contain" :src="item">
                 </ui-bg-card>
               </div>
             </NScrollbar>
@@ -102,7 +109,7 @@ const save = () => {
         文本颜色
       </h4>
       <div class="px-3">
-        <n-color-picker v-model:value="store.color" />
+        <NColorPicker v-model:value="store.color" />
       </div>
       <h4 class="px-3 text-4 font-bold text-gray-400">
         设置

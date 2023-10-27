@@ -3,19 +3,19 @@ import CardTag from '../card-tag.vue'
 </script>
 
 <template>
-	<card-tag class="flex flex-col justify-between items-end gap-x-[var(--card-gap-x)]">
-		<div class="card-layout-two-four_image">
-			<slot name="image" />
-		</div>
-		<div class="w-full flex justify-center items-center">
-			<div class="text-white font-bold w-full text-center overflow-hidden truncate">
-				<slot />
-			</div>
-		</div>
-		<div class="w-10">
-			<slot name="icon" />
-		</div>
-	</card-tag>
+  <CardTag class="flex flex-col items-end justify-between gap-x-[var(--card-gap-x)]">
+    <div class="card-layout-two-four_image">
+      <slot name="image" />
+    </div>
+    <div class="w-full flex items-center justify-center">
+      <div class="w-full overflow-hidden truncate text-center font-bold text-white">
+        <slot />
+      </div>
+    </div>
+    <div class="w-10">
+      <slot name="icon" />
+    </div>
+  </CardTag>
 </template>
 
 <style>

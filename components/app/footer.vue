@@ -4,10 +4,13 @@ const app = useAppConfig()
 
 <template>
   <footer
-    class="app-default-footer w-full">
-    <div class="mx-auto h-full flex items-center justify-between px-3 md:px-0 container">
-      <h3 class="text-3 sm:text-4 md:text-5 text-zinc-300">{{ app.title }}</h3>
-      <div class="flex items-center gap-3 text-3 sm:text-4 md:text-5">
+    class="app-default-footer w-full"
+  >
+    <div class="mx-auto h-full flex items-center justify-between px-3 container md:px-0">
+      <h3 class="text-3 text-zinc-300 md:text-5 sm:text-4">
+        {{ app.title }}
+      </h3>
+      <div class="flex items-center gap-3 text-3 md:text-5 sm:text-4">
         <span class="text-zinc-400 hover:text-zinc-300">隐私政策</span>
         <span class="text-zinc-400 hover:text-zinc-300">服务条款</span>
         <span class="text-zinc-400 hover:text-zinc-300">Cookie设置</span>

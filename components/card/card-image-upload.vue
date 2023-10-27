@@ -3,7 +3,7 @@
 </script>
 
 <template>
-   <div class="w-full h-full bg-gray-400/80 rounded-md flex justify-center cursor-pointer items-center border border-dashed border-gray-500">
-		<div class="w-10 h-10 i-carbon:cloud-upload text-white" />
-   </div>
+  <div class="h-full w-full flex cursor-pointer items-center justify-center border border-gray-500 rounded-md border-dashed bg-gray-400/80">
+    <div class="i-carbon:cloud-upload h-10 w-10 text-white" />
+  </div>
 </template>
