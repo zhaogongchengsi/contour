@@ -85,7 +85,7 @@ const submit = async () => {
 			</div>
 		</div>
 	</div>
-	<section class="container mx-auto h-150 text-center">没想好这里放啥</section>
+	<section class="container mx-auto h-150 text-center flex justify-center items-center"> 广告位招租 </section>
 	<section
 		class="container mx-auto px-3 md:px-0 flex flex-col sm:flex-row sm:items-start justify-between items-center gap-10 my-15 sm:my-20 md:my-30">
 		<div class="flex items-center gap-3">

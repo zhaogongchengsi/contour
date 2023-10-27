@@ -20,9 +20,16 @@ const fromValue = reactive({
 
 const submit = debounce(() => {
 	formRef?.value.validate().then(() => {
-
-		console.log('注册')
-
+		registerApi(unref(fromValue)).then(({ code, message }) => {
+			if (code) {
+				success('注册成功')
+				router.push('/auth/login')
+			} else {
+				error(message)
+			}
+		}).catch(err => {
+			console.log(err)
+		})
 	}).catch((err: any) => {
 		error('请重试')
 	})
@@ -38,7 +45,8 @@ const submit = debounce(() => {
 			<ui-big-input validator="account" type="text" v-model:value="fromValue.account" placeholder="请输入账号" />
 			<ui-big-input validator="password" type="password" v-model:value="fromValue.password" placeholder="请输入密码" />
 			<div class="flex gap-2">
-				<ui-big-input validator="code" wrapper-class="w-2/3" type="text" v-model:value="fromValue.code" placeholder="请输入验证码" />
+				<ui-big-input validator="code" wrapper-class="w-2/3" type="text" v-model:value="fromValue.code"
+					placeholder="请输入验证码" />
 				<app-code v-model:id="fromValue.id" class="flex-1" />
 			</div>
 			<ui-big-button @click="submit"

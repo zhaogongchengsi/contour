@@ -1,6 +1,5 @@
 import { UserInfoScheme, isUserInfo } from '~/composables/schema'
 import { prisma } from '~/prisma/client'
-import { randomUUID } from "uncrypto";
 
 export default defineEventHandler(async (event) => {
 	const body = await readBody<UserInfoScheme>(event)
@@ -20,7 +19,8 @@ export default defineEventHandler(async (event) => {
 
 		const oldUser = await prisma.user.findFirst({
 			where: {
-				account: body.account
+				account: body.account,
+				name: body.name
 			}
 		})
 
@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
 		const user = await prisma.user.create({
 			data: {
 				account: body.account,
+				name: body.name,
 				password: encrypt(body.password),
 			}
 		})
