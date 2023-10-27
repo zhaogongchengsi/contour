@@ -58,7 +58,7 @@ const contacts = computed(() => {
             </ui-contact-wrapper>
          </template>
          <!-- <template #card>
-            <div tag="div" :animation="500" :list="store.cards" class="card-wrapper-grid" item-key="id">
+            <div class="card-wrapper-grid">
                <card edit :icon="element.icon" :background="element.background" :button-style="element.buttonStyle"
                   :col="element.size.col" :row="element.size.row">
                   <template #image>
