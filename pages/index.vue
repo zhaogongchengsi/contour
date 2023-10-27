@@ -69,7 +69,7 @@ const submit = async () => {
 			<button @click="submit"
 				class="rounded-lg h-full bg-white/80 hover:bg-white w-25 md:w-40 text-black text-4 md:text-6 flex items-center gap-4 justify-center">
 				<div class="w-5 h-5 md:w-7 md:h-7 i-carbon-edit" />
-				<span class="font-bold">提交</span>
+				<span class="font-bold">制作</span>
 			</button>
 		</div>
 	</div>
@@ -85,7 +85,18 @@ const submit = async () => {
 			</div>
 		</div>
 	</div>
-	<section class="container mx-auto h-150 text-center flex justify-center items-center"> 广告位招租 </section>
+	<section class="container mx-auto px-0 my-15 sm:my-25 md:my-40 px-3 flex md:px-0 flex-col md:flex-row">
+		<div class="flex flex-col gap-3 sm:gap-6 md:gap-10 items-center mr-auto w-full md:w-auto">
+			<h3 class="text-6 sm:text-8 md:text-10 font-bold">优势</h3>
+			<p>我们的优势</p>
+			<a href="#" class="primary-button primary-button-text primary-button-color">试用</a>
+		</div>
+		<div class="w-full md:w-1/2 mt-10 md:mt-0">
+			<ul class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-3 sm:gap-5">
+				<li v-for="i of 5" :key="i" class="bg-zinc-800 h-50 rounded-lg p-2">广告位招租</li>
+			</ul>
+		</div>
+	</section>
 	<section
 		class="container mx-auto px-3 md:px-0 flex flex-col sm:flex-row sm:items-start justify-between items-center gap-10 my-15 sm:my-20 md:my-30">
 		<div class="flex items-center gap-3">
@@ -93,11 +104,7 @@ const submit = async () => {
 			<span class="text-zinc-300 text-5 font-bold sm:text-6 md:text-7">个人专属页面</span>
 		</div>
 		<nav class="flex flex-col items-start sm:flex-row text-3 gap-5 sm:gap-10 md:gap-20 w-full sm:w-1/2">
-			<dl
-				v-for="item of footerLinks" 
-				:key="item.title"
-				class="w-full sm:w-auto grid grid-cols-3 gap-1 md:gap-2"
-			>
+			<dl v-for="item of footerLinks" :key="item.title" class="w-full sm:w-auto grid grid-cols-3 gap-1 md:gap-2">
 				<dt class="col-span-3 text-4 sm:text-5 md:text-6 mb-2 sm:mb-3 md:mb-5 text-zinc-300">{{ item.title }}</dt>
 				<dd class="flex sm:col-span-3 text-3 sm:text-4 md:text-5" v-for="i of item.nav" :key="i.title">
 					<a :href="i.link" class="text-zinc-400 hover:text-zinc-300">
