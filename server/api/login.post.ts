@@ -1,51 +1,50 @@
-import { isUserInfo } from "~/composables/schema"
-import { prisma } from "~/prisma/client"
+import { isUserInfo } from "~/composables/schema";
+import { prisma } from "~/prisma/client";
 
 export default defineEventHandler(async (event) => {
-	const body = await readBody(event)
+  const body = await readBody(event);
 
-	const { success, message } = await isUserInfo({
-		...body,
-		code: Number(body.code)
-	})
-	
-	if (!success) {
-		return sendFail(message)
-	}
+  const { success, message } = await isUserInfo({
+    ...body,
+    code: Number(body.code),
+  });
 
-	if (isPro() && !await verifyCaptcha(body.id, body.code)) {
-		return sendFail('验证码错误或过期')
-	}
-	
+  if (!success) {
+    return sendFail(message);
+  }
 
-	const user = await prisma.user.findFirst({
-		where: {
-			account: body.account,
-			name: body.name
-		}
-	})
+  if (isPro() && !(await verifyCaptcha(body.id, body.code))) {
+    return sendFail("验证码错误或过期");
+  }
 
-	if (!user) {
-		return sendFail('用户不存在')
-	}
+  const user = await prisma.user.findFirst({
+    where: {
+      account: body.account,
+      name: body.name,
+    },
+  });
 
-	if (!decrypt(body.password, user.password as any)) {
-		return sendFail('密码错误')
-	}
+  if (!user) {
+    return sendFail("用户不存在");
+  }
 
-	const { token, exp } = issueToken({
-		uuid: user.uid!,
-		id: user.id,
-	})
+  if (!decrypt(body.password, user.password as any)) {
+    return sendFail("密码错误");
+  }
 
-	// @ts-ignore
-	delete user.password
+  const { token, exp } = issueToken({
+    uuid: user.uid!,
+    id: user.id,
+  });
 
-	return sendSuccess<AppUserResponse>({
-		authorization: {
-			token,
-			exp
-		},
-		user: user as unknown as User
-	})
-})
+  // @ts-ignore
+  delete user.password;
+
+  return sendSuccess<AppUserResponse>({
+    authorization: {
+      token,
+      exp,
+    },
+    user: user as unknown as User,
+  });
+});
