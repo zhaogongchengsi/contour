@@ -44,8 +44,8 @@ const cardList = computed(() => {
          ...card,
          icon: JSON.parse(card.icon),
          size: {
-            row,
-            col
+            row: Number(row),
+            col: Number(col)
          }
       }
    })

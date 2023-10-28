@@ -44,7 +44,7 @@ const loginHandle = debounce(async () => {
 </script>
 
 <template>
-	<div class="container login-page-container mx-auto max-w-100 md:max-w-120 px-4 py-20 sm:py-30 md:py-30">
+	<div class="container mx-auto max-w-100 md:max-w-120 px-4 py-20 sm:py-30 md:py-30">
 		<h4 class="text-5 sm:text-8 md:text-10 font-bold mb-10 sm:mb-12 md:mb-15 text-center">登录</h4>
 		<ui-big-form ref="formRef" class="w-full max-w-200 flex flex-col gap-8 sm:gap-10 md:gap-12">
 			<ui-big-input validator="name" type="text" v-model:value="fromValue.name" placeholder="请输入名称" />
