@@ -32,3 +32,30 @@ declare interface BgItem {
 	name: string,
 	size: string
 }
+
+
+declare interface Resume {
+	avatar: string;
+	background: string;
+	cards: Card[];
+	color: string;
+	contact: string;
+	description: null;
+	name: string;
+	state: number;
+	styles: string;
+}
+
+declare interface Card {
+	background: string;
+	buttonStyle: 'windows' | 'android' | 'apple';
+	createdAt: string;
+	icon: string;
+	id: number;
+	image: string;
+	link: string;
+	size: `${number}-${number}`;
+	sort: number;
+	updatedAt: null;
+	userId: string;
+}

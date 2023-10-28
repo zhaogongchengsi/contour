@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { AvatarUri } from '~/types';
+import card from '~/components/card/card.vue'
 
 definePageMeta({
    layout: 'render',
@@ -17,7 +18,7 @@ if (!code) {
    })
 }
 
-const { name, avatar, background, styles, color, description, contact } = data!
+const { name, avatar, background, styles, color, description, contact, cards } = data!
 
 const config = computed(() => {
    const s = styles?.split('-')
@@ -36,6 +37,19 @@ const contacts = computed(() => {
    return JSON.parse(contact as string)
 })
 
+const cardList = computed(() => {
+   return cards.map((card) => {
+      const [row, col] = card.size.split('-')
+      return {
+         ...card,
+         icon: JSON.parse(card.icon),
+         size: {
+            row,
+            col
+         }
+      }
+   })
+})
 
 </script>
 
@@ -54,24 +68,22 @@ const contacts = computed(() => {
          </template>
          <template #contact>
             <ui-contact-wrapper>
-               <ui-contact-item v-for="contact of contacts" :key="contact.value" :value="contact.value" :type="contact.type" />
+               <ui-contact-item v-for="contact of contacts" :key="contact.value" :value="contact.value"
+                  :type="contact.type" />
             </ui-contact-wrapper>
          </template>
-         <!-- <template #card>
+         <template #card>
             <div class="card-wrapper-grid">
-               <card edit :icon="element.icon" :background="element.background" :button-style="element.buttonStyle"
-                  :col="element.size.col" :row="element.size.row">
+               <card v-for="card of cardList" :icon="card.icon" :background="card.background"
+                  :button-style="card.buttonStyle" :col="card.size.col" :row="card.size.row">
                   <template #image>
-                     <ui-picture-selector v-model:value="element.image" :name="($route.params.name as string)">
-                        <div class="w-full h-full">
-                           <ui-picture :src="element.image" :alt="String(element.id)" />
-                        </div>
-                     </ui-picture-selector>
+                     <div class="w-full h-full">
+                        <ui-picture :src="card.image" :alt="String(card.id)" />
+                     </div>
                   </template>
-                  {{ element.label }}
                </card>
             </div>
-         </template> -->
+         </template>
       </render-plane>
    </div>
 </template>

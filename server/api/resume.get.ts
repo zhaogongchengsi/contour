@@ -8,15 +8,25 @@ export default defineEventHandler(async (e) => {
 	}
 
 	const user = await prisma.user.findFirst({
-		where: { name }
+		where: {
+			name
+		},
+		select: {
+			name: true,
+			avatar: true,
+			background: true,
+			styles: true,
+			color: true,
+			description: true,
+			contact: true,
+			state: true,
+			cards: true
+		}
 	})
 
 	if (!user) {
 		return sendFail('缺少 name');
 	}
-
-	// @ts-ignore
-	delete user.password
 
 	return sendSuccess(user)
 })
