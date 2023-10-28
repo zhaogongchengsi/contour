@@ -22,7 +22,7 @@ if (import.meta.browser) {
     if (code) {
       const { avatar, background, styles, color, description, contact, cards } = data!
 
-      store.avatar = avatar as AvatarUri,
+      store.avatar = avatar as AvatarUri
       store.background = background
       store.styles = styles.split('-')
       store.color = color
@@ -30,13 +30,13 @@ if (import.meta.browser) {
       store.contacts = JSON.parse(contact)
 
       store.cards = cards.map((card) => {
-        const [row, col] = card.size.split('-')
+        const [row, col] = card.size.split('-').map(Number)
         return {
           ...card,
           icon: JSON.parse(card.icon),
           size: {
-            row: Number(row),
-            col: Number(col)
+            row,
+            col
           }
         }
       })

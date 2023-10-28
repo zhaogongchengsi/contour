@@ -39,13 +39,13 @@ const contacts = computed(() => {
 
 const cardList = computed(() => {
    return cards.map((card) => {
-      const [row, col] = card.size.split('-')
+      const [row, col] = card.size.split('-').map(Number)
       return {
          ...card,
          icon: JSON.parse(card.icon),
          size: {
-            row: Number(row),
-            col: Number(col)
+            row,
+            col
          }
       }
    })
