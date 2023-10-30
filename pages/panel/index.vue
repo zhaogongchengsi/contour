@@ -5,9 +5,12 @@ definePageMeta({
 	layout: 'panel',
 })
 
-if (import.meta.server) {
+const user = useUserInfo()
 
-	console.log('server')
+if (import.meta.browser) {
+	if (!user.logged()) {
+		navigateTo('/auth/login')
+	}
 }
 
 </script>

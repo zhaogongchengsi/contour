@@ -22,6 +22,12 @@ watch(userStore.user, (u) => {
 const createIcon = (name: string) => () => h('div', { class: ['md-icon', name] })
 
 
+enum Action {
+  setting = 'setting',
+  statistics = 'statistics',
+  logout = 'logout'
+}
+
 const options = computed(() => {
   return [
     {
@@ -37,7 +43,12 @@ const options = computed(() => {
     {
       icon: createIcon('i-carbon:magic-wand-filled'),
       label: '配置主页',
-      key: 'page',
+      key: Action.setting,
+    },
+    {
+      icon: createIcon('i-carbon:chart-line-smooth'),
+      label: '数据统计',
+      key: Action.statistics,
     },
     {
       key: 'divider-setting',
@@ -46,16 +57,20 @@ const options = computed(() => {
     {
       icon: createIcon('i-carbon:logout'),
       label: '注销登陆',
-      key: 'logout'
+      key: Action.logout
     },
   ]
 })
 
 
 const select = (key: string) => {
-  if (key === 'logout') {
+  if (key === Action.logout) {
     userStore.logout()
     user.value = null
+  }
+
+  if (key === Action.statistics) {
+    navigateTo('/panel')
   }
 
 }
@@ -72,8 +87,8 @@ const select = (key: string) => {
         </h1>
       </div>
       <n-dropdown v-if="user != null" :options="options" trigger="hover" @select="select">
-        <div class="w-15 h-15 p-2 bg-white rounded-full">
-          <ui-avatar :src="(user.avatar as AvatarUri)" class="text-8" :alt="`${user.name} avatar`" />
+        <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-15 md:h-15 p-2 bg-white rounded-full">
+          <ui-avatar :src="(user.avatar as AvatarUri)" class="text-4 sm:text-6 md:text-8" :alt="`${user.name} avatar`" />
         </div>
       </n-dropdown>
     </div>

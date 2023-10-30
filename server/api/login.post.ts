@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 		where: {
 			account: body.account,
 			name: body.name,
-		},
+		}
 	})
 
 	if (!user) {

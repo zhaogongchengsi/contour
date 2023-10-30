@@ -18,12 +18,15 @@ model User {
   updatedAt DateTime? @map("updated_at")
 
   // 0 封禁 1 未审核 2 通过
-  state    Int    @default(1)
-  account  String @unique
-  password String
+  state      Int    @default(1)
+  // 0 超级管理员  1 普通用户
+  permission Int    @default(1)
 
-  name      String?   @unique
-  avatar    String?   @default("url:/avatar.png")
+  account    String @unique
+  password   String
+
+  name        String? @unique
+  avatar      String? @default("url:/avatar.png")
   background  String  @default("transparent")
   color       String  @default("#333333")
   description String?
@@ -56,6 +59,6 @@ model Card {
 
   // 纯颜色 渐变色 背景图
   background String
-  User       User?  @relation(fields: [userId], references: [uid])
+  User       User?   @relation(fields: [userId], references: [uid])
   userId     String?
 }
