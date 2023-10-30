@@ -1,5 +1,5 @@
 
-const blacklist = ['note']
+const blacklist = ['auth']
 
 export default defineEventHandler(async (event) => {
 
