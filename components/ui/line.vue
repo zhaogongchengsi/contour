@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { Line } from '@antv/g2plot';
 
 const lineDom = ref<HTMLDivElement | null>()
 
+const chart = useChart()
+
 onMounted(() => {
-
-
-
+	chart.render(lineDom.value!)
 })
+
+console.log(chart)
+
+
 </script>
 
 <template>
-	<div class="w-full h-full" ref="lineDom">
-		折线图
-	</div>
+	<div class="w-full h-full overflow-hidden" ref="lineDom"></div>
 </template>

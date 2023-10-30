@@ -19,6 +19,8 @@
     "seed": "esno ./prisma/seed.ts"
   },
   "dependencies": {
+    "@antv/g-webgl": "^1.9.27",
+    "@antv/g2": "^5.1.6",
     "@iconify-json/emojione": "^1.1.7",
     "@juggle/resize-observer": "^3.4.0",
     "@nuxtjs/color-mode": "^3.3.0",

@@ -31,7 +31,7 @@ const user = useUserInfo()
 				<ui-statistic label="周访问时长"> 1,234,123 </ui-statistic>
 				<ui-statistic label="日访问时长"> 1,234,123 </ui-statistic>
 			</div>
-			<div class="w-full mt-5 sm:mt-8 md:mt-12">
+			<div class="w-full h-50 mt-5 sm:mt-8 md:mt-12">
 				<client-only>
 					<template #fallback>
 						<ui-line-skeleton />
