@@ -2,7 +2,6 @@ import nodemailer from 'nodemailer'
 
 export function useNodemailer() {
 	const { email } = useRuntimeConfig()
-	console.log(email)
 	const transporter = nodemailer.createTransport({
 		// service: 'mail.163',
 		host: 'smtp.163.com',

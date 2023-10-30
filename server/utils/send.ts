@@ -1,7 +1,7 @@
 
 
 
-export function sendSuccess<T>(data: T, message: string = '操作成功'): AppResponse<T> {
+export function sendSuccess<T>(data: T, message = '操作成功'): AppResponse<T> {
 	return {
 		code: 1,
 		data,
@@ -9,7 +9,7 @@ export function sendSuccess<T>(data: T, message: string = '操作成功'): AppRe
 	}
 }
 
-export function sendFail(message: string = '操作失败'): AppResponse<null> {
+export function sendFail(message = '操作失败'): AppResponse<null> {
 	return {
 		code: 0,
 		data: null,
