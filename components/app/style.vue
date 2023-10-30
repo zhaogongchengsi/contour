@@ -19,11 +19,8 @@ onMounted(() => {
 async function save() {
   if (!useState.logged()) {
     warning('未登录，请先登录')
-    router.push('/auth/login')
     return
   }
-
-  console.log(store.contacts)
 
   const { code, message } = await noteSave({
     name: store.name,

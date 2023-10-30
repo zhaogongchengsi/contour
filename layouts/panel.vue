@@ -8,7 +8,10 @@ import { themeOverrides } from '../theme'
 	<NConfigProvider class="app-container" :theme="darkTheme" :inline-theme="isClient" :theme-overrides="themeOverrides">
 		<NMessageProvider>
 			<NDialogProvider>
-				<slot />
+				<section>
+					 <AppHeader class="sticky top-0 z-99 backdrop-blur-md" />
+					<slot />
+				</section>
 			</NDialogProvider>
 		</NMessageProvider>
 	</NConfigProvider>

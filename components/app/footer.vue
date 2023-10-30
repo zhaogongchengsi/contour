@@ -10,7 +10,7 @@ const app = useAppConfig()
       <h3 class="text-3 text-zinc-300 md:text-5 sm:text-4">
         {{ app.title }}
       </h3>
-      <div class="flex items-center gap-3 text-3 md:text-5 sm:text-4">
+      <div class="flex items-center gap-3 text-3 sm:text-4">
         <span class="text-zinc-400 hover:text-zinc-300">隐私政策</span>
         <span class="text-zinc-400 hover:text-zinc-300">服务条款</span>
         <span class="text-zinc-400 hover:text-zinc-300">Cookie设置</span>
