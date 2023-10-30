@@ -16,15 +16,11 @@ declare interface Authorization {
 }
 
 declare interface User {
-	createdAt: string;
-	account: string;
-	id: number;
-	name: null;
-	avatar: string
-	password: string;
-	state: number;
-	uid: string;
-	updatedAt: null;
+  account: string;
+  avatar: string;
+  id: number;
+  name: string;
+  uid: string;
 }
 
 declare interface BgItem {
