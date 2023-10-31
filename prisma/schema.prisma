@@ -37,6 +37,8 @@ model User {
 
   // 页面访问统计
   statistics PageVisits[]
+
+  // @@unique([name, uid])
 }
 
 model File {
@@ -78,8 +80,8 @@ model PageVisits {
   // 访问次数
   number Int
 
-  User   User?   @relation(fields: [userId], references: [uid])
-  userId String?
+  user     User?   @relation(fields: [userName], references: [name])
+  userName String  @map("user_name")
 
   @@map("page_visite")
 }

@@ -1,118 +1,94 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      title: 'Talent',
+      title: "Talent",
       link: [
-        { rel: 'icon', href: '/logo.svg' },
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap' },
+        { rel: "icon", href: "/logo.svg" },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" },
       ],
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'Talent' }
-      ]
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { hid: "description", name: "description", content: "Talent" },
+      ],
     },
     // pageTransition: { name: 'page', mode: 'out-in' }
   },
   runtimeConfig: {
     public: {
-      base: process.env.APP_BASE || 'contour-app',
+      base: process.env.APP_BASE || "contour-app",
       init: {
-        user: 'abcdefg@qq.com',
-        pass: 'abcdefg123..'
-      }
+        user: "abcdefg@qq.com",
+        pass: "abcdefg123..",
+      },
+      reportCycle: 10,
     },
     captchaExpert: 3,
     email: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
+      pass: process.env.EMAIL_PASS,
     },
     jwt: {
       key: process.env.JWT_KEY,
       // 过期时间 see https://github.com/vercel/ms
-      exp: '1h'
+      exp: "1h",
     },
     upload: {
-      urlPrefix: 'http://localhost/static',
-      path: process.env.UPLOAD_PATH
-    }
+      urlPrefix: "http://localhost/static",
+      path: process.env.UPLOAD_PATH,
+    },
   },
   devtools: { enabled: true },
-  modules: [
-    '@unocss/nuxt',
-    '@vueuse/nuxt',
-    'pinceau/nuxt',
-    '@pinia/nuxt',
-    'nuxt-lodash'
-  ],
-  css: [
-    '@unocss/reset/tailwind.css',
-    'assets/main.css'
-  ],
+  modules: ["@unocss/nuxt", "@vueuse/nuxt", "pinceau/nuxt", "@pinia/nuxt", "nuxt-lodash"],
+  css: ["@unocss/reset/tailwind.css", "assets/main.css"],
   lodash: {
     prefix: "_",
   },
   pinia: {
-    autoImports: [
-      'defineStore',
-      ['defineStore', 'definePiniaStore'],
-    ],
+    autoImports: ["defineStore", ["defineStore", "definePiniaStore"]],
   },
   components: {
-    "dirs": [
+    dirs: [
       {
-        path: '~/components/app',
+        path: "~/components/app",
         global: true,
-        prefix: 'app'
+        prefix: "app",
       },
       {
-        path: '~/components/ui',
+        path: "~/components/ui",
         global: true,
-        prefix: 'ui'
+        prefix: "ui",
       },
       {
-        path: '~/components/render',
+        path: "~/components/render",
         global: true,
-        prefix: 'render'
-      }
-    ]
+        prefix: "render",
+      },
+    ],
   },
   imports: {
-    dirs: [
-      'composables',
-      'composables/*/index.{ts,js,mjs,mts}',
-      'composables/**',
-      'stores'
-    ]
+    dirs: ["composables", "composables/*/index.{ts,js,mjs,mts}", "composables/**", "stores"],
   },
   build: {
     transpile:
-      process.env.NODE_ENV === 'production'
-        ? [
-          'naive-ui',
-          'vueuc',
-          '@css-render/vue3-ssr',
-          '@juggle/resize-observer'
-        ]
-        : ['@juggle/resize-observer']
+      process.env.NODE_ENV === "production"
+        ? ["naive-ui", "vueuc", "@css-render/vue3-ssr", "@juggle/resize-observer"]
+        : ["@juggle/resize-observer"],
   },
   vite: {
     optimizeDeps: {
-      include:
-        process.env.NODE_ENV === 'development'
-          ? ['naive-ui', 'vueuc']
-          : []
-    }
+      include: process.env.NODE_ENV === "development" ? ["naive-ui", "vueuc"] : [],
+    },
   },
   nitro: {
     prerender: {
-      ignore: ['/edit/**'],
-      routes: ['/']
-    }
-  }
-})
+      ignore: ["/edit/**"],
+      routes: ["/"],
+    },
+  },
+});
 
 
 
