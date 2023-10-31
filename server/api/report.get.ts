@@ -1,5 +1,6 @@
 import { PageVisits, prisma } from "~/prisma/client";
 import dayjs from "dayjs";
+import { ReportType } from "~/composables/constants";
 
 const isEmpty = <T>(value: T): boolean => {
   return value === "" || value === 0 || value === undefined || value === null;
@@ -12,9 +13,9 @@ async function findFirst(name: string): Promise<PageVisits[]> {
 }
 
 export default defineEventHandler(async (e) => {
-  const { name, time } = getQuery<{ name: string; time: number }>(e);
+  const { name, time, type } = getQuery<{ name: string; time: number; type: ReportType }>(e);
 
-  if ([name, time].some(isEmpty)) {
+  if ([name, time, type].some(isEmpty)) {
     return sendFail("缺少参数");
   }
 
@@ -31,9 +32,9 @@ export default defineEventHandler(async (e) => {
       },
       data: {
         // 更新访问时长
-        duration: Number(time) + pageVisite.duration,
+        duration: type === ReportType.duration ? Number(time) + pageVisite.duration : undefined,
         // 更新访问的次数
-        number: pageVisite.number + 1,
+        number: type === ReportType.number ? pageVisite.number + 1 : undefined,
       },
     });
   } else {
@@ -50,8 +51,5 @@ export default defineEventHandler(async (e) => {
     });
   }
 
-  return sendSuccess({
-    name,
-    time,
-  });
+  return sendSuccess("ok");
 });
