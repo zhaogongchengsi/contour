@@ -40,7 +40,7 @@
   "enter": { "duration": 300, "fill": "both", "delay": 0 },
   "update": { "duration": 300, "fill": "both", "delay": 0 },
   "exit": { "duration": 300, "fill": "both", "delay": 0 },
-  "view": { "viewFill": "#141414", "plotFill": "transparent", "mainFill": "transparent", "contentFill": "transparent" },
+  "view": { "viewFill": "rgba(18, 18, 18, 1)", "plotFill": "transparent", "mainFill": "transparent", "contentFill": "transparent" },
   "line": { "line": { "fill": "", "strokeOpacity": 1, "lineWidth": 1 } },
   "point": {
     "point": { "r": 3, "fillOpacity": 0.95, "lineWidth": 0 },
