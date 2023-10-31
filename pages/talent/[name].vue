@@ -6,6 +6,7 @@ definePageMeta({
    layout: 'render',
 })
 
+useMonitor()
 const route = useRoute()
 
 const { data, code, message } = await getResume(route.params.name as string)
