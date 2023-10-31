@@ -78,10 +78,16 @@ model PageVisits {
   duration Int
 
   // 访问次数
-  number Int
+  number Int @default(0)
 
-  user     User?   @relation(fields: [userName], references: [name])
-  userName String  @map("user_name")
+  // 打印次数
+  print Int @default(0)
+
+  // 点赞次数
+  like Int @default(0)
+
+  user     User?  @relation(fields: [userName], references: [name])
+  userName String @map("user_name")
 
   @@map("page_visite")
 }

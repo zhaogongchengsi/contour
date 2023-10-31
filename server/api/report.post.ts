@@ -1,6 +1,6 @@
 import { PageVisits, prisma } from "~/prisma/client";
 import dayjs from "dayjs";
-import { ReportType } from "~/composables/constants";
+import { ReportAction } from "~/composables/constants";
 
 const isEmpty = <T>(value: T): boolean => {
   return value === "" || value === 0 || value === undefined || value === null;
@@ -13,10 +13,14 @@ async function findFirst(name: string): Promise<PageVisits[]> {
 }
 
 export default defineEventHandler(async (e) => {
-  const { name, time, type } = getQuery<{ name: string; time: number; type: ReportType }>(e);
+  const { name, time, action } = getQuery<{ name: string; time: number; action: ReportAction }>(e);
 
-  if ([name, time, type].some(isEmpty)) {
+  if ([name, action].some(isEmpty)) {
     return sendFail("缺少参数");
+  }
+
+  if (action === ReportAction.duration && isEmpty(time)) {
+    return sendFail("当 action 为 duration time 不可为空");
   }
 
   //  先查询当前时间访问记录是否已经创建
@@ -32,9 +36,11 @@ export default defineEventHandler(async (e) => {
       },
       data: {
         // 更新访问时长
-        duration: type === ReportType.duration ? Number(time) + pageVisite.duration : undefined,
+        duration: action === ReportAction.duration ? Number(time) + pageVisite.duration : undefined,
         // 更新访问的次数
-        number: type === ReportType.number ? pageVisite.number + 1 : undefined,
+        number: action === ReportAction.number ? pageVisite.number + 1 : undefined,
+        // 更新打印次数
+        print: action === ReportAction.print ? pageVisite.print + 1 : undefined,
       },
     });
   } else {
