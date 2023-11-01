@@ -26,3 +26,8 @@ export const noteSave = (body: NoteData) => {
     },
   });
 };
+
+export const loggedByServer = async (name: string) => {
+  const { code } = await $fetch<AppResponse<string>>("/api/logged", { method: "get", query: { name } });
+  return Boolean(code);
+};

@@ -13,37 +13,46 @@ definePageMeta({
 const store = useEditDataStore()
 const modalStore = useCardFormModal()
 const route = useRoute()
-const user = useUserInfo()
+// const user = useUserInfo()
 
-if (import.meta.browser) {
+const init = async () => {
   store.name = route.params.name as string
-  if (user.logged()) {
-    const { code, data } = await getResume(route.params.name as string)
-    if (code) {
-      const { avatar, background, styles, color, description, contact, cards } = data!
+  const { code, data } = await getResume(route.params.name as string)
+  if (code) {
+    const { avatar, background, styles, color, description, contact, cards } = data!
 
-      store.avatar = avatar as AvatarUri
-      store.background = background
-      store.styles = styles?.split('-') || []
-      store.color = color
-      store.description = description || '没有介绍'
-      store.contacts = JSON.parse(contact)
+    store.avatar = avatar as AvatarUri
+    store.background = background
+    store.styles = styles?.split('-') || []
+    store.color = color
+    store.description = description || '没有介绍'
+    store.contacts = JSON.parse(contact)
 
-      store.cards = (cards || []).map((card) => {
-        const [row, col] = card.size.split('-').map(Number)
-        return {
-          ...card,
-          icon: JSON.parse(card.icon),
-          size: {
-            row,
-            col
-          }
+    store.cards = (cards || []).map((card) => {
+      const [row, col] = card.size.split('-').map(Number)
+      return {
+        ...card,
+        icon: JSON.parse(card.icon),
+        size: {
+          row,
+          col
         }
-      })
-
-    }
+      }
+    })
   }
 }
+
+// 服务端先预渲染防止水合不一致
+if (import.meta.server) {
+  const logged = await loggedByServer(route.params.name as string)
+  logged && await init()
+}
+
+// if (import.meta.browser) {
+//   if (user.logged()) {
+//     await init()
+//   }
+// }
 
 const createCard = () => {
 
