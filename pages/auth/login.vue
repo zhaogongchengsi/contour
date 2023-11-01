@@ -19,7 +19,9 @@ const fromValue = reactive({
 
 const loginHandle = debounce(async () => {
 	formRef.value.validate().then(() => {
-		store.setName(fromValue.name)
+
+		store.name = fromValue.name
+
 		loginApi(fromValue).then(({ code, data, message }) => {
 			if (!code) {
 				error(message)
@@ -31,7 +33,7 @@ const loginHandle = debounce(async () => {
 
 			success('登陆成功')
 
-			router.push(`/edit/${fromValue.name}`)
+			navigateTo({ path: `/edit/${fromValue.name}` })
 
 		}).catch(err => {
 			console.log(err);

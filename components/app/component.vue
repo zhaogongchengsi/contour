@@ -31,10 +31,15 @@ const renderLabel = (option: SelectOption): VNodeChild => {
 const addCard = (icon: IconInfo) => {
 	modalStore.icon = icon
 	modalStore.title = icon.label
-
 	modalStore.show()
 }
 
+const createContact = () => {
+	return {
+		value: "",
+		type: "phone",
+	};
+}
 
 </script>
 
@@ -51,7 +56,7 @@ const addCard = (icon: IconInfo) => {
 			<h4 class="text-4 font-bold text-gray-400">描述</h4>
 			<n-input size="small" v-model:value="store.description" placeholder="请输入描述" />
 			<h4 class="text-4 font-bold text-gray-400">联系方式</h4>
-			<n-dynamic-input v-model:value="store.contacts" :on-create="store.createContact">
+			<n-dynamic-input v-model:value="store.contacts" :on-create="createContact">
 				<template #create-button-default>
 					随便加点联系方式
 				</template>

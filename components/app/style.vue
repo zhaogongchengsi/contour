@@ -41,6 +41,11 @@ async function save() {
   code && success(message)
 
 }
+
+const updateStyle = (value: unknown) => {
+  store.styles = value as string[]
+}
+
 </script>
 
 <template>
@@ -86,7 +91,7 @@ async function save() {
             <NScrollbar class="h-50 max-h-80">
               <div class="grid grid-cols-4 w-full gap-3">
                 <ui-bg-card v-for="item of material.colors" :key="item" :active="store.background === item"
-                  @click="store.setBackground(item)">
+                  @click="store.background = item">
                   <div class="h-full w-full" :style="{ background: item }" />
                 </ui-bg-card>
               </div>
@@ -97,7 +102,7 @@ async function save() {
               <div class="grid grid-cols-4 w-full gap-3">
                 <ui-bg-card v-for="(item, index) of material.generateColor" :key="index"
                   :active="store.background === material.generateColorStyle(item)"
-                  @click="store.setBackground(material.generateColorStyle(item))">
+                  @click="store.background = material.generateColorStyle(item)">
                   <div class="h-full w-full" :style="{ background: material.generateColorStyle(item) }" />
                 </ui-bg-card>
               </div>
@@ -107,7 +112,7 @@ async function save() {
             <NScrollbar class="max-h-80 min-h-50 px-3">
               <div class="grid grid-cols-3 w-full gap-3">
                 <ui-bg-card v-for="item of material.images" :key="item" :active="store.background === item"
-                  @click="store.setBackground(`url(${item})`)">
+                  @click="store.background = `url(${item})`">
                   <img class="h-full w-full object-contain" :src="item">
                 </ui-bg-card>
               </div>
@@ -124,7 +129,7 @@ async function save() {
       <h4 class="px-3 text-4 font-bold text-gray-400">
         设置
       </h4>
-      <NCheckboxGroup v-model:value="store.styles" class="px-3" @update-value="store.setStyles">
+      <NCheckboxGroup v-model:value="store.styles" class="px-3" @update-value="updateStyle">
         <NGrid :y-gap="8" :cols="2">
           <NGi>
             <NCheckbox size="medium" label="磨砂" value="frosted" />

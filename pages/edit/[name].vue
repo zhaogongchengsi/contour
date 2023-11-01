@@ -16,7 +16,7 @@ const route = useRoute()
 const user = useUserInfo()
 
 if (import.meta.browser) {
-  store.setName(route.params.name as string)
+  store.name = route.params.name as string
   if (user.logged()) {
     const { code, data } = await getResume(route.params.name as string)
     if (code) {
@@ -24,12 +24,12 @@ if (import.meta.browser) {
 
       store.avatar = avatar as AvatarUri
       store.background = background
-      store.styles = styles.split('-')
+      store.styles = styles?.split('-') || []
       store.color = color
       store.description = description || '没有介绍'
       store.contacts = JSON.parse(contact)
 
-      store.cards = cards.map((card) => {
+      store.cards = (cards || []).map((card) => {
         const [row, col] = card.size.split('-').map(Number)
         return {
           ...card,
@@ -47,13 +47,11 @@ if (import.meta.browser) {
 
 const createCard = () => {
 
-  const id = store.getId()
-
-  store.createCard({
-    id: id,
+  store.cards.push({
+    id: store.getId(),
     icon: toValue(modalStore.icon!),
     ...cloneDeep(modalStore.formValue)
-  })
+  });
 
   modalStore.close()
 

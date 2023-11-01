@@ -1,5 +1,6 @@
 import { isUserInfo } from "~/composables/schema";
 import { prisma } from "~/prisma/client";
+import { useRedisLoggingStatusStorage } from "../utils/storage";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -28,7 +29,7 @@ export default defineEventHandler(async (event) => {
       uid: true,
       account: true,
       name: true,
-	  avatar: true,
+      avatar: true,
     },
   });
 
@@ -40,10 +41,15 @@ export default defineEventHandler(async (event) => {
     return sendFail("密码错误");
   }
 
+  const storage = useRedisLoggingStatusStorage();
+
   const { token, exp } = issueToken({
     uuid: user.uid!,
     id: user.id,
   });
+
+
+  await storage?.setItem(user.name!, exp);
 
   // @ts-ignore
   delete user.password;

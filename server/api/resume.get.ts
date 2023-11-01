@@ -25,7 +25,7 @@ export default defineEventHandler(async (e) => {
 	})
 
 	if (!user) {
-		return sendFail('缺少 name');
+		return sendFail('用户不存在');
 	}
 
 	return sendSuccess(user)
