@@ -5,7 +5,7 @@ import { message } from '~/composables/discrete'
 
 const router = useRouter()
 const name = ref<string>('')
-const edit = useEditDataStore()
+const editStore = useEditDataStore()
 const appConfig = useAppConfig()
 
 interface FooterLink {
@@ -22,7 +22,7 @@ const userInfo = useUserInfo()
 watch(userInfo.user, (u) => {
 	if (isEmpty(u)) {
 		name.value = ''
-		edit.setName('')
+		editStore.name = ''
 	}
 })
 
@@ -34,7 +34,7 @@ onMounted(() => {
 	if (userInfo.user) {
 		const n = (userInfo.user.value as User).name!
 		name.value = n
-		edit.setName(n)
+		editStore.name = n
 	}
 
 })
@@ -48,7 +48,7 @@ const submit = async () => {
 		return
 	}
 
-	edit.setName(url)
+	editStore.name = url
 	router.push(`/edit/${url}`)
 }
 
@@ -63,7 +63,7 @@ const submit = async () => {
 			<div
 				class="h-12 sm:h-18 bg-white/10 rounded-lg focus-within:bg-white/20 text-4 md:text-6 backdrop-blur focus-within:backdrop-blur-sm flex items-center px-4 gap-2">
 				<span class="block shrink-0">Talent :</span>
-				<input v-model="name" :disabled="edit.name != ''"
+				<input v-model="name" :disabled="editStore.name != ''"
 					class="flex-1 h-full rounded-lg px-2 outline-none bg-transparent" type="text" placeholder="输入你的名称或者昵称">
 			</div>
 			<button @click="submit"

@@ -15,8 +15,9 @@ const modalStore = useCardFormModal()
 const route = useRoute()
 // const user = useUserInfo()
 
+store.name = route.params.name as string
+
 const init = async () => {
-  store.name = route.params.name as string
   const { code, data } = await getResume(route.params.name as string)
   if (code) {
     const { avatar, background, styles, color, description, contact, cards } = data!
@@ -82,7 +83,7 @@ const createCard = () => {
       {{ store.name }}
     </template>
     <template #desc>
-      {{ store.description }}
+      {{ store.description || '一段非常牛逼的描述' }}
     </template>
     <template #contact>
       <ui-contact-wrapper>
@@ -115,7 +116,7 @@ const createCard = () => {
         <h3>创建<span class="mx-1 font-bold text-purple-500">{{ modalStore.title }}</span>卡片</h3>
         <div class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500" @click="modalStore.close" />
       </div>
-      <div class="p-3 flex items-center justify-between gap-3">
+      <div class="flex justify-between items-center gap-3 bg-zinc-100">
         <div class="w-1/2 h-full flex justify-center items-center">
           <card edit :icon="modalStore.icon" :background="modalStore.formValue.background"
             :button-style="modalStore.formValue.buttonStyle" :col="modalStore.formValue.size.col"
@@ -128,7 +129,7 @@ const createCard = () => {
             {{ modalStore.icon?.label }}
           </card>
         </div>
-        <app-card-from class="flex-1" @cancel="modalStore.close" @commit="createCard" />
+        <app-card-from class="flex-1 p-3 bg-white" @cancel="modalStore.close" @commit="createCard" />
       </div>
     </div>
   </n-modal>

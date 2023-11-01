@@ -31,6 +31,7 @@ const renderLabel = (option: SelectOption): VNodeChild => {
 const addCard = (icon: IconInfo) => {
 	modalStore.icon = icon
 	modalStore.title = icon.label
+	modalStore.reset()
 	modalStore.show()
 }
 

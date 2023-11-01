@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMessage, NForm, NFormItem, NButton, NTabs, NTabPane, NScrollbar, NRadioGroup, NRadioButton, NInput, NUpload } from 'naive-ui'
-import type { FormInst, UploadFileInfo, UploadInst } from 'naive-ui'
+import type { FormInst } from 'naive-ui'
 import { useCardFormModal } from '~/stores/cardForm';
 import type { LinearGradient } from '~/types';
 
@@ -36,7 +36,11 @@ const sizeUpdate = (value: string) => {
 	<div>
 		<n-form class="flex-1" ref="formRef" :label-width="80" :model="modalStore.formValue">
 			<n-form-item label="链接">
-				<NInput placeholder="请输入链接" v-model:value="modalStore.formValue.link" />
+				<NInput placeholder="请输入链接" v-model:value="modalStore.formValue.link">
+					<template #prefix>
+						<i class="w-4 h-4 block i-carbon:attachment" />
+					</template>
+				</NInput>
 			</n-form-item>
 			<n-form-item label="按钮大小">
 				<n-radio-group class="w-full justify-center" v-model:value="size" @update:value="sizeUpdate">
