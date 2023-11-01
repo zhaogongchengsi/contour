@@ -14,7 +14,7 @@ export function useRedisCaptchaStorage() {
         }),
       });
     }
-    return captchaStorage;
+    return captchaStorage!;
   } catch (err: any) {
     throw createError(err);
   }
@@ -24,7 +24,7 @@ let loggingStateStorage: Storage<StorageValue> | null;
 export function useRedisLoggingStatusStorage() {
   try {
     if (!loggingStateStorage) {
-      captchaStorage = createStorage({
+      loggingStateStorage = createStorage({
         driver: redisDriver({
           base: "logging-status",
           host: process.env.REDIS_HOST,
@@ -32,8 +32,8 @@ export function useRedisLoggingStatusStorage() {
           password: process.env.REDIS_PASSWORD,
         }),
       });
-    }
-    return loggingStateStorage;
+    }    
+    return loggingStateStorage!;
   } catch (err: any) {
     throw createError(err);
   }

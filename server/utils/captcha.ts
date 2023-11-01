@@ -20,7 +20,7 @@ export async function createCaptcha() {
 	const expert = issue.add(runtime.captchaExpert || 3, 'minute')
 	const { text, data } = captcha.createMathExpr(option);
 
-	storage.setItem(id, {
+	await storage.setItem(id, {
 		issue: issue.format(),
 		expert: expert.format(),
 		value: text

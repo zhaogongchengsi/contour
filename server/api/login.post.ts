@@ -41,13 +41,12 @@ export default defineEventHandler(async (event) => {
     return sendFail("密码错误");
   }
 
-  const storage = useRedisLoggingStatusStorage();
-
   const { token, exp } = issueToken({
     uuid: user.uid!,
     id: user.id,
   });
 
+  const storage = useRedisLoggingStatusStorage();
 
   await storage?.setItem(user.name!, exp);
 
