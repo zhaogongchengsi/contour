@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import card from '~/components/card/card.vue'
 
 definePageMeta({
 	layout: 'edit',
@@ -7,7 +8,8 @@ definePageMeta({
 const store = useEditDataStore()
 
 const route = useRoute()
-store.setName(route.params.name as string)
+
+store.name = route.params.name as string
 
 </script>
 
@@ -16,9 +18,7 @@ store.setName(route.params.name as string)
 		:center="store.styles.includes('center')" :blur="store.styles.includes('blur')"
 		:ltalic="store.styles.includes('ltalic')" :color="store.color">
 		<template #avatar>
-			<ui-picture-selector v-model:value="store.avatar" :name="($route.params.name as string)">
-				<ui-avatar :src="store.avatar"></ui-avatar>
-			</ui-picture-selector>
+			<ui-avatar :src="store.avatar"></ui-avatar>
 		</template>
 		<template #name>
 			{{ store.name }}
@@ -33,21 +33,18 @@ store.setName(route.params.name as string)
 			</ui-contact-wrapper>
 		</template>
 		<template #card>
-			<draggable tag="div" :animation="500" :list="store.cards" class="card-wrapper-grid" item-key="id">
-				<template #item="{ element }">
-					<card edit :icon="element.icon" :background="element.background" :button-style="element.buttonStyle"
-						:col="element.size.col" :row="element.size.row">
-						<template #image>
-							<ui-picture-selector v-model:value="element.image" :name="($route.params.name as string)">
-								<div class="w-full h-full">
-									<ui-picture :src="element.image" :alt="String(element.id)" />
-								</div>
-							</ui-picture-selector>
-						</template>
-						{{ element.label }}
-					</card>
-				</template>
-			</draggable>
+			<div class="card-wrapper-grid">
+				<card v-for="element of store.cards" :key="element.id" :icon="element.icon" :background="element.background"
+					:button-style="element.buttonStyle" :col="element.size.col" :row="element.size.row">
+					<template #image>
+						<ui-picture-selector v-model:value="element.image" :name="($route.params.name as string)">
+							<div class="w-full h-full">
+								<ui-picture :src="element.image" :alt="String(element.id)" />
+							</div>
+						</ui-picture-selector>
+					</template>
+				</card>
+			</div>
 		</template>
 	</render-plane>
 	<div class="fixed right-10 top-5 bg-white dark:bg-dark-800 p-3 rounded-md flex flex-col gap-3 z-999 print:hidden">
