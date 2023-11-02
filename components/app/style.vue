@@ -5,7 +5,6 @@ const { warning, success } = useMessage()
 const store = useEditDataStore()
 const material = useMaterial()
 const useState = useUserInfo()
-const router = useRouter()
 
 onMounted(() => {
   if (import.meta.browser && !useState.logged()) {

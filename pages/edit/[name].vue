@@ -3,14 +3,14 @@ import { NModal } from 'naive-ui'
 import card from '~/components/card/card.vue'
 import draggable from "vuedraggable";
 import { cloneDeep } from 'lodash';
-import { AvatarUri, CardButtonStyle, CardSizeString, IconInfo } from '~/types';
+import type { AvatarUri, CardButtonStyle, CardConfig, CardSizeString, ContactInfo, IconInfo } from '~/types';
+import { useStorage } from "@vueuse/core";
 
 definePageMeta({
   layout: 'edit',
 })
 
 const editMode = ref<'create' | 'change'>('create')
-const store = useEditDataStore()
 const route = useRoute()
 
 const isShow = ref(false);
@@ -34,29 +34,35 @@ const formValue = shallowReactive<FormValue>({
   icon: undefined
 })
 
-store.name = route.params.name as string
+const defineStorageKey = (key: string) => `contour-edit-${key}`;
+
+const cardCurredId = useStorage<number>(defineStorageKey("id"), 0);
+
+const name = useStorage<string>(defineStorageKey("name"), route.params.name as string);
+const description = useStorage<string>(defineStorageKey("description"), "");
+const background = useStorage(defineStorageKey("background"), "");
+const color = useStorage<string>(defineStorageKey("color"), "");
+const avatar = useStorage<AvatarUri>(defineStorageKey("avatar"), "emoji:😎");
+const styles = useStorage<string[]>(defineStorageKey("styles"), []);
+const contacts = useStorage<ContactInfo[]>(defineStorageKey("contact"), []);
+
+const cards = useStorage<FormValue[]>(defineStorageKey("cards"), []);
 
 const init = async () => {
   const { code, data } = await getResume(route.params.name as string)
   if (code) {
-    const { avatar, background, styles, color, description, contact, cards } = data!
 
-    store.avatar = avatar as AvatarUri
-    store.background = background
-    store.styles = styles?.split('-') || []
-    store.color = color
-    store.description = description || '没有介绍'
-    store.contacts = JSON.parse(contact)
+    avatar.value = data!.avatar as AvatarUri
+    background.value = data!.background
+    styles.value = data!.styles?.split('-') || []
+    color.value = data!.color
+    description.value = data!.description || '没有介绍'
+    contacts.value = JSON.parse(data!.contact)
 
-    store.cards = (cards || []).map((card) => {
-      const [row, col] = card.size.split('-').map(Number)
+    cards.value = (data?.cards || []).map((card) => {
       return {
         ...card,
         icon: JSON.parse(card.icon),
-        size: {
-          row,
-          col
-        }
       }
     })
   }
@@ -106,29 +112,29 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 </script>
 
 <template>
-  <app-component @add-card="addCard" />
-  <render-plane :background="store.background" :frosted="store.styles.includes('frosted')"
-    :center="store.styles.includes('center')" :blur="store.styles.includes('blur')"
-    :ltalic="store.styles.includes('ltalic')" :color="store.color">
+  <app-component @add-card="addCard" v-model:desc="description" v-model:contacts="contacts" />
+  <render-plane :background="background" :frosted="styles.includes('frosted')"
+    :center="styles.includes('center')" :blur="styles.includes('blur')"
+    :ltalic="styles.includes('ltalic')" :color="color">
     <template #avatar>
-      <ui-picture-selector v-model:value="store.avatar" :name="($route.params.name as string)">
-        <ui-avatar :src="store.avatar" class="text-5 sm:text-8 md:text-12 lg:text-16" />
+      <ui-picture-selector v-model:value="avatar" :name="($route.params.name as string)">
+        <ui-avatar :src="avatar" class="text-5 sm:text-8 md:text-12 lg:text-16" />
       </ui-picture-selector>
     </template>
     <template #name>
-      {{ store.name }}
+      {{ name }}
     </template>
     <template #desc>
-      {{ store.description || '一段非常牛逼的描述' }}
+      {{ description || '一段非常牛逼的描述' }}
     </template>
     <template #contact>
       <ui-contact-wrapper>
-        <ui-contact-item v-for="contact of store.contacts" :key="contact.value" :value="contact.value"
+        <ui-contact-item v-for="contact of contacts" :key="contact.value" :value="contact.value"
           :type="contact.type" />
       </ui-contact-wrapper>
     </template>
     <template #card>
-      <draggable tag="div" :animation="500" :list="store.cards" class="card-wrapper-grid" item-key="id">
+      <draggable tag="div" :animation="500" :list="cards" class="card-wrapper-grid" item-key="id">
         <template #item="{ element }">
           <card edit :icon="element.icon" @contextmenu="handleRightClick(element, $event)"
             :background="element.background" :button-style="element.buttonStyle" :col="element.size.col"

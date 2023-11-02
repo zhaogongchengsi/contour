@@ -3,11 +3,17 @@ import { NInput, NDynamicInput, NInputGroup, NSelect } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
 import icons from '~/assets/icons.json'
-import type { IconInfo } from '~/types';
+import type { ContactInfo, IconInfo } from '~/types';
 
 const store = useEditDataStore()
 
-const emit = defineEmits(['addCard'])
+const props = defineProps<{
+	desc: string;
+	contacts: ContactInfo[]
+}>()
+
+const emit = defineEmits(['addCard', 'update:desc', 'update:contacts'])
+const { desc, contacts } = useVModels(props, emit)
 
 const selectOptions = ref([
 	{
@@ -52,9 +58,9 @@ const createContact = () => {
 		</template>
 		<div class="flex-1 flex flex-col gap-3 px-3 pb-2">
 			<h4 class="text-4 font-bold text-gray-400">描述</h4>
-			<n-input size="small" v-model:value="store.description" placeholder="请输入描述" />
+			<n-input size="small" v-model:value="desc" placeholder="请输入描述" />
 			<h4 class="text-4 font-bold text-gray-400">联系方式</h4>
-			<n-dynamic-input v-model:value="store.contacts" :on-create="createContact">
+			<n-dynamic-input v-model:value="contacts" :on-create="createContact">
 				<template #create-button-default>
 					随便加点联系方式
 				</template>
