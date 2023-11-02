@@ -64,10 +64,10 @@ const createContact = () => {
 				</router-link>
 			</div>
 		</template>
-		<div class="flex-1 flex flex-col gap-3 px-3 pb-2">
-			<h4 class="text-4 font-bold text-gray-400">描述</h4>
+		<div class="flex-1 flex flex-col gap-3 px-3 pb-2 text-gray-400">
+			<ui-label>描述</ui-label>
 			<n-input size="small" v-model:value="desc" placeholder="请输入描述" />
-			<h4 class="text-4 font-bold text-gray-400">联系方式</h4>
+			<ui-label>联系方式</ui-label>
 			<n-dynamic-input v-model:value="contacts" :on-create="createContact">
 				<template #create-button-default>
 					随便加点联系方式
@@ -90,30 +90,18 @@ const createContact = () => {
 					</div>
 				</template>
 			</n-dynamic-input>
-			<h4 class="text-4 font-bold text-gray-400">
-				文本颜色
-			</h4>
+			<ui-label>文本颜色</ui-label>
 			<NColorPicker v-model:value="color" />
-			<h4 class="text-4 font-bold text-gray-400">
-				设置
-			</h4>
+			<ui-label>设置</ui-label>
 			<NCheckboxGroup v-model:value="config">
 				<NGrid :y-gap="8" :cols="2">
-					<NGi>
-						<NCheckbox size="medium" label="磨砂" value="frosted" />
-					</NGi>
-					<NGi>
-						<NCheckbox size="medium" label="模糊" value="blur" />
-					</NGi>
-					<NGi>
-						<NCheckbox size="medium" label="居中" value="center" />
-					</NGi>
-					<NGi>
-						<NCheckbox size="medium" label="斜体" value="ltalic" />
-					</NGi>
+					<NGi><NCheckbox size="medium" label="磨砂" value="frosted" /></NGi>
+					<NGi><NCheckbox size="medium" label="模糊" value="blur" /></NGi>
+					<NGi><NCheckbox size="medium" label="居中" value="center" /></NGi>
+					<NGi><NCheckbox size="medium" label="斜体" value="ltalic" /></NGi>
 				</NGrid>
 			</NCheckboxGroup>
-			<h4 class="text-4 font-bold text-gray-400">背景</h4>
+			<ui-label>背景</ui-label>
 			<NTabs type="segment" animated size="small">
 				<NTabPane name="color" tab="纯颜色">
 					<NScrollbar class="h-50 max-h-80">
@@ -147,7 +135,7 @@ const createContact = () => {
 					</NScrollbar>
 				</NTabPane>
 			</NTabs>
-			<h4 class="text-4 font-bold text-gray-400">小组件</h4>
+			<ui-label>小组件</ui-label>
 			<div class="grid grid-cols-5 gap-3">
 				<div v-for="icon of (icons as IconInfo[])" @click="addCard(icon)" :key="icon.name"
 					class="h-full flex flex-col items-center cursor-pointer">

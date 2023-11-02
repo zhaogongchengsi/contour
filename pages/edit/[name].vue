@@ -135,7 +135,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
       {{ name }}
     </template>
     <template #desc>
-      {{ description || '一段非常牛逼的描述' }}
+      {{ description }}
     </template>
     <template #contact>
       <ui-contact-wrapper>
