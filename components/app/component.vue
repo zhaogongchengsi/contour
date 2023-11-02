@@ -1,19 +1,27 @@
 <script lang="ts" setup>
-import { NInput, NDynamicInput, NInputGroup, NSelect } from 'naive-ui'
+import { NInput, NDynamicInput, NInputGroup, NSelect, NCheckbox, NCheckboxGroup, NColorPicker, NGi, NGrid, NScrollbar, NTabPane, NTabs } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
 import icons from '~/assets/icons.json'
 import type { ContactInfo, IconInfo } from '~/types';
 
-const store = useEditDataStore()
+const material = useMaterial()
 
+const config = ref([])
 const props = defineProps<{
 	desc: string;
 	contacts: ContactInfo[]
+	color: string
+	style: string
+	background: string
 }>()
 
-const emit = defineEmits(['addCard', 'update:desc', 'update:contacts'])
-const { desc, contacts } = useVModels(props, emit)
+const emit = defineEmits(['addCard', 'update:desc', 'update:contacts', 'update:color', 'update:style', 'update:background'])
+const { desc, contacts, color, style, background } = useVModels(props, emit)
+
+watchEffect(() => {
+	style.value = config.value.join('-')
+})
 
 const selectOptions = ref([
 	{
@@ -82,6 +90,63 @@ const createContact = () => {
 					</div>
 				</template>
 			</n-dynamic-input>
+			<h4 class="text-4 font-bold text-gray-400">
+				文本颜色
+			</h4>
+			<NColorPicker v-model:value="color" />
+			<h4 class="text-4 font-bold text-gray-400">
+				设置
+			</h4>
+			<NCheckboxGroup v-model:value="config">
+				<NGrid :y-gap="8" :cols="2">
+					<NGi>
+						<NCheckbox size="medium" label="磨砂" value="frosted" />
+					</NGi>
+					<NGi>
+						<NCheckbox size="medium" label="模糊" value="blur" />
+					</NGi>
+					<NGi>
+						<NCheckbox size="medium" label="居中" value="center" />
+					</NGi>
+					<NGi>
+						<NCheckbox size="medium" label="斜体" value="ltalic" />
+					</NGi>
+				</NGrid>
+			</NCheckboxGroup>
+			<h4 class="text-4 font-bold text-gray-400">背景</h4>
+			<NTabs type="segment" animated size="small">
+				<NTabPane name="color" tab="纯颜色">
+					<NScrollbar class="h-50 max-h-80">
+						<div class="grid grid-cols-4 w-full gap-3">
+							<ui-bg-card v-for="item of material.colors" :key="item" :active="background === item"
+								@click="background = item">
+								<div class="h-full w-full" :style="{ background: item }" />
+							</ui-bg-card>
+						</div>
+					</NScrollbar>
+				</NTabPane>
+				<NTabPane name="gradientColor" tab="渐变色">
+					<NScrollbar class="h-50 max-h-80">
+						<div class="grid grid-cols-4 w-full gap-3">
+							<ui-bg-card v-for="(item, index) of material.generateColor" :key="index"
+								:active="background === material.generateColorStyle(item)"
+								@click="background = material.generateColorStyle(item)">
+								<div class="h-full w-full" :style="{ background: material.generateColorStyle(item) }" />
+							</ui-bg-card>
+						</div>
+					</NScrollbar>
+				</NTabPane>
+				<NTabPane name="image" tab="图片">
+					<NScrollbar class="max-h-80 min-h-50 px-3">
+						<div class="grid grid-cols-3 w-full gap-3">
+							<ui-bg-card v-for="item of material.images" :key="item" :active="background === item"
+								@click="background = `url(${item})`">
+								<img class="h-full w-full object-contain" :src="item">
+							</ui-bg-card>
+						</div>
+					</NScrollbar>
+				</NTabPane>
+			</NTabs>
 			<h4 class="text-4 font-bold text-gray-400">小组件</h4>
 			<div class="grid grid-cols-5 gap-3">
 				<div v-for="icon of (icons as IconInfo[])" @click="addCard(icon)" :key="icon.name"

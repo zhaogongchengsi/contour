@@ -3,7 +3,7 @@ import { NModal } from 'naive-ui'
 import card from '~/components/card/card.vue'
 import draggable from "vuedraggable";
 import { cloneDeep } from 'lodash';
-import type { AvatarUri, CardButtonStyle, CardConfig, CardSizeString, ContactInfo, IconInfo } from '~/types';
+import type { AvatarUri, CardButtonStyle, CardSizeString, ContactInfo, IconInfo } from '~/types';
 import { useStorage } from "@vueuse/core";
 
 definePageMeta({
@@ -43,7 +43,7 @@ const description = useStorage<string>(defineStorageKey("description"), "");
 const background = useStorage(defineStorageKey("background"), "");
 const color = useStorage<string>(defineStorageKey("color"), "");
 const avatar = useStorage<AvatarUri>(defineStorageKey("avatar"), "emoji:😎");
-const styles = useStorage<string[]>(defineStorageKey("styles"), []);
+const style = useStorage<string>(defineStorageKey("style"), '');
 const contacts = useStorage<ContactInfo[]>(defineStorageKey("contact"), []);
 
 const cards = useStorage<FormValue[]>(defineStorageKey("cards"), []);
@@ -54,7 +54,7 @@ const init = async () => {
 
     avatar.value = data!.avatar as AvatarUri
     background.value = data!.background
-    styles.value = data!.styles?.split('-') || []
+    style.value = data!.styles
     color.value = data!.color
     description.value = data!.description || '没有介绍'
     contacts.value = JSON.parse(data!.contact)
@@ -73,6 +73,16 @@ if (import.meta.server) {
   const logged = await loggedByServer(route.params.name as string)
   logged && await init()
 }
+
+const config = computed(() => {
+  const list = style.value.split('-')
+  return {
+    frosted: list.includes('frosted'),
+    center: list.includes('center'),
+    blur: list.includes('blur'),
+    ltalic: list.includes('ltalic'),
+  }
+})
 
 // if (import.meta.browser) {
 //   if (user.logged()) {
@@ -112,10 +122,10 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 </script>
 
 <template>
-  <app-component @add-card="addCard" v-model:desc="description" v-model:contacts="contacts" />
-  <render-plane :background="background" :frosted="styles.includes('frosted')"
-    :center="styles.includes('center')" :blur="styles.includes('blur')"
-    :ltalic="styles.includes('ltalic')" :color="color">
+  <app-component @add-card="addCard" v-model:desc="description" v-model:contacts="contacts"
+    v-model:background="background" v-model:color="color" v-model:style="style" />
+  <render-plane :background="background" :frosted="config.frosted" :center="config.center"
+    :blur="config.blur" :ltalic="config.ltalic" :color="color">
     <template #avatar>
       <ui-picture-selector v-model:value="avatar" :name="($route.params.name as string)">
         <ui-avatar :src="avatar" class="text-5 sm:text-8 md:text-12 lg:text-16" />
@@ -129,8 +139,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
     </template>
     <template #contact>
       <ui-contact-wrapper>
-        <ui-contact-item v-for="contact of contacts" :key="contact.value" :value="contact.value"
-          :type="contact.type" />
+        <ui-contact-item v-for="contact of contacts" :key="contact.value" :value="contact.value" :type="contact.type" />
       </ui-contact-wrapper>
     </template>
     <template #card>
@@ -152,7 +161,6 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
       </draggable>
     </template>
   </render-plane>
-  <app-style />
   <n-modal v-model:show="isShow">
     <div class="w-250 bg-white border border-white/30 rounded-md">
       <div class="flex justify-between items-center border-b-1 primary-border-color px-2 py-1">

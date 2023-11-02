@@ -12,7 +12,7 @@ withDefaults(defineProps<{ direction?: 'left' | 'right' }>(), {
 		:class="{ 'left-0': direction === 'left', 'right-0': direction === 'right' }">
 		<div
 			class="w-full h-full border overflow-hidden rounded primary-border-color bg-gray-50 text-gray-900 dark:bg-zinc-800/80 rounded-md pointer-events-auto">
-			<n-scrollbar style="height: calc(100vh - 48px)" class="affix-modal-container_scrollbar">
+			<n-scrollbar class="affix-modal-container_scrollbar">
 				<div class="border-b primary-border-color bg-gray-50 dark:bg-zinc-800/90 z-20 sticky top-0">
 					<slot name="header" />
 				</div>
