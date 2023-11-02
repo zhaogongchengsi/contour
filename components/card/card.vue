@@ -20,14 +20,13 @@ const buttonClass = computed(() => {
   }
 })
 
-const size = computed(() => {
-  const _row = Number(props.row)
-  const _col = Number(props.col)
-  return {
-    row: _row,
-    col: _col,
-    area: _row * _col,
-  }
+const row = ref(1)
+const col = ref(1)
+
+watchEffect(() => {
+  const [_row, _col] = props.size.split('-').map(Number)
+  row.value = _row
+  col.value = _col
 })
 
 const cardStyle = computed(() => {
@@ -40,16 +39,12 @@ provide(key, props)
 </script>
 
 <template>
-  <ui-card-size
-    :row="size.row" :col="size.col" :style="cardStyle" :class="buttonClass"
-    class="h-full w-full overflow-hidden"
-  >
-    <card-inner>
+  <ui-card-size :row="row" :col="col" :style="cardStyle" :class="buttonClass"
+    class="relative h-full w-full overflow-hidden">
+    <card-inner :size="$props.size!">
       <template #icon>
-        <card-icon
-          :image="$props.icon?.image!" :background="$props.icon?.background" :class="buttonClass"
-          :name="$props.icon?.name"
-        />
+        <card-icon :image="$props.icon?.image!" :background="$props.icon?.background" :class="buttonClass"
+          :name="$props.icon?.name" />
       </template>
       <template #image>
         <slot name="image" />

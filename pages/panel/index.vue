@@ -1,7 +1,6 @@
 <script setup lang="ts">
-
 definePageMeta({
-	layout: 'panel',
+  layout: 'panel',
 })
 
 const user = useUserInfo()
@@ -11,37 +10,44 @@ const user = useUserInfo()
 // 		navigateTo('/auth/login')
 // 	}
 // }
-
 </script>
 
 <template>
-	<section class="container mx-auto flex flex-col lg:flex-row items-start px-3 lg:px-0 py-10 gap-5">
+  <section class="mx-auto flex flex-col items-start gap-5 px-3 py-10 container lg:flex-row lg:px-0">
+    <div class="w-full flex flex-col items-center gap-8 lg:w-80">
+      <div class="h-20 w-20">
+        <ui-avatar src="url:/avatar.png" />
+      </div>
+      <h2 class="text-5 font-bold">
+        zhaozunhong
+      </h2>
+    </div>
 
-		<div class="w-full lg:w-80 flex flex-col items-center gap-8">
-			<div class="w-20 h-20">
-				<ui-avatar src="url:/avatar.png" />
-			</div>
-			<h2 class="text-5 font-bold">zhaozunhong</h2>
-		</div>
-
-		<div class="lg:flex-1 flex-auto w-full">
-			<div class="flex gap-3 sm:gap-5 md:gap-8 lg:gap-10 flex-wrap justify-center lg:justify-start">
-				<ui-statistic label="总访问时长"> 1,234,123 </ui-statistic>
-				<ui-statistic label="月访问时长"> 1,234,123 </ui-statistic>
-				<ui-statistic label="周访问时长"> 1,234,123 </ui-statistic>
-				<ui-statistic label="日访问时长"> 1,234,123 </ui-statistic>
-			</div>
-			<div class="w-full h-50 mt-5 sm:mt-8 md:mt-12">
-				<client-only>
-					<template #fallback>
-						<ui-line-skeleton />
-					</template>
-					<div class="w-full h-full">
-						<ui-line />
-					</div>
-				</client-only>
-			</div>
-		</div>
-
-	</section>
+    <div class="w-full flex-auto lg:flex-1">
+      <div class="flex flex-wrap justify-center gap-3 lg:justify-start lg:gap-10 md:gap-8 sm:gap-5">
+        <ui-statistic label="总访问时长">
+          1,234,123
+        </ui-statistic>
+        <ui-statistic label="月访问时长">
+          1,234,123
+        </ui-statistic>
+        <ui-statistic label="周访问时长">
+          1,234,123
+        </ui-statistic>
+        <ui-statistic label="日访问时长">
+          1,234,123
+        </ui-statistic>
+      </div>
+      <div class="mt-5 h-50 w-full md:mt-12 sm:mt-8">
+        <client-only>
+          <template #fallback>
+            <ui-line-skeleton />
+          </template>
+          <div class="h-full w-full">
+            <ui-line />
+          </div>
+        </client-only>
+      </div>
+    </div>
+  </section>
 </template>

@@ -3,11 +3,11 @@ import { NInput, NDynamicInput, NInputGroup, NSelect } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
 import { VNodeChild, h } from 'vue';
 import icons from '~/assets/icons.json'
-import { useCardFormModal } from '~/stores/cardForm';
 import type { IconInfo } from '~/types';
 
 const store = useEditDataStore()
-const modalStore = useCardFormModal()
+
+const emit = defineEmits(['addCard'])
 
 const selectOptions = ref([
 	{
@@ -29,10 +29,7 @@ const renderLabel = (option: SelectOption): VNodeChild => {
 }
 
 const addCard = (icon: IconInfo) => {
-	modalStore.icon = icon
-	modalStore.title = icon.label
-	modalStore.reset()
-	modalStore.show()
+	emit('addCard', icon)
 }
 
 const createContact = () => {

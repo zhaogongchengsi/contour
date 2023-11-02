@@ -18,7 +18,7 @@ store.name = route.params.name as string
 		:center="store.styles.includes('center')" :blur="store.styles.includes('blur')"
 		:ltalic="store.styles.includes('ltalic')" :color="store.color">
 		<template #avatar>
-			<ui-avatar :src="store.avatar"></ui-avatar>
+			<ui-avatar :src="store.avatar" class="text-5 sm:text-8 md:text-12 lg:text-16" />
 		</template>
 		<template #name>
 			{{ store.name }}
@@ -37,11 +37,9 @@ store.name = route.params.name as string
 				<card v-for="element of store.cards" :key="element.id" :icon="element.icon" :background="element.background"
 					:button-style="element.buttonStyle" :col="element.size.col" :row="element.size.row">
 					<template #image>
-						<ui-picture-selector v-model:value="element.image" :name="($route.params.name as string)">
-							<div class="w-full h-full">
-								<ui-picture :src="element.image" :alt="String(element.id)" />
-							</div>
-						</ui-picture-selector>
+						<div class="w-full h-full">
+							<ui-picture :src="element.image" :alt="String(element.id)" />
+						</div>
 					</template>
 				</card>
 			</div>

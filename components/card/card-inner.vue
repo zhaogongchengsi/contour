@@ -7,6 +7,7 @@ import cardLayoutOneTwo from './layout/card-layout-one-two.vue'
 import cardLayoutTwoOne from './layout/card-layout-two-one.vue'
 import cardLayoutTwoFour from './layout/card-layout-two-four.vue'
 import cardLayoutFourTwo from './layout/card-layout-four-two.vue'
+import { CardSizeString } from '~/types'
 
 defineOptions({
   components: {
@@ -19,11 +20,12 @@ defineOptions({
   },
 })
 
-const props = useCardProps()
+const props = defineProps<{ size: CardSizeString }>()
 
 const componentName = computed(() => {
+  const [row, col] = props.size.split('-').map(Number)
   // @ts-ignore
-  return `card-layout-${figureTranslate(props.row)}-${figureTranslate(props.col)}`
+  return `card-layout-${figureTranslate(row)}-${figureTranslate(col)}`
 })
 </script>
 

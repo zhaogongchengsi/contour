@@ -1,49 +1,59 @@
 <script setup lang="ts">
-import { useMessage, NForm, NFormItem, NButton, NTabs, NTabPane, NScrollbar, NRadioGroup, NRadioButton, NInput, NUpload } from 'naive-ui'
+import { NForm, NFormItem, NButton, NTabs, NTabPane, NScrollbar, NRadioGroup, NRadioButton, NInput, NUpload } from 'naive-ui'
 import type { FormInst } from 'naive-ui'
-import { useCardFormModal } from '~/stores/cardForm';
 import type { LinearGradient } from '~/types';
 
-const messageApi = useMessage()
 const material = useMaterial()
 const formRef = ref<FormInst | null>(null)
 
-const size = ref('1-1')
-
-const modalStore = useCardFormModal()
+const props = defineProps<{
+	link: string;
+	size: string;
+	style: 'apple' | 'android' | 'windows';
+	background: string | LinearGradient;
+}>()
 
 const emit = defineEmits<{
 	(e: 'commit'): void
 	(e: 'cancel'): void
+	(e: 'update:link'): void
+	(e: 'update:size'): void
+	(e: 'update:style'): void
+	(e: 'update:background'): void
 }>()
 
+const formValue = useVModels(props, emit)
+
 const bgIsActive = (value: string | LinearGradient): boolean => {
-	return typeof value === "string" ? value === modalStore.formValue.background : value.id === (modalStore.formValue.background as LinearGradient).id
+	return typeof value === "string" ? value === formValue.background.value : value.id === (formValue.background.value as LinearGradient).id
 }
 
-const sizeUpdate = (value: string) => {
-	if (size.value === '1-1') {
-		modalStore.formValue.image = ''
-	}
-	const [row, col] = size.value.split('-')
-	modalStore.formValue.size.row = Number(row)
-	modalStore.formValue.size.col = Number(col)
+const sizeUpdate = (value: `${number}-${number}`) => {
+	formValue.size.value = value
+}
+
+const setColor = (color: string) => {
+	formValue.background.value = color
+}
+
+const setBackground = (color: LinearGradient) => {
+
 }
 
 </script>
 
 <template>
 	<div>
-		<n-form class="flex-1" ref="formRef" :label-width="80" :model="modalStore.formValue">
+		<n-form class="flex-1" ref="formRef" :label-width="80" :model="formValue">
 			<n-form-item label="链接">
-				<NInput placeholder="请输入链接" v-model:value="modalStore.formValue.link">
+				<NInput placeholder="请输入链接" v-model:value="formValue.link.value">
 					<template #prefix>
 						<i class="w-4 h-4 block i-carbon:attachment" />
 					</template>
 				</NInput>
 			</n-form-item>
 			<n-form-item label="按钮大小">
-				<n-radio-group class="w-full justify-center" v-model:value="size" @update:value="sizeUpdate">
+				<n-radio-group class="w-full justify-center" v-model:value="formValue.size.value" @update-value="sizeUpdate">
 					<NRadioButton label="1x1" value="1-1" />
 					<NRadioButton label="2x2" value="2-2" />
 					<NRadioButton label="1x2" value="1-2" />
@@ -53,7 +63,7 @@ const sizeUpdate = (value: string) => {
 				</n-radio-group>
 			</n-form-item>
 			<n-form-item label="按钮风格">
-				<n-radio-group class="w-full justify-center" v-model:value="modalStore.formValue.buttonStyle">
+				<n-radio-group class="w-full justify-center" v-model:value="formValue.style.value">
 					<NRadioButton label="Apple" value="apple" />
 					<NRadioButton label="Android" value="android" />
 					<NRadioButton label="Windows" value="windows" />
@@ -64,7 +74,7 @@ const sizeUpdate = (value: string) => {
 					<NTabPane name="color" tab="纯颜色">
 						<NScrollbar class="h-50 max-h-50">
 							<div class="grid grid-cols-8 w-full gap-3">
-								<ui-bg-card v-for="item of material.colors" @click="modalStore.formValue.background = item"
+								<ui-bg-card v-for="item of material.colors" @click="setColor(item)"
 									:active="bgIsActive(item)" :key="item">
 									<div class="w-full h-full" :style="{ background: item }" />
 								</ui-bg-card>
@@ -74,8 +84,8 @@ const sizeUpdate = (value: string) => {
 					<NTabPane name="gradientColor" tab="渐变色">
 						<NScrollbar class="h-50 max-h-50">
 							<div class="grid grid-cols-8 w-full gap-3">
-								<ui-bg-card v-for="(item, index) of material.generateColor"
-									@click="modalStore.formValue.background = item" :active="bgIsActive(item)" :key="index">
+								<ui-bg-card v-for="(item, index) of material.generateColor" @click="setBackground(item)"
+									:active="bgIsActive(item)" :key="index">
 									<div class="w-full h-full" :style="{ background: material.generateColorStyle(item) }" />
 								</ui-bg-card>
 							</div>

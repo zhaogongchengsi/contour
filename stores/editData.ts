@@ -5,6 +5,7 @@ import type { AvatarUri, CardConfig, ContactInfo } from "~/types";
 const defineStorageKey = (key: string) => `contour-edit-${key}`;
 
 export const useEditDataStore = defineStore("editData", () => {
+
   const name = useStorage<string>(defineStorageKey("name"), "");
   const background = useStorage(defineStorageKey("background"), "");
   const color = useStorage<string>(defineStorageKey("color"), "");
