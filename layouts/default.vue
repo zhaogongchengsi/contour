@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NConfigProvider, NMessageProvider } from "naive-ui";
+import { NConfigProvider, NMessageProvider, darkTheme } from "naive-ui";
 import { animate } from "popmotion";
 import { themeOverrides } from "~/composables/constants";
 
@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <NConfigProvider abstract :theme-overrides="themeOverrides">
+  <NConfigProvider :theme="darkTheme" abstract :theme-overrides="themeOverrides">
     <NMessageProvider>
       <div
         ref="el"
