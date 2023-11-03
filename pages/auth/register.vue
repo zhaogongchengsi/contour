@@ -3,20 +3,19 @@ import { useMessage } from 'naive-ui'
 import { debounce } from 'perfect-debounce'
 
 const config = useRuntimeConfig()
-const store = useEditDataStore()
 const router = useRouter()
 const userStore = useUserInfo()
+const name = useGlobalName()
 const { success, error } = useMessage()
 const formRef = ref()
 
 const fromValue = reactive({
-	name: store.name || '',
+	name: name || '',
 	account: import.meta.dev ? config.public.init.user : '',
 	password: import.meta.dev ? config.public.init.pass : '',
 	code: '',
 	id: ''
 })
-
 
 const submit = debounce(() => {
 	formRef?.value.validate().then(() => {

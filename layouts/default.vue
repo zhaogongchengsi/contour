@@ -27,7 +27,7 @@ onMounted(() => {
   <NConfigProvider abstract :theme-overrides="themeOverrides">
     <NMessageProvider>
       <div ref="el" :style="{ '--base-size': `${value}` }" class="default-page-box min-h-screen">
-        <AppHeader class="sticky top-0 z-99 backdrop-blur-md" :class="{ 'border-b-1 border-slate-50/10': y !== 0 }" />
+        <AppHeader class="sticky top-0 z-99 backdrop-blur-md border-b-1 border-slate-50/10" />
         <main class="app-main">
           <slot />
         </main>

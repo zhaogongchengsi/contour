@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { NDropdown, NAvatar } from 'naive-ui'
-import { AvatarUri } from '~/types';
-
 const app = useAppConfig()
 
 const user = ref<User | null>(null)
@@ -19,49 +16,13 @@ watch(userStore.user, (u) => {
   user.value = isEmpty(u) ? null : u as User
 })
 
-const createIcon = (name: string) => () => h('div', { class: ['md-icon', name] })
-
+const name = useGlobalName()
 
 enum Action {
   setting = 'setting',
   statistics = 'statistics',
   logout = 'logout'
 }
-
-const options = computed(() => {
-  return [
-    {
-      icon: createIcon('i-carbon:user-admin'),
-      key: 'user-name',
-      label: browser ? (user && user.value?.account) : '',
-      disabled: true
-    },
-    {
-      key: 'divider-user',
-      type: 'divider'
-    },
-    {
-      icon: createIcon('i-carbon:magic-wand-filled'),
-      label: '配置主页',
-      key: Action.setting,
-    },
-    {
-      icon: createIcon('i-carbon:chart-line-smooth'),
-      label: '数据统计',
-      key: Action.statistics,
-    },
-    {
-      key: 'divider-setting',
-      type: 'divider'
-    },
-    {
-      icon: createIcon('i-carbon:logout'),
-      label: '注销登陆',
-      key: Action.logout
-    },
-  ]
-})
-
 
 const select = (key: string) => {
   if (key === Action.logout) {
@@ -79,18 +40,19 @@ const select = (key: string) => {
 
 <template>
   <header class="app-default-header">
-    <div class="mx-auto h-full flex items-center justify-between px-3 py-3 container md:py-5">
+    <div class="mx-auto h-full flex items-center justify-between px-3 container">
       <div class="flex items-center gap-3">
-        <AppLogo />
-        <h1 class="title text-4 font-bold md:text-8 sm:text-6">
-          {{ app.title }}
-        </h1>
+        <router-link class="flex items-center justify-center gap-3" to="/">
+          <img class="block h-5 w-5 sm:h-8 sm:w-8" src="/logo.svg" alt="Talent Logo">
+          <h1 class="text-4 font-bold sm:text-6">
+            {{ app.title }}
+          </h1>
+        </router-link>
       </div>
-      <n-dropdown v-if="user != null" :options="options" trigger="hover" @select="select">
-        <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-15 md:h-15 p-2 bg-white rounded-full">
-          <ui-avatar :src="(user.avatar as AvatarUri)" class="text-4 sm:text-6 md:text-8" :alt="`${user.name} avatar`" />
-        </div>
-      </n-dropdown>
+      <div class="h-full flex items-center gap-5 text-3">
+        <router-link to="/auth/login" class="hover:underline underline-offset-5">登录</router-link>
+        <router-link to="/auth/register" class="flex items-center px-3 py-1 bg-zinc-100 rounded-md text-zinc-800 hover:bg-zinc-200">注册</router-link>
+      </div>
     </div>
   </header>
 </template>
