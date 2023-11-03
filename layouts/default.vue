@@ -4,7 +4,6 @@ import { animate } from 'popmotion'
 import { themeOverrides } from '../theme'
 
 const value = ref(0)
-const { y } = useWindowScroll()
 
 onMounted(() => {
   if (!import.meta.browser)

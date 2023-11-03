@@ -3,7 +3,6 @@ import { useMessage } from 'naive-ui'
 import { debounce } from 'perfect-debounce'
 
 const config = useRuntimeConfig()
-const router = useRouter()
 const userStore = useUserInfo()
 const name = useGlobalName()
 const { success, error } = useMessage()
