@@ -1,9 +1,6 @@
 <script setup lang="ts">
 const app = useAppConfig()
 
-const userStore = useUserInfo()
-const name = useGlobalName()
-const logged = await loggedByServer(name.value)
 
 
 </script>
@@ -19,11 +16,9 @@ const logged = await loggedByServer(name.value)
           </h1>
         </router-link>
       </div>
-      <div class="h-full flex items-center gap-5 text-3">
-        <router-link to="/auth/login" class="hover:underline underline-offset-5"> 登录 </router-link>
-        <router-link to="/auth/register"
-          class="flex items-center px-3 py-1 bg-zinc-100 rounded-md text-zinc-800 hover:bg-zinc-200">注册</router-link>
-      </div>
+      <client-only>
+        <app-header-right />
+      </client-only>
     </div>
   </header>
 </template>
@@ -38,10 +33,9 @@ const logged = await loggedByServer(name.value)
   align-items: center;
   gap: 0.5rem;
   padding: 0.2rem 0.4rem;
-  background-color: hsla(10,10%,96%,.5);
+  background-color: hsla(10, 10%, 96%, .5);
   border-radius: 0.5rem;
   backdrop-filter: blur(12px);
   color: #fff;
 }
-
 </style>
