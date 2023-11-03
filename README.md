@@ -1,3 +1,3 @@
-![logo](./public/logo.svg) 
+![logo](./public/logo.svg)
 
 # Contour

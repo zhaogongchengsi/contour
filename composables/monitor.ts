@@ -13,12 +13,16 @@ export function useMonitor() {
   let startTime = Date.now();
 
   // 页面打开 添加访问次数
-  navigator.sendBeacon(`/api/report?name=${name}&action=${ReportAction.number}`);
+  navigator.sendBeacon(
+    `/api/report?name=${name}&action=${ReportAction.number}`,
+  );
 
   const sendDurationBeacon = () => {
     var endTime = Date.now();
     var duration = Math.round((endTime - startTime) / 1000);
-    navigator.sendBeacon(`/api/report?name=${name}&action=${ReportAction.duration}&time=${duration}`);
+    navigator.sendBeacon(
+      `/api/report?name=${name}&action=${ReportAction.duration}&time=${duration}`,
+    );
   };
 
   // 页面切换tab
@@ -31,7 +35,7 @@ export function useMonitor() {
         startTime = Date.now();
       }
     },
-    false
+    false,
   );
 
   // 页面关闭
@@ -40,15 +44,17 @@ export function useMonitor() {
     () => {
       sendDurationBeacon();
     },
-    false
+    false,
   );
 
   // 打印事件
   window.addEventListener(
     "afterprint",
     () => {
-      navigator.sendBeacon(`/api/report?name=${name}&action=${ReportAction.print}`);
+      navigator.sendBeacon(
+        `/api/report?name=${name}&action=${ReportAction.print}`,
+      );
     },
-    false
+    false,
   );
 }

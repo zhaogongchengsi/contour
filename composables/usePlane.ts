@@ -1,5 +1,5 @@
-import { RenderPlaneProps } from "~/types"
+import { RenderPlaneProps } from "~/types";
 
 export const usePlaneData = () => {
-	return inject<RenderPlaneProps>(editDataProviderKey)!
-}
+  return inject<RenderPlaneProps>(editDataProviderKey)!;
+};

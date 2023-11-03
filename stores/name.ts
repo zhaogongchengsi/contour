@@ -1,3 +1,5 @@
 import { useStorage } from "@vueuse/core";
 
-export const useGlobalName = createGlobalState(() => useStorage("contour-name", ""));
+export const useGlobalName = createGlobalState(() =>
+  useStorage("contour-name", ""),
+);

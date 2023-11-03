@@ -1,3 +1,3 @@
 export default defineEventHandler(() => {
-  return sendSuccess('ok');
+  return sendSuccess("ok");
 });

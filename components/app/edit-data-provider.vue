@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const data = reactive({})
-provide(editDataProviderKey, data)
+const data = reactive({});
+provide(editDataProviderKey, data);
 </script>
 
 <template>

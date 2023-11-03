@@ -1,52 +1,52 @@
-import captcha from 'svg-captcha'
+import captcha from "svg-captcha";
 import { randomUUID } from "uncrypto";
-import { useRedisCaptchaStorage } from './storage';
-import dayjs from 'dayjs';
+import { useRedisCaptchaStorage } from "./storage";
+import dayjs from "dayjs";
 
-const option = { noise: 3, height: 45, width: 80 }
+const option = { noise: 3, height: 45, width: 80 };
 
 interface CaptchaValue {
-	issue: string,
-	expert: string,
-	value: string
+  issue: string;
+  expert: string;
+  value: string;
 }
 
 export async function createCaptcha() {
-	const storage = useRedisCaptchaStorage()
-	const runtime = useRuntimeConfig()
+  const storage = useRedisCaptchaStorage();
+  const runtime = useRuntimeConfig();
 
-	const id = randomUUID()
-	const issue = dayjs.unix(Date.now())
-	const expert = issue.add(runtime.captchaExpert || 3, 'minute')
-	const { text, data } = captcha.createMathExpr(option);
+  const id = randomUUID();
+  const issue = dayjs.unix(Date.now());
+  const expert = issue.add(runtime.captchaExpert || 3, "minute");
+  const { text, data } = captcha.createMathExpr(option);
 
-	await storage.setItem(id, {
-		issue: issue.format(),
-		expert: expert.format(),
-		value: text
-	})
+  await storage.setItem(id, {
+    issue: issue.format(),
+    expert: expert.format(),
+    value: text,
+  });
 
-	return {
-		id,
-		data
-	}
+  return {
+    id,
+    data,
+  };
 }
 
 export async function verifyCaptcha(id: string, value: string) {
-	const storage = useRedisCaptchaStorage()
-	const val = await storage.getItem(id) as CaptchaValue
-	if (val) {
-		storage.removeItem(id)
-		if (dayjs().isBefore(val.expert)) {
-			return false
-		}
-		return val.value === value
-	}
-	storage.removeItem(id)
-	return false
+  const storage = useRedisCaptchaStorage();
+  const val = (await storage.getItem(id)) as CaptchaValue;
+  if (val) {
+    storage.removeItem(id);
+    if (dayjs().isBefore(val.expert)) {
+      return false;
+    }
+    return val.value === value;
+  }
+  storage.removeItem(id);
+  return false;
 }
 
 export async function deleteCaptchaId(id: string) {
-	const storage = useRedisCaptchaStorage()
-	return storage.removeItem(id)
+  const storage = useRedisCaptchaStorage();
+  return storage.removeItem(id);
 }

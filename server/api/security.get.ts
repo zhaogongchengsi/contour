@@ -1,12 +1,11 @@
-import { deleteCaptchaId } from "../utils/captcha"
+import { deleteCaptchaId } from "../utils/captcha";
 
 export default defineEventHandler(async (event) => {
+  const { id } = getQuery(event);
 
-	const { id } = getQuery(event)
+  if (id) {
+    await deleteCaptchaId(id as string);
+  }
 
-	if (id) {
-		await deleteCaptchaId(id as string)
-	}
-
-	return await createCaptcha()
-})
+  return await createCaptcha();
+});

@@ -13,7 +13,8 @@
     "lint:fix": "eslint . --fix",
     "dbpush": "prisma db push",
     "dbseed": "prisma db seed",
-    "studio": "prisma studio --port 7890"
+    "studio": "prisma studio --port 7890",
+    "prettier": "prettier . --write"
   },
   "prisma": {
     "seed": "esno ./prisma/seed.ts"
@@ -81,10 +82,12 @@
     "@vueuse/nuxt": "^10.4.1",
     "bun-types": "^1.0.3",
     "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
     "esno": "^0.17.0",
     "nuxt": "^3.7.3",
     "nuxt-lodash": "^2.5.0",
     "pinceau": "^0.20.1",
+    "prettier": "^3.0.3",
     "sass": "^1.69.3",
     "unocss": "^0.56.2"
   }

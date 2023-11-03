@@ -32,7 +32,7 @@ export function useRedisLoggingStatusStorage() {
           password: process.env.REDIS_PASSWORD,
         }),
       });
-    }    
+    }
     return loggingStateStorage!;
   } catch (err: any) {
     throw createError(err);

@@ -40,7 +40,12 @@
   "enter": { "duration": 300, "fill": "both", "delay": 0 },
   "update": { "duration": 300, "fill": "both", "delay": 0 },
   "exit": { "duration": 300, "fill": "both", "delay": 0 },
-  "view": { "viewFill": "rgba(18, 18, 18, 1)", "plotFill": "transparent", "mainFill": "transparent", "contentFill": "transparent" },
+  "view": {
+    "viewFill": "rgba(18, 18, 18, 1)",
+    "plotFill": "transparent",
+    "mainFill": "transparent",
+    "contentFill": "transparent"
+  },
   "line": { "line": { "fill": "", "strokeOpacity": 1, "lineWidth": 1 } },
   "point": {
     "point": { "r": 3, "fillOpacity": 0.95, "lineWidth": 0 },
@@ -48,11 +53,20 @@
     "plus": { "r": 3, "strokeOpacity": 0.95, "lineWidth": 3 },
     "diamond": { "r": 3, "strokeOpacity": 0.95, "lineWidth": 1 }
   },
-  "interval": { "rect": { "fillOpacity": 0.95 }, "hollow": { "fill": "", "strokeOpacity": 1, "lineWidth": 2 } },
+  "interval": {
+    "rect": { "fillOpacity": 0.95 },
+    "hollow": { "fill": "", "strokeOpacity": 1, "lineWidth": 2 }
+  },
   "area": { "area": { "fillOpacity": 0.85, "lineWidth": 0 } },
   "polygon": { "polygon": { "fillOpacity": 0.95 } },
-  "cell": { "cell": { "fillOpacity": 0.95 }, "hollow": { "fill": "", "strokeOpacity": 1, "lineWidth": 2 } },
-  "rect": { "rect": { "fillOpacity": 0.95 }, "hollow": { "fill": "", "strokeOpacity": 1, "lineWidth": 2 } },
+  "cell": {
+    "cell": { "fillOpacity": 0.95 },
+    "hollow": { "fill": "", "strokeOpacity": 1, "lineWidth": 2 }
+  },
+  "rect": {
+    "rect": { "fillOpacity": 0.95 },
+    "hollow": { "fill": "", "strokeOpacity": 1, "lineWidth": 2 }
+  },
   "link": { "link": { "fill": "", "strokeOpacity": 1 } },
   "vector": { "vector": { "fillOpacity": 1 } },
   "box": { "box": { "fillOpacity": 0.95, "stroke": "#fff", "lineWidth": 1 } },
@@ -84,10 +98,18 @@
       "markerStrokeOpacity": 0
     }
   },
-  "lineX": { "line": { "stroke": "#416180", "strokeOpacity": 0.45, "lineWidth": 1 } },
-  "lineY": { "line": { "stroke": "#416180", "strokeOpacity": 0.45, "lineWidth": 1 } },
-  "rangeX": { "range": { "fill": "#416180", "fillOpacity": 0.15, "lineWidth": 0 } },
-  "rangeY": { "range": { "fill": "#416180", "fillOpacity": 0.15, "lineWidth": 0 } },
+  "lineX": {
+    "line": { "stroke": "#416180", "strokeOpacity": 0.45, "lineWidth": 1 }
+  },
+  "lineY": {
+    "line": { "stroke": "#416180", "strokeOpacity": 0.45, "lineWidth": 1 }
+  },
+  "rangeX": {
+    "range": { "fill": "#416180", "fillOpacity": 0.15, "lineWidth": 0 }
+  },
+  "rangeY": {
+    "range": { "fill": "#416180", "fillOpacity": 0.15, "lineWidth": 0 }
+  },
   "connector": {
     "connector": {
       "stroke": "#416180",
@@ -181,7 +203,13 @@
     "titlePosition": "top",
     "titleSpacing": 0
   },
-  "axisArc": { "title": false, "titlePosition": "inner", "line": false, "tick": true, "labelSpacing": 4 },
+  "axisArc": {
+    "title": false,
+    "titlePosition": "inner",
+    "line": false,
+    "tick": true,
+    "labelSpacing": 4
+  },
   "axisRadar": {
     "girdClosed": true,
     "gridStrokeOpacity": 0.3,
@@ -269,8 +297,19 @@
     "connectorLength2": 8,
     "connectorDistance": 4
   },
-  "innerLabel": { "fill": "#000", "fontSize": 12, "fillOpacity": 0.85, "fontWeight": "normal", "offset": 0 },
-  "htmlLabel": { "fontSize": 12, "opacity": 0.65, "color": "#fff", "fontWeight": "normal" },
+  "innerLabel": {
+    "fill": "#000",
+    "fontSize": 12,
+    "fillOpacity": 0.85,
+    "fontWeight": "normal",
+    "offset": 0
+  },
+  "htmlLabel": {
+    "fontSize": 12,
+    "opacity": 0.65,
+    "color": "#fff",
+    "fontWeight": "normal"
+  },
   "slider": {
     "trackSize": 16,
     "trackFill": "#416180",

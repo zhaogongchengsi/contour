@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CardTag from '../card-tag.vue'
+import CardTag from "../card-tag.vue";
 </script>
 
 <template>
@@ -8,7 +8,9 @@ import CardTag from '../card-tag.vue'
       <div class="h-[var(--width)] w-full">
         <slot name="image" />
       </div>
-      <div class="w-full flex items-center justify-center overflow-hidden truncate font-bold text-white">
+      <div
+        class="w-full flex items-center justify-center overflow-hidden truncate font-bold text-white"
+      >
         <slot />
       </div>
     </div>
@@ -20,17 +22,15 @@ import CardTag from '../card-tag.vue'
 
 <style lang="scss">
 .card-two-two {
+  .left-wrapper {
+    --width: calc(100% - 2.5rem - var(--card-gap-x));
+    width: var(--width);
+  }
 
-	.left-wrapper {
-		--width: calc(100% - 2.5rem - var(--card-gap-x));
-		width: var(--width);
-	}
-
-	.right-wrapper {
-		width: 2.5rem;
-		height: 2.5rem;
-		margin-left: auto;
-	}
-
+  .right-wrapper {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-left: auto;
+  }
 }
 </style>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-const app = useAppConfig()
+const app = useAppConfig();
 </script>
 
 <template>
-  <footer
-    class="app-default-footer w-full"
-  >
-    <div class="mx-auto h-full flex items-center justify-between px-3 container md:px-0">
+  <footer class="app-default-footer w-full">
+    <div
+      class="mx-auto h-full flex items-center justify-between px-3 container md:px-0"
+    >
       <h3 class="text-3 text-zinc-300 md:text-5 sm:text-4">
         {{ app.title }}
       </h3>
@@ -21,6 +21,6 @@ const app = useAppConfig()
 
 <style lang="scss">
 .app-default-footer {
-  height: $dt('page.footer.height');
+  height: $dt("page.footer.height");
 }
 </style>

@@ -3,7 +3,7 @@ import { prisma } from "~/prisma/client";
 export default defineEventHandler(async (e) => {
   const list = await prisma.user.findMany({
     where: {
-      state: 2
+      state: 2,
     },
     select: {
       name: true,
@@ -11,5 +11,5 @@ export default defineEventHandler(async (e) => {
     },
   });
 
-  return sendSuccess(list)
+  return sendSuccess(list);
 });

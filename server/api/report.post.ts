@@ -13,7 +13,11 @@ async function findFirst(name: string): Promise<PageVisits[]> {
 }
 
 export default defineEventHandler(async (e) => {
-  const { name, time, action } = getQuery<{ name: string; time: number; action: ReportAction }>(e);
+  const { name, time, action } = getQuery<{
+    name: string;
+    time: number;
+    action: ReportAction;
+  }>(e);
 
   if ([name, action].some(isEmpty)) {
     return sendFail("缺少参数");
@@ -36,9 +40,13 @@ export default defineEventHandler(async (e) => {
       },
       data: {
         // 更新访问时长
-        duration: action === ReportAction.duration ? Number(time) + pageVisite.duration : undefined,
+        duration:
+          action === ReportAction.duration
+            ? Number(time) + pageVisite.duration
+            : undefined,
         // 更新访问的次数
-        number: action === ReportAction.number ? pageVisite.number + 1 : undefined,
+        number:
+          action === ReportAction.number ? pageVisite.number + 1 : undefined,
         // 更新打印次数
         print: action === ReportAction.print ? pageVisite.print + 1 : undefined,
       },

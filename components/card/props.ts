@@ -14,7 +14,7 @@ export const options = {
   },
   size: {
     type: String as PropType<`${number}-${number}`>,
-    default: '1-1',
+    default: "1-1",
   },
   edit: {
     type: Boolean,

@@ -8,7 +8,7 @@ export default defineEventHandler(async (e) => {
   }
 
   const storage = useRedisLoggingStatusStorage();
-  
+
   const value = await storage?.getItem(name);
 
   if (!value) {

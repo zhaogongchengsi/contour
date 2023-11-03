@@ -1,9 +1,5 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="w-full">
-    error
-  </div>
+  <div class="w-full">error</div>
 </template>

@@ -1,21 +1,19 @@
 <script setup lang="ts">
+const validatorList = shallowRef<(() => Promise<unknown>)[]>([]);
 
-const validatorList = shallowRef<(() => Promise<unknown>)[]>([])
-
-provide('big-form-key', validatorList)
+provide("big-form-key", validatorList);
 
 const validate = () => {
-	return Promise.all(validatorList.value.map(v => v()))
-}
+  return Promise.all(validatorList.value.map((v) => v()));
+};
 
 defineExpose({
-	validate
-})
-
+  validate,
+});
 </script>
 
 <template>
-	<div>
-		<slot />
-	</div>
+  <div>
+    <slot />
+  </div>
 </template>

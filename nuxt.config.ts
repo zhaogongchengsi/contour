@@ -5,8 +5,15 @@ export default defineNuxtConfig({
       link: [
         { rel: "icon", href: "/logo.svg" },
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
-        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap",
+        },
       ],
       meta: [
         { charset: "utf-8" },
@@ -41,7 +48,13 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
-  modules: ["@unocss/nuxt", "@vueuse/nuxt", "pinceau/nuxt", "@pinia/nuxt", "nuxt-lodash"],
+  modules: [
+    "@unocss/nuxt",
+    "@vueuse/nuxt",
+    "pinceau/nuxt",
+    "@pinia/nuxt",
+    "nuxt-lodash",
+  ],
   css: ["@unocss/reset/tailwind.css", "assets/main.css"],
   lodash: {
     prefix: "_",
@@ -69,17 +82,28 @@ export default defineNuxtConfig({
     ],
   },
   imports: {
-    dirs: ["composables", "composables/*/index.{ts,js,mjs,mts}", "composables/**", "stores"],
+    dirs: [
+      "composables",
+      "composables/*/index.{ts,js,mjs,mts}",
+      "composables/**",
+      "stores",
+    ],
   },
   build: {
     transpile:
       process.env.NODE_ENV === "production"
-        ? ["naive-ui", "vueuc", "@css-render/vue3-ssr", "@juggle/resize-observer"]
+        ? [
+            "naive-ui",
+            "vueuc",
+            "@css-render/vue3-ssr",
+            "@juggle/resize-observer",
+          ]
         : ["@juggle/resize-observer"],
   },
   vite: {
     optimizeDeps: {
-      include: process.env.NODE_ENV === "development" ? ["naive-ui", "vueuc"] : [],
+      include:
+        process.env.NODE_ENV === "development" ? ["naive-ui", "vueuc"] : [],
     },
   },
   nitro: {
@@ -89,6 +113,3 @@ export default defineNuxtConfig({
     },
   },
 });
-
-
-

@@ -11,5 +11,5 @@ export default defineEventHandler(async (e) => {
 
   await storage?.removeItem(name);
 
-  return sendSuccess('ok');
+  return sendSuccess("ok");
 });

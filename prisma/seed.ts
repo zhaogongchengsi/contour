@@ -13,7 +13,9 @@ async function main() {
     },
   });
 
-  console.log(`初始化 name: ${user.name} id:${user.id} account:${user.account}`);
+  console.log(
+    `初始化 name: ${user.name} id:${user.id} account:${user.account}`,
+  );
 }
 
 main()

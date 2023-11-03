@@ -1,39 +1,41 @@
-import jwt from 'jsonwebtoken'
-import ms from 'ms'
+import jwt from "jsonwebtoken";
+import ms from "ms";
 
 export function issueToken(payload: any) {
+  const config = useRuntimeConfig();
+  const iss = Date.now();
+  const exp = iss + ms((config.jwt.exp as string) || "1h");
 
-	const config = useRuntimeConfig()
-	const iss = Date.now()
-	const exp = iss + ms(config.jwt.exp as string || '1h') 
+  const token = jwt.sign(
+    {
+      exp: exp,
+      data: payload,
+    },
+    config.jwt.key,
+    {
+      issuer: "contour-app",
+    },
+  );
 
-	const token = jwt.sign({
-		exp: exp,
-		data: payload
-	}, config.jwt.key, {
-		issuer: 'contour-app'
-	});
-
-	return {
-		token,
-		exp,
-		iss
-	}
+  return {
+    token,
+    exp,
+    iss,
+  };
 }
 
-export function verifyToken (token: string) {
-	return new Promise((resolve, reject) => {
-		const config = useRuntimeConfig()
-		jwt.verify(token, config.jwt.key, (err: any, decoded: any) => {
-			if (err) {
-				reject(err)
-			}
-			resolve(decoded)
-		});
-	})
+export function verifyToken(token: string) {
+  return new Promise((resolve, reject) => {
+    const config = useRuntimeConfig();
+    jwt.verify(token, config.jwt.key, (err: any, decoded: any) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(decoded);
+    });
+  });
 }
 
 export function readAuthInfo(e: any) {
-	return e.context.auth as { uuid: string, id: string }
+  return e.context.auth as { uuid: string; id: string };
 }
-
