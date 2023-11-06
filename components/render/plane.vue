@@ -27,11 +27,11 @@ const props = withDefaults(
 
 <template>
   <main
-    class="w-full min-h-screen relative flex px-3 sm:px-10 md:px-30 lg:px-50 xl:px-100 2xl:px-150"
+    class="min-h-screen relative flex justify-center"
     :style="{ background: props.background }"
   >
     <div
-      class="w-full py-15 z-20 flex flex-col gap-5"
+      class="w-full px-3 sm:px-5 md:px-8 lg:px-0 max-w-200 py-15 z-20 flex flex-col gap-5"
       :style="{ color: color }"
     >
       <render-header
@@ -66,7 +66,7 @@ const props = withDefaults(
 
 <style>
 .render-bg {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100vh;
   top: 0;

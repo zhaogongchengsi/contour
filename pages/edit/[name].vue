@@ -1,15 +1,9 @@
 <script setup lang="ts">
-import { NModal } from "naive-ui";
+import { NModal, NScrollbar } from "naive-ui";
 import card from "~/components/card/card.vue";
 import draggable from "vuedraggable";
 import { cloneDeep } from "lodash";
-import type {
-  AvatarUri,
-  CardButtonStyle,
-  CardSizeString,
-  ContactInfo,
-  IconInfo,
-} from "~/types";
+import type { AvatarUri, CardButtonStyle, CardSizeString, ContactInfo, IconInfo } from "~/types";
 import { useStorage } from "@vueuse/core";
 
 definePageMeta({
@@ -44,10 +38,7 @@ const defineStorageKey = (key: string) => `contour-edit-${key}`;
 
 const cardCurredId = useStorage<number>(defineStorageKey("id"), 0);
 
-const name = useStorage<string>(
-  defineStorageKey("name"),
-  route.params.name as string,
-);
+const name = useStorage<string>(defineStorageKey("name"), route.params.name as string);
 const description = useStorage<string>(defineStorageKey("description"), "");
 const background = useStorage(defineStorageKey("background"), "");
 const color = useStorage<string>(defineStorageKey("color"), "");
@@ -56,6 +47,10 @@ const style = useStorage<string>(defineStorageKey("style"), "");
 const contacts = useStorage<ContactInfo[]>(defineStorageKey("contact"), []);
 
 const cards = useStorage<FormValue[]>(defineStorageKey("cards"), []);
+
+const stretch = useStorage(defineStorageKey("stretch"), false);
+
+const stretchToggle = useToggle(stretch);
 
 const init = async () => {
   const { code, data } = await getResume(route.params.name as string);
@@ -126,97 +121,95 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 </script>
 
 <template>
-  <app-component
-    @add-card="addCard"
-    v-model:desc="description"
-    v-model:contacts="contacts"
-    v-model:background="background"
-    v-model:color="color"
-    v-model:style="style"
-  />
-  <render-plane
-    :background="background"
-    :frosted="config.frosted"
-    :center="config.center"
-    :blur="config.blur"
-    :ltalic="config.ltalic"
-    :color="color"
-  >
-    <template #avatar>
-      <ui-picture-selector
-        v-model:value="avatar"
-        :name="$route.params.name as string"
-      >
-        <ui-avatar
-          :src="avatar"
-          class="text-5 sm:text-8 md:text-12 lg:text-16"
-        />
-      </ui-picture-selector>
-    </template>
-    <template #name>
-      {{ name }}
-    </template>
-    <template #desc>
-      {{ description }}
-    </template>
-    <template #contact>
-      <ui-contact-wrapper>
-        <ui-contact-item
-          v-for="contact of contacts"
-          :key="contact.value"
-          :value="contact.value"
-          :type="contact.type"
-        />
-      </ui-contact-wrapper>
-    </template>
-    <template #card>
-      <draggable
-        tag="div"
-        :animation="500"
-        :list="cards"
-        class="card-wrapper-grid"
-        item-key="id"
-      >
-        <template #item="{ element }">
-          <card
-            edit
-            :icon="element.icon"
-            @contextmenu="handleRightClick(element, $event)"
-            :background="element.background"
-            :button-style="element.buttonStyle"
-            :col="element.size.col"
-            :row="element.size.row"
-          >
-            <template #image>
-              <ui-picture-selector
-                v-model:value="element.image"
-                :name="$route.params.name as string"
-              >
-                <div class="w-full h-full">
-                  <ui-picture :src="element.image" :alt="String(element.id)" />
-                </div>
-              </ui-picture-selector>
-            </template>
-            {{ element.icon.label }}
-          </card>
-        </template>
-      </draggable>
-    </template>
-  </render-plane>
+  <transition name="stretch">
+    <section v-show="stretch" class="w-65 overflow-hidden shrink-0">
+      <div class="w-65 h-full">
+        <n-scrollbar class="h-screen w-full">
+          <div class="flex px-3 mb-5">
+            <router-link to="/" class="block">
+              <img src="/logo.svg" alt="logo" class="w-10 h-10" />
+            </router-link>
+          </div>
+          <app-component
+            @add-card="addCard"
+            v-model:desc="description"
+            v-model:contacts="contacts"
+            v-model:background="background"
+            v-model:color="color"
+            v-model:style="style"
+          />
+        </n-scrollbar>
+      </div>
+    </section>
+  </transition>
+  <section class="flex-1 relative">
+    <button class="edit-nail-button" @click="stretchToggle()">
+      <i class="text-xl i-carbon:caret-right duration-300 transition" :class="{ 'rotate-180': stretch }" />
+    </button>
+    <render-plane
+      :background="background"
+      :frosted="config.frosted"
+      :center="config.center"
+      :blur="config.blur"
+      :ltalic="config.ltalic"
+      :color="color"
+    >
+      <template #avatar>
+        <ui-picture-selector v-model:value="avatar" :name="$route.params.name as string">
+          <ui-avatar :src="avatar" class="text-5 sm:text-8 md:text-12 lg:text-16" />
+        </ui-picture-selector>
+      </template>
+      <template #name>
+        {{ name }}
+      </template>
+      <template #desc>
+        {{ description }}
+      </template>
+      <template #contact>
+        <ui-contact-wrapper>
+          <ui-contact-item
+            v-for="contact of contacts"
+            :key="contact.value"
+            :value="contact.value"
+            :type="contact.type"
+          />
+        </ui-contact-wrapper>
+      </template>
+      <template #card>
+        <draggable tag="div" :animation="500" :list="cards" class="card-wrapper-grid" item-key="id">
+          <template #item="{ element }">
+            <card
+              edit
+              :icon="element.icon"
+              @contextmenu="handleRightClick(element, $event)"
+              :background="element.background"
+              :button-style="element.buttonStyle"
+              :col="element.size.col"
+              :row="element.size.row"
+            >
+              <template #image>
+                <ui-picture-selector v-model:value="element.image" :name="$route.params.name as string">
+                  <div class="w-full h-full">
+                    <ui-picture :src="element.image" :alt="String(element.id)" />
+                  </div>
+                </ui-picture-selector>
+              </template>
+              {{ element.icon.label }}
+            </card>
+          </template>
+        </draggable>
+      </template>
+    </render-plane>
+  </section>
   <n-modal v-model:show="isShow">
     <div class="w-250 bg-white border border-white/30 rounded-md">
-      <div
-        class="flex justify-between items-center border-b-1 primary-border-color px-2 py-1"
-      >
+      <div class="flex justify-between items-center border-b-1 primary-border-color px-2 py-1">
         <h3>
           创建
           <span class="mx-1 font-bold text-purple-500">{{ title }}</span>
           卡片
         </h3>
-        <div
-          class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500"
-          @click="isShow = false"
-        />
+        <div class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500" @click="isShow = false" />
       </div>
       <div class="flex justify-between items-center gap-3 bg-zinc-100">
         <div class="w-1/2 h-full flex justify-center items-center">
@@ -224,14 +217,11 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
             edit
             :icon="formValue.icon"
             :background="formValue.background"
-            :button-style="formValue.buttonStyle as CardButtonStyle"
-            :size="formValue.size as CardSizeString"
+            :button-style="formValue.buttonStyle"
+            :size="formValue.size"
           >
             <template #image>
-              <ui-picture-selector
-                v-model:value="formValue.image"
-                :name="$route.params.name as string"
-              >
+              <ui-picture-selector v-model:value="formValue.image" :name="$route.params.name as string">
                 <ui-picture :src="formValue.image" />
               </ui-picture-selector>
             </template>
@@ -242,7 +232,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
           v-model:link="formValue.link"
           v-model:background="formValue.background"
           v-model:size="formValue.size"
-          v-model:style="formValue.buttonStyle as CardButtonStyle"
+          v-model:style="formValue.buttonStyle"
           class="flex-1 p-3 bg-white"
           @cancel="isShow = false"
           @commit="createCard"
@@ -251,3 +241,20 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
     </div>
   </n-modal>
 </template>
+
+<style lang="scss">
+.edit-nail-button {
+  @apply w-8 h-8 text-white absolute bottom-1 left-0 z-20 rounded-r-full text-xl flex justify-center items-center pr-1;
+  background-color: $dt("color.black");
+}
+
+.stretch-enter-active,
+.stretch-leave-active {
+  transition: width 0.3s ease;
+}
+
+.stretch-enter-from,
+.stretch-leave-to {
+  width: 0 !important;
+}
+</style>

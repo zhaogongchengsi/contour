@@ -18,11 +18,9 @@ body {
   grid-gap: var(--card-gap-x) var(--card-gap-y);
 }
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   width: 5px;
   height: 5px;
-
-  /* background-image: linear-gradient(); */
 }
 
 body::-webkit-scrollbar-track {
@@ -46,7 +44,7 @@ body::-webkit-scrollbar-thumb {
 .dark body::-webkit-scrollbar-thumb {
   background-color: $dt("color.gray.600");
   border-radius: 5px;
-}
+} */
 
 .page-enter-active,
 .page-leave-active {

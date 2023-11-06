@@ -4,6 +4,7 @@ import {
   NDialogProvider,
   NGlobalStyle,
   NMessageProvider,
+  darkTheme
 } from "naive-ui";
 import { isClient } from "@vueuse/core";
 import { themeOverrides } from "~/composables/constants";
@@ -11,8 +12,9 @@ import { themeOverrides } from "~/composables/constants";
 
 <template>
   <NConfigProvider
-    class="app-container"
+    class="flex w-full h-full"
     :inline-theme="isClient"
+    :theme="darkTheme"
     :theme-overrides="themeOverrides"
   >
     <NGlobalStyle />
