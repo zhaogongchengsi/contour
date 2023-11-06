@@ -13,7 +13,7 @@ import { themeOverrides } from "~/composables/constants";
   <NConfigProvider
     class="app-container"
     :theme="darkTheme"
-    :inline-theme="isClient"
+     inline-theme-disabled
     :theme-overrides="themeOverrides"
   >
     <NMessageProvider>

@@ -17,4 +17,8 @@ export const themeOverrides: GlobalThemeOverrides = {
   Switch: {
     railColorActive: "rgba(168,85,247,1)",
   },
+  Popover: {
+    padding: '0',
+    borderRadius: '8px',
+  },
 };

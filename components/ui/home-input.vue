@@ -17,8 +17,8 @@ const { value } = useVModel(props, "value", emit);
 <style lang="scss">
 .home-input_wrapper {
   border-radius: 16px;
-  border: 1px solid $dt('input.border.primary');
-  background: $dt('input.background.primary');
+  border: 1px solid $dt('border.primary');
+  background: $dt('background.primary');
 
   display: flex;
   align-items: center;

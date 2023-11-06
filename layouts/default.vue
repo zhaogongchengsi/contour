@@ -4,7 +4,7 @@ import { themeOverrides } from "~/composables/constants";
 </script>
 
 <template>
-  <NConfigProvider :theme="darkTheme" abstract :theme-overrides="themeOverrides">
+  <NConfigProvider :theme="darkTheme" abstract  inline-theme-disabled :theme-overrides="themeOverrides">
     <NMessageProvider>
       <div class="min-h-screen default-page-box">
         <AppHeader class="sticky top-0 z-99 backdrop-blur-md border-b-1 border-slate-50/10" />

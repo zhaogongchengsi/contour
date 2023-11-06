@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NModal, NScrollbar } from "naive-ui";
+import { NModal, NScrollbar, NPopover } from "naive-ui";
 import card from "~/components/card/card.vue";
 import draggable from "vuedraggable";
 import { cloneDeep } from "lodash";
@@ -87,11 +87,6 @@ const config = computed(() => {
   };
 });
 
-// if (import.meta.browser) {
-//   if (user.logged()) {
-//     await init()
-//   }
-// }
 
 const addCard = (icon: IconInfo) => {
   title.value = icon.name;
@@ -122,22 +117,33 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 
 <template>
   <transition name="stretch">
-    <section v-show="stretch" class="w-65 overflow-hidden shrink-0">
-      <div class="w-65 h-full">
+    <section v-show="stretch" class="w-65 overflow-hidden shrink-0 edit-stretch-warper">
+      <div class="w-65 h-full edit-stretch-warper_content">
         <n-scrollbar class="h-screen w-full">
-          <div class="flex px-3 mb-5">
-            <router-link to="/" class="block">
-              <img src="/logo.svg" alt="logo" class="w-10 h-10" />
+          <div class="flex p-3 justify-between sticky top-0 z-5 edit-stretch-header">
+            <router-link to="/" class="flex items-center gap-3">
+              <img src="/logo.svg" alt="logo" class="w-6 h-6" />
+              <span class="max-w-25 truncate">{{ name }}</span>
             </router-link>
+            <n-popover trigger="click" class="edit-stretch-popover">
+              <template #trigger>
+                <button>
+                  <i class="block w-5 h-5 i-carbon:user-avatar" />
+                </button>
+              </template>
+              <div class="w-30">123</div>
+            </n-popover>
           </div>
-          <app-component
-            @add-card="addCard"
-            v-model:desc="description"
-            v-model:contacts="contacts"
-            v-model:background="background"
-            v-model:color="color"
-            v-model:style="style"
-          />
+          <client-only>
+            <app-component
+              @add-card="addCard"
+              v-model:desc="description"
+              v-model:contacts="contacts"
+              v-model:background="background"
+              v-model:color="color"
+              v-model:style="style"
+            />
+          </client-only>
         </n-scrollbar>
       </div>
     </section>
@@ -246,6 +252,21 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 .edit-nail-button {
   @apply w-8 h-8 text-white absolute bottom-1 left-0 z-20 rounded-r-full text-xl flex justify-center items-center pr-1;
   background-color: $dt("color.black");
+}
+
+.edit-stretch-warper {
+  .edit-stretch-warper_content {
+    border-right: 1px solid $dt("border.primary");
+  }
+}
+
+.edit-stretch-header {
+  background-color: $dt("color.black");
+  // border-bottom: 1px solid $dt("border.primary");
+}
+
+.edit-stretch-popover {
+  background-color: $dt("color.black") !important;
 }
 
 .stretch-enter-active,

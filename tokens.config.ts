@@ -31,12 +31,10 @@ export default defineTheme({
     black: "rgba(18, 18, 18, 1)",
     white: "#ffffff",
   },
-  input: {
-    border: {
-      primary: "rgba(255, 255, 255, 0.08)",
-    },
-    background: {
-      primary: "rgba(255, 255, 255, 0.03)",
-    },
+  border: {
+    primary: "rgba(255, 255, 255, 0.08)",
+  },
+  background: {
+    primary: "rgba(255, 255, 255, 0.03)",
   },
 });

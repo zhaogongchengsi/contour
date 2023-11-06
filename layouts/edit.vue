@@ -13,7 +13,7 @@ import { themeOverrides } from "~/composables/constants";
 <template>
   <NConfigProvider
     class="flex w-full h-full"
-    :inline-theme="isClient"
+    inline-theme-disabled
     :theme="darkTheme"
     :theme-overrides="themeOverrides"
   >
