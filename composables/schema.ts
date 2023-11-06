@@ -7,8 +7,8 @@ export const userInfoSchema = object({
     .required("密码必填")
     .max(20, "密码最长20位")
     .min(6, "密码最短为6位"),
-  id: string().required("验证码id必填").uuid("验证码id无效 (uuid)"),
-  code: string().required("验证码必填"),
+  // id: string().required("验证码id必填").uuid("验证码id无效 (uuid)"),
+  // code: string().required("验证码必填"),
 });
 
 export const userEmail = string().required("账号必填").email("无效邮箱");

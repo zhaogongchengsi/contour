@@ -33,9 +33,9 @@ const logged = await loggedByServer(name.value);
         </button>
       </div>
     </n-popover>
-    <router-link v-else to="/auth/login" class="hover:underline underline-offset-5">登录</router-link>
+    <router-link v-else to="/login" class="hover:underline underline-offset-5">登录</router-link>
     <router-link
-      :to="logged ? `/edit/${name}` : '/auth/register'"
+      :to="logged ? `/edit/${name}` : '/signup'"
       class="flex items-center px-3 py-1 bg-zinc-100 rounded-md text-zinc-800 hover:bg-zinc-200"
     >
       {{ logged ? "编辑" : "注册" }}

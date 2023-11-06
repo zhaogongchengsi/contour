@@ -8,7 +8,7 @@ import { themeOverrides } from "~/composables/constants";
     <NMessageProvider>
       <div class="min-h-screen default-page-box">
         <AppHeader class="sticky top-0 z-99 backdrop-blur-md border-b-1 border-slate-50/10" />
-        <main class="app-main">
+        <main class="app-main clear-both">
           <slot />
         </main>
         <AppFooter class="border-t-1 border-slate-50/10" />

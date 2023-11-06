@@ -60,7 +60,7 @@ defineExpose({
 
 <template>
   <div
-    class="h-10 sm:h-12 md:h-15 rounded gap-3 flex justify-center items-center"
+    class="h-full rounded gap-3 flex justify-center items-center"
   >
     <div
       v-if="!loading"
