@@ -19,13 +19,9 @@ const logged = await loggedByServer(name.value);
           <i class="block i-carbon:home w-3 h-3" />
           <span class="max-w-25 truncate">{{ name }}</span>
         </router-link>
-        <button class="header-right_button">
-          <i class="block i-carbon:email w-3 h-3" />
-          <span>更改邮箱</span>
-        </button>
-        <button class="header-right_button">
-          <i class="block i-carbon:password w-3 h-3" />
-          <span>更改密码</span>
+        <button class="header-right_button" @click="navigateTo('/panel')">
+          <i class="block i-carbon:user w-3 h-3" />
+          <span>个人中心</span>
         </button>
         <button class="header-right_button">
           <i class="block i-carbon:logout w-3 h-3" />
@@ -47,7 +43,6 @@ const logged = await loggedByServer(name.value);
 .header-right-popover {
   padding: 4px !important;
   list-style-type: none;
-  background-color: $dt("color.gray.800") !important;
   background-clip: padding-box;
   border-radius: 10px;
   outline: none;
@@ -69,7 +64,7 @@ const logged = await loggedByServer(name.value);
   font-size: 0.75rem;
 
   &:hover {
-    background-color: $dt("color.gray.700");
+    background-color: $dt("hover.black");
   }
 }
 </style>

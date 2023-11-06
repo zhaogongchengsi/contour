@@ -31,6 +31,9 @@ export default defineTheme({
     black: "rgba(18, 18, 18, 1)",
     white: "#ffffff",
   },
+  hover: {
+    black: "rgba(24, 24, 24, 1)",
+  },
   border: {
     primary: "rgba(255, 255, 255, 0.08)",
   },

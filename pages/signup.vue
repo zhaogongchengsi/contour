@@ -3,7 +3,6 @@ import { useMessage, NForm, NFormItem, NInput, NButton } from "naive-ui";
 import { debounce } from "perfect-debounce";
 
 const config = useRuntimeConfig();
-const userStore = useUserInfo();
 const name = useGlobalName();
 const { success, error } = useMessage();
 const formRef = ref();
@@ -14,21 +13,17 @@ const fromValue = reactive({
   password: import.meta.dev ? config.public.init.pass : "",
 });
 
-const login = () => {
+const signup = () => {
   name.value = fromValue.name;
-  loginApi(fromValue)
+  registerApi(fromValue)
     .then(({ code, data, message }) => {
       if (!code) {
         error(message);
         return;
       }
 
-      const { authorization, user } = data!;
-      userStore.logging(user, authorization);
-
-      success("登陆成功");
-
-      navigateTo({ path: `/edit/${fromValue.name}` });
+      success("注册成功");
+      navigateTo({ path: "/login" });
     })
     .catch((err) => {
       console.log(err);
@@ -36,7 +31,10 @@ const login = () => {
 };
 
 const loginHandle = debounce(async () => {
-  console.log(formRef.value);
+  formRef.value?.validate((errors: any) => {
+    if (errors) return;
+    signup();
+  });
 }, 300);
 </script>
 
@@ -55,9 +53,7 @@ const loginHandle = debounce(async () => {
       </n-form-item>
       <n-button block @click="loginHandle">注册</n-button>
       <div class="flex justify-end gap-4 text-xs sm:text-sm mt-5">
-        <router-link to="/login" class="text-zinc-400 hover:text-zinc-300">
-          有账号! 直接登录
-        </router-link>
+        <router-link to="/login" class="text-zinc-400 hover:text-zinc-300">有账号! 直接登录</router-link>
       </div>
     </n-form>
   </div>
