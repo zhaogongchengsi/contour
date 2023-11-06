@@ -124,7 +124,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
               <img src="/logo.svg" alt="logo" class="w-6 h-6" />
               <span class="max-w-25 truncate">{{ name }}</span>
             </router-link>
-            <n-popover trigger="click" class="edit-stretch-popover">
+            <n-popover trigger="click" placement="right-start" class="edit-stretch-popover">
               <template #trigger>
                 <button>
                   <i class="block w-5 h-5 i-carbon:user-avatar" />
@@ -270,13 +270,11 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 
 .edit-stretch-header {
   background-color: $dt("color.black");
-  // border-bottom: 1px solid $dt("border.primary");
 }
 
 .edit-stretch-popover {
-  background-color: $dt("color.black") !important;
-
-  .edit-stretch-popover_button {
+  border: 1px solid $dt("border.primary");
+  &_button {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -286,10 +284,10 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
       background-color: rgb(27, 27, 27);
     }
 
-    .edit-stretch-popover_button_icon {
+    &_icon {
       @apply block w-4 h-4;
     }
-    .edit-stretch-popover_button_text {
+    &_text {
       @apply text-3;
     }
   }

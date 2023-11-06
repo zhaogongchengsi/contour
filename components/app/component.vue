@@ -75,7 +75,7 @@ const createContact = () => {
 </script>
 
 <template>
-  <div class="w-full flex flex-col gap-3 px-3 pb-2 text-gray-400">
+  <div class="w-full flex flex-col gap-3 p-3 text-gray-400">
     <ui-label>描述</ui-label>
     <n-input size="small" v-model:value="desc" placeholder="请输入描述" />
     <ui-label>联系方式</ui-label>
@@ -159,16 +159,16 @@ const createContact = () => {
       </NTabPane>
     </NTabs>
     <ui-label>小组件</ui-label>
-    <div class="grid grid-cols-5 gap-3">
+    <div class="grid grid-cols-5 gap-2">
       <div
-        v-for="icon of icons as IconInfo[]"
+        v-for="icon of icons"
         @click="addCard(icon)"
         :key="icon.name"
         class="h-full flex flex-col items-center cursor-pointer"
       >
         <div
           :style="{ background: icon.background || 'transparent' }"
-          class="flex-col rounded-md py-1 w-full flex items-center justify-center"
+          class="flex-col rounded-md py-1 w-full h-10 flex items-center justify-center"
         >
           <img :src="icon.image" class="object-contain" :alt="icon.name" />
         </div>
