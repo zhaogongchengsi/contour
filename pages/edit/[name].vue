@@ -87,7 +87,6 @@ const config = computed(() => {
   };
 });
 
-
 const addCard = (icon: IconInfo) => {
   title.value = icon.name;
   formValue.icon = icon;
@@ -131,7 +130,16 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
                   <i class="block w-5 h-5 i-carbon:user-avatar" />
                 </button>
               </template>
-              <div class="w-30">123</div>
+              <div class="w-30 flex flex-col p-2 gap-2">
+                <button class="edit-stretch-popover_button">
+                  <i class="edit-stretch-popover_button_icon i-carbon:save" />
+                  <span class="edit-stretch-popover_button_text">保存</span>
+                </button>
+                <button class="edit-stretch-popover_button">
+                  <i class="edit-stretch-popover_button_icon i-carbon:view" />
+                  <span class="edit-stretch-popover_button_text">查看</span>
+                </button>
+              </div>
             </n-popover>
           </div>
           <client-only>
@@ -267,6 +275,24 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 
 .edit-stretch-popover {
   background-color: $dt("color.black") !important;
+
+  .edit-stretch-popover_button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+    &:hover {
+      background-color: rgb(27, 27, 27);
+    }
+
+    .edit-stretch-popover_button_icon {
+      @apply block w-4 h-4;
+    }
+    .edit-stretch-popover_button_text {
+      @apply text-3;
+    }
+  }
 }
 
 .stretch-enter-active,
