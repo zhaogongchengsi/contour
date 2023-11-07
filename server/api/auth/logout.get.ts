@@ -1,5 +1,3 @@
-import { useRedisLoggingStatusStorage } from "../utils/storage";
-
 export default defineEventHandler(async (e) => {
   const name = getQuery(e).name as string;
 

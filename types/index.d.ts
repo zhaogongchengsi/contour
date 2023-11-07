@@ -13,10 +13,7 @@ declare module "Nodejs" {
   }
 }
 
-export declare type AvatarUri =
-  | `url:${string}`
-  | `text:${string}`
-  | `emoji:${string}`;
+export declare type AvatarUri = `url:${string}` | `text:${string}` | `emoji:${string}`;
 
 export declare interface RenderPlaneProps {
   name: string;
@@ -24,7 +21,6 @@ export declare interface RenderPlaneProps {
   color?: string;
   description?: string;
   avatar: AvatarUri;
-  edit?: boolean;
   // 磨砂
   frosted?: boolean;
   // 模糊
@@ -73,8 +69,8 @@ export declare type CardButtonStyle = "windows" | "android" | "apple";
 
 export declare interface CardConfig {
   id: number;
-  icon: IconInfo;
-  size: CardSize;
+  icon: IconInfo | undefined;
+  size: CardSizeString;
   link: string;
   buttonStyle: CardButtonStyle;
   image: string;
@@ -83,7 +79,13 @@ export declare interface CardConfig {
 
 export declare type CardFormValue = Omit<CardConfig, "icon" | "id">;
 
-export declare type NoteData = Omit<
-  Profile,
-  "createdAt" | "updatedAt" | "deletedAt"
-> & { cards: CardConfig[] };
+export declare type NoteData = {
+  cards: CardConfig[];
+  name: string;
+  avatar: AvatarUri;
+  cards: CardConfig[];
+  color: string;
+  background: string;
+  styles: CardButtonStyle;
+  contacts: ContactInfo[];
+};

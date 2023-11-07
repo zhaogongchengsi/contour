@@ -46,3 +46,14 @@ export const loggedByServer = async (name: string) => {
   });
   return Boolean(code);
 };
+
+export const logoutByServer = async (name: string) => {
+  const token = getToken();
+  return $fetch<AppResponse<string>>("/api/auth/logout", {
+    method: "get",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params: { name }
+  });
+};

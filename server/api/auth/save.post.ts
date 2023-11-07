@@ -21,7 +21,7 @@ export default defineEventHandler(async (e) => {
       avatar,
       color,
       background,
-      styles: styles.join("-"),
+      styles: styles,
       contact: JSON.stringify(contacts),
     },
   });
@@ -35,8 +35,6 @@ export default defineEventHandler(async (e) => {
   if (cards.length > 0) {
     await prisma.card.createMany({
       data: cards.map((card) => {
-        const { row, col } = card.size;
-
         const background =
           typeof card.background === "string"
             ? card.background
@@ -47,9 +45,9 @@ export default defineEventHandler(async (e) => {
           link: card.link,
           buttonStyle: card.buttonStyle,
           image: card.image,
-          background: background as string,
+          background: background,
           icon: JSON.stringify(card.icon),
-          size: `${row}-${col}`,
+          size: card.size,
           sort: card.id,
           userId: uuid,
         };

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { NModal, NScrollbar, NPopover } from "naive-ui";
+import { NModal, NScrollbar, NPopover, useMessage, NSkeleton } from "naive-ui";
 import card from "~/components/card/card.vue";
 import draggable from "vuedraggable";
 import { cloneDeep } from "lodash";
-import type { AvatarUri, CardButtonStyle, CardSizeString, ContactInfo, IconInfo } from "~/types";
-// import { useStorage } from "@vueuse/core";
+import type { AvatarUri, CardButtonStyle, CardConfig, CardSizeString, ContactInfo, IconInfo } from "~/types";
 
 definePageMeta({
   layout: "edit",
@@ -21,6 +20,8 @@ const editMode = ref<"create" | "change">("create");
 const nameStore = useGlobalName();
 const isShow = ref(false);
 const title = ref("");
+const logged = ref(false);
+const { warning, success } = useMessage();
 
 interface FormValue {
   icon: IconInfo | undefined;
@@ -32,7 +33,7 @@ interface FormValue {
   id: number;
 }
 
-const formValue = reactive<FormValue>({
+const formValue = reactive<CardConfig>({
   link: "",
   background: "#fff",
   buttonStyle: "windows",
@@ -60,10 +61,10 @@ const description = ref<string>("");
 const background = ref("");
 const color = ref<string>("");
 const avatar = ref<AvatarUri>("emoji:😎");
-const style = ref<string>("");
+const style = ref<CardButtonStyle>("windows");
 const contacts = ref<ContactInfo[]>([]);
 
-const cards = ref<FormValue[]>([]);
+const cards = ref<CardConfig[]>([]);
 
 const stretch = ref(true);
 
@@ -74,25 +75,23 @@ const init = async () => {
   if (code) {
     avatar.value = data!.avatar as AvatarUri;
     background.value = data!.background;
-    style.value = data!.styles;
+    style.value = data!.styles as CardButtonStyle;
     color.value = data!.color;
     description.value = data!.description || "没有介绍";
-    contacts.value = JSON.parse(data!.contact);
+    contacts.value = JSON.parse(data?.contact || "[]") || [];
 
     cards.value = (data?.cards || []).map((card) => {
       return {
         ...card,
         icon: JSON.parse(card.icon),
+        id: card.sort,
       };
     });
   }
 };
 
-// 服务端先预渲染防止水合不一致
-if (import.meta.server) {
-  const logged = await loggedByServer(name.value);
-  logged && (await init());
-}
+logged.value = await loggedByServer(name.value);
+logged.value && (await init());
 
 const config = computed(() => {
   const list = style.value.split("-");
@@ -144,6 +143,36 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
   formValue.id = id;
   isShow.value = true;
 };
+
+const save = async () => {
+  if (!logged) {
+    warning("请先登录");
+    return;
+  }
+
+  // 保存
+  const { code, message } = await noteSave({
+    name: name.value,
+    color: color.value,
+    background: background.value,
+    styles: style.value,
+    avatar: avatar.value,
+    contacts: contacts.value,
+    cards: cards.value.map((item, index) => {
+      return {
+        ...item,
+        id: index,
+      };
+    }),
+  });
+
+  code && success(message);
+};
+
+const logout = async () => {
+  await logoutByServer(name.value);
+  logged.value = false;
+};
 </script>
 
 <template>
@@ -159,22 +188,33 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
             <n-popover trigger="click" placement="right-start" class="edit-stretch-popover">
               <template #trigger>
                 <button>
-                  <i class="block w-5 h-5 i-carbon:user-avatar" />
+                  <i class="block w-5 h-5" :class="{ 'i-carbon:settings': !logged, 'i-carbon:user-avatar': logged }" />
                 </button>
               </template>
               <div class="w-30 flex flex-col p-2 gap-2">
-                <button class="edit-stretch-popover_button">
+                <button class="edit-stretch-popover_button" @click="save">
                   <i class="edit-stretch-popover_button_icon i-carbon:save" />
                   <span class="edit-stretch-popover_button_text">保存</span>
                 </button>
-                <button class="edit-stretch-popover_button">
-                  <i class="edit-stretch-popover_button_icon i-carbon:view" />
-                  <span class="edit-stretch-popover_button_text">查看</span>
+                <div class="edit-stretch-header_space" />
+                <button v-if="logged" class="edit-stretch-popover_button" @click="logout">
+                  <i class="edit-stretch-popover_button_icon i-carbon:logout" />
+                  <span class="edit-stretch-popover_button_text">注销登录</span>
+                </button>
+                <button v-else class="edit-stretch-popover_button" @click="navigateTo('/login')">
+                  <i class="edit-stretch-popover_button_icon i-carbon:login" />
+                  <span class="edit-stretch-popover_button_text">去登陆</span>
                 </button>
               </div>
             </n-popover>
           </div>
           <client-only>
+            <template #fallback>
+              <div class="space-y-2 px-3">
+                <n-skeleton height="30px" round :repeat="2" />
+                <n-skeleton height="30px" round width="80%" :repeat="2" />
+              </div>
+            </template>
             <app-component
               @add-card="addCard"
               v-model:desc="description"
@@ -320,6 +360,11 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 
 .edit-stretch-header {
   background-color: $dt("color.black");
+
+  &_space {
+    height: 1px;
+    background-color: $dt("border.primary");
+  }
 }
 
 .edit-stretch-popover {

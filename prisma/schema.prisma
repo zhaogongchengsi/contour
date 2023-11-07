@@ -32,13 +32,11 @@ model User {
   description String?
   styles      String?
 
-  contact Json?
+  contact Json?  @default("[]")
   cards   Card[]
 
   // 页面访问统计
   statistics PageVisits[]
-
-  // @@unique([name, uid])
 }
 
 model File {
