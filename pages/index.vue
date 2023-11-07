@@ -68,10 +68,10 @@ const submit = async () => {
     <div class="w-full md:w-1/2 flex flex-col items-center md:items-start mt-10 md:mt-0">
       <span class="text-4 sm:text-5 text-white/60">现在就开始使用我的APP吧！</span>
       <div class="flex mt-5 md:mt-8 gap-6 justify-center items-center sm:gap-7 md:gap-8">
-        <router-link class="primary-button primary-button-text primary-button-color" to="/auth/register">
+        <router-link class="primary-button primary-button-text primary-button-color" to="/signup">
           立即注册
         </router-link>
-        <router-link class="~ h-full primary-button-text-flip" to="/auth/login">立即登录</router-link>
+        <router-link class="~ h-full primary-button-text-flip" to="/login">立即登录</router-link>
       </div>
     </div>
   </div>

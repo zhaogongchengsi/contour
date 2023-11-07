@@ -5,7 +5,7 @@ withDefaults(defineProps<{ active?: boolean }>(), {
 </script>
 
 <template>
-  <div class="relative h-12 rounded-md cursor-pointer border">
+  <div class="relative h-12 rounded-md cursor-pointer overflow-hidden bg-card-wrapper">
     <div class="w-full h-full rounded-md">
       <slot />
     </div>
@@ -17,3 +17,9 @@ withDefaults(defineProps<{ active?: boolean }>(), {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.bg-card-wrapper {
+  border: 1px solid $dt('border.primary');
+}
+</style>

@@ -23,32 +23,39 @@ interface FormValue {
   buttonStyle: CardButtonStyle;
   image: string;
   background: string;
+  id: number;
 }
 
-const formValue = shallowReactive<FormValue>({
+const formValue = reactive<FormValue>({
   link: "",
   background: "#fff",
   buttonStyle: "windows",
   size: "1-1",
   image: "url:/images/grid.webp",
   icon: undefined,
+  id: 0,
 });
 
-const defineStorageKey = (key: string) => `contour-edit-${key}`;
+// const defineStorageKey = (key: string) => `contour-edit-${key}`;
+// const name = useStorage<string>(defineStorageKey("name"), route.params.name as string);
+// const description = useStorage<string>(defineStorageKey("description"), "");
+// const background = useStorage(defineStorageKey("background"), "");
+// const color = useStorage<string>(defineStorageKey("color"), "");
+// const avatar = useStorage<AvatarUri>(defineStorageKey("avatar"), "emoji:😎");
+// const style = useStorage<string>(defineStorageKey("style"), "");
+// const contacts = useStorage<ContactInfo[]>(defineStorageKey("contact"), []);
+// const cards = useStorage<FormValue[]>(defineStorageKey("cards"), []);
 
-const cardCurredId = useStorage<number>(defineStorageKey("id"), 0);
+const name = ref<string>(route.params.name as string);
+const description = ref<string>("");
+const background = ref("");
+const color = ref<string>("");
+const avatar = ref<AvatarUri>("emoji:😎");
+const style = ref<string>("");
+const contacts = ref([]);
+const cards = ref<FormValue[]>([]);
 
-const name = useStorage<string>(defineStorageKey("name"), route.params.name as string);
-const description = useStorage<string>(defineStorageKey("description"), "");
-const background = useStorage(defineStorageKey("background"), "");
-const color = useStorage<string>(defineStorageKey("color"), "");
-const avatar = useStorage<AvatarUri>(defineStorageKey("avatar"), "emoji:😎");
-const style = useStorage<string>(defineStorageKey("style"), "");
-const contacts = useStorage<ContactInfo[]>(defineStorageKey("contact"), []);
-
-const cards = useStorage<FormValue[]>(defineStorageKey("cards"), []);
-
-const stretch = useStorage(defineStorageKey("stretch"), false);
+const stretch = ref(true);
 
 const stretchToggle = useToggle(stretch);
 
@@ -89,28 +96,43 @@ const config = computed(() => {
 
 const addCard = (icon: IconInfo) => {
   title.value = icon.name;
+  editMode.value = "create";
   formValue.icon = icon;
   isShow.value = true;
 };
 
 const createCard = () => {
-  console.log("创建", formValue);
+  if (editMode.value === "change") {
+    cards.value = cards.value.map((item) => {
+      if (item.id === formValue.id) {
+        return cloneDeep(formValue);
+      }
+      return item;
+    });
+  }
 
-  // store.cards.push({
-  //   id: store.getId(),
-  //   icon: toValue(modalStore.icon!),
-  //   ...cloneDeep(modalStore.formValue)
-  // });
+  if (editMode.value === "create") {
+    formValue.id++;
+    cards.value.push(cloneDeep(formValue));
+  }
+
+  isShow.value = false;
 };
 
 const handleRightClick = (item: FormValue, event: PointerEvent) => {
   event.preventDefault();
-  const { background, image, buttonStyle, link, size } = cloneDeep(item);
+
+  editMode.value = "change";
+
+  const { background, image, buttonStyle, link, size, icon, id } = cloneDeep(item);
   formValue.background = background;
   formValue.image = image;
   formValue.buttonStyle = buttonStyle;
   formValue.link = link;
   formValue.size = size;
+  formValue.icon = icon;
+  formValue.id = id;
+  isShow.value = true;
 };
 </script>
 
@@ -198,8 +220,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
               @contextmenu="handleRightClick(element, $event)"
               :background="element.background"
               :button-style="element.buttonStyle"
-              :col="element.size.col"
-              :row="element.size.row"
+              :size="element.size"
             >
               <template #image>
                 <ui-picture-selector v-model:value="element.image" :name="$route.params.name as string">
@@ -216,8 +237,8 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
     </render-plane>
   </section>
   <n-modal v-model:show="isShow">
-    <div class="w-250 bg-white border border-white/30 rounded-md">
-      <div class="flex justify-between items-center border-b-1 primary-border-color px-2 py-1">
+    <div class="w-250 border border-white/30 rounded-md edit-modal-warper">
+      <div class="flex justify-between items-center px-2 py-1 edit-modal-warper_header">
         <h3>
           创建
           <span class="mx-1 font-bold text-purple-500">{{ title }}</span>
@@ -225,7 +246,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
         </h3>
         <div class="w-6 h-6 i-carbon:close cursor-pointer hover:text-purple-500" @click="isShow = false" />
       </div>
-      <div class="flex justify-between items-center gap-3 bg-zinc-100">
+      <div class="flex justify-between items-center gap-3">
         <div class="w-1/2 h-full flex justify-center items-center">
           <card
             edit
@@ -235,7 +256,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
             :size="formValue.size"
           >
             <template #image>
-              <ui-picture-selector v-model:value="formValue.image" :name="$route.params.name as string">
+              <ui-picture-selector v-model:value="formValue.image" :name="name">
                 <ui-picture :src="formValue.image" />
               </ui-picture-selector>
             </template>
@@ -247,7 +268,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
           v-model:background="formValue.background"
           v-model:size="formValue.size"
           v-model:style="formValue.buttonStyle"
-          class="flex-1 p-3 bg-white"
+          class="flex-1 p-3"
           @cancel="isShow = false"
           @commit="createCard"
         />
@@ -260,6 +281,13 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 .edit-nail-button {
   @apply w-8 h-8 text-white absolute bottom-1 left-0 z-20 rounded-r-full text-xl flex justify-center items-center pr-1;
   background-color: $dt("color.black");
+}
+
+.edit-modal-warper {
+  background-color: $dt("color.black");
+  &_header {
+    border-bottom: 1px solid $dt("border.primary");
+  }
 }
 
 .edit-stretch-warper {

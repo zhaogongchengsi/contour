@@ -9,7 +9,7 @@ const logged = await loggedByServer(name.value);
   <div class="h-full flex items-center gap-5 text-3">
     <n-popover v-if="logged" trigger="click" class="header-right-popover">
       <template #trigger>
-        <span :to="`/talent/${name}`" class="flex gap-3 items-center bg-purple-500 px-3 py-1 rounded-md">
+        <span class="flex gap-3 items-center bg-purple-500 px-3 py-1 rounded-md">
           <span class="max-w-25 truncate">{{ name }}</span>
           <i class="block i-carbon:code w-3 h-3" />
         </span>

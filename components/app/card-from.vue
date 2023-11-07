@@ -49,7 +49,9 @@ const setColor = (color: string) => {
   formValue.background.value = color;
 };
 
-const setBackground = (color: LinearGradient) => {};
+const setBackground = (color: LinearGradient) => {
+  formValue.background.value = color;
+};
 </script>
 
 <template>
@@ -63,11 +65,7 @@ const setBackground = (color: LinearGradient) => {};
         </NInput>
       </n-form-item>
       <n-form-item label="按钮大小">
-        <n-radio-group
-          class="w-full justify-center"
-          v-model:value="formValue.size.value"
-          @update-value="sizeUpdate"
-        >
+        <n-radio-group class="w-full justify-center" v-model:value="formValue.size.value" @update-value="sizeUpdate">
           <NRadioButton label="1x1" value="1-1" />
           <NRadioButton label="2x2" value="2-2" />
           <NRadioButton label="1x2" value="1-2" />
@@ -77,10 +75,7 @@ const setBackground = (color: LinearGradient) => {};
         </n-radio-group>
       </n-form-item>
       <n-form-item label="按钮风格">
-        <n-radio-group
-          class="w-full justify-center"
-          v-model:value="formValue.style.value"
-        >
+        <n-radio-group class="w-full justify-center" v-model:value="formValue.style.value">
           <NRadioButton label="Apple" value="apple" />
           <NRadioButton label="Android" value="android" />
           <NRadioButton label="Windows" value="windows" />
@@ -111,10 +106,7 @@ const setBackground = (color: LinearGradient) => {};
                   :active="bgIsActive(item)"
                   :key="index"
                 >
-                  <div
-                    class="w-full h-full"
-                    :style="{ background: material.generateColorStyle(item) }"
-                  />
+                  <div class="w-full h-full" :style="{ background: material.generateColorStyle(item) }" />
                 </ui-bg-card>
               </div>
             </NScrollbar>
