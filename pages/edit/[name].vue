@@ -4,15 +4,21 @@ import card from "~/components/card/card.vue";
 import draggable from "vuedraggable";
 import { cloneDeep } from "lodash";
 import type { AvatarUri, CardButtonStyle, CardSizeString, ContactInfo, IconInfo } from "~/types";
-import { useStorage } from "@vueuse/core";
+// import { useStorage } from "@vueuse/core";
 
 definePageMeta({
   layout: "edit",
 });
 
-const editMode = ref<"create" | "change">("create");
 const route = useRoute();
 
+if (!route.params.name) {
+  await navigateTo("/");
+}
+
+const editMode = ref<"create" | "change">("create");
+
+const nameStore = useGlobalName();
 const isShow = ref(false);
 const title = ref("");
 
@@ -36,6 +42,7 @@ const formValue = reactive<FormValue>({
   id: 0,
 });
 
+// todo: 会导致水和不一致 后续在增加
 // const defineStorageKey = (key: string) => `contour-edit-${key}`;
 // const name = useStorage<string>(defineStorageKey("name"), route.params.name as string);
 // const description = useStorage<string>(defineStorageKey("description"), "");
@@ -47,12 +54,14 @@ const formValue = reactive<FormValue>({
 // const cards = useStorage<FormValue[]>(defineStorageKey("cards"), []);
 
 const name = ref<string>(route.params.name as string);
+nameStore.value = name.value;
+
 const description = ref<string>("");
 const background = ref("");
 const color = ref<string>("");
 const avatar = ref<AvatarUri>("emoji:😎");
 const style = ref<string>("");
-const contacts = ref([]);
+const contacts = ref<ContactInfo[]>([]);
 const cards = ref<FormValue[]>([]);
 
 const stretch = ref(true);
@@ -80,7 +89,7 @@ const init = async () => {
 
 // 服务端先预渲染防止水合不一致
 if (import.meta.server) {
-  const logged = await loggedByServer(route.params.name as string);
+  const logged = await loggedByServer(name.value);
   logged && (await init());
 }
 
@@ -180,7 +189,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
   </transition>
   <section class="flex-1 relative">
     <button class="edit-nail-button" @click="stretchToggle()">
-      <i class="text-xl i-carbon:caret-right duration-300 transition" :class="{ 'rotate-180': stretch }" />
+      <i class="text-xl i-carbon:caret-right text-white" :class="{ 'rotate-180': stretch }" />
     </button>
     <render-plane
       :background="background"
@@ -223,7 +232,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
               :size="element.size"
             >
               <template #image>
-                <ui-picture-selector v-model:value="element.image" :name="$route.params.name as string">
+                <ui-picture-selector v-model:value="element.image" :name="name">
                   <div class="w-full h-full">
                     <ui-picture :src="element.image" :alt="String(element.id)" />
                   </div>
@@ -279,8 +288,20 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
 
 <style lang="scss">
 .edit-nail-button {
-  @apply w-8 h-8 text-white absolute bottom-1 left-0 z-20 rounded-r-full text-xl flex justify-center items-center pr-1;
+  @apply w-8 h-8 text-white rounded-r-full text-xl flex justify-center items-center pr-1;
+
+  @apply transition duration-300;
+  @apply absolute bottom-5 left-0 z-20;
+
   background-color: $dt("color.black");
+  border: 1px solid $dt("border.primary");
+  border-left: 0;
+  transition-property: left, border-radius;
+  
+  &:hover {
+    border-left: 1px solid $dt("border.primary");
+    @apply rounded-full left-2 mix-blend-plus-lighter;
+  }
 }
 
 .edit-modal-warper {

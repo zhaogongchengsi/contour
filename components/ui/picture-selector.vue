@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  NPopover,
-  NTabs,
-  NTabPane,
-  NScrollbar,
-  NLoadingBarProvider,
-} from "naive-ui";
+import { NPopover, NTabs, NTabPane, NScrollbar, NLoadingBarProvider } from "naive-ui";
 
 const loadingBarTargetRef = ref<undefined | HTMLElement>(undefined);
 const value = ref("");
@@ -44,20 +38,12 @@ provide("ui-picture-selector-separator", props.separator);
     <template #trigger>
       <slot />
     </template>
-    <n-loading-bar-provider
-      :to="loadingBarTargetRef"
-      container-style="position: absolute;"
-    >
-      <div class="w-110" ref="loadingBarTargetRef">
+    <n-loading-bar-provider :to="loadingBarTargetRef" container-style="position: absolute;">
+      <div class="w-110 p-2 picture-selector-container" ref="loadingBarTargetRef">
         <n-tabs type="bar" animated placement="bottom" size="small">
           <n-tab-pane name="image" tab="图片" display-directive="show">
             <n-scrollbar class="h-80">
-              <ui-image-selector
-                prefix="url"
-                :name="$props.name"
-                :action="$props.action"
-                v-model:value="value"
-              />
+              <ui-image-selector prefix="url" :name="$props.name" :action="$props.action" v-model:value="value" />
             </n-scrollbar>
           </n-tab-pane>
           <n-tab-pane name="emoji" tab="表情" display-directive="show">
@@ -70,3 +56,10 @@ provide("ui-picture-selector-separator", props.separator);
     </n-loading-bar-provider>
   </n-popover>
 </template>
+
+<style lang="scss">
+.picture-selector-container {
+  border: 1px solid $dt('border.primary');
+  border-radius: 8px;
+}
+</style>

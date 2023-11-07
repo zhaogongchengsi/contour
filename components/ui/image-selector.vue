@@ -72,7 +72,7 @@ onChange(async (files) => {
 <template>
   <div class="flex flex-col gap-3 py-2">
     <div
-      class="flex gap-2 justify-center items-center rounded-xl bg-gray-200 py-1 cursor-pointer"
+      class="flex gap-2 justify-center items-center rounded-xl bg-gray-900 py-1 cursor-pointer"
       @click="open()"
     >
       <div class="md-icon i-carbon:cloud-upload" />
