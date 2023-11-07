@@ -31,7 +31,7 @@ const props = withDefaults(
     :style="{ background: props.background }"
   >
     <div
-      class="w-full px-3 sm:px-5 md:px-8 lg:px-0 max-w-200 py-15 z-20 flex flex-col gap-5"
+      class="w-full px-5 lg:px-0 max-w-200 py-15 z-20 flex flex-col gap-5"
       :style="{ color: color }"
     >
       <render-header
@@ -47,7 +47,7 @@ const props = withDefaults(
         </template>
         <slot name="desc" />
       </render-header>
-      <div v-if="$slots.contact">
+      <div v-if="$slots.contact" class="my-3">
         <slot name="contact" />
       </div>
       <div v-if="$slots.card">

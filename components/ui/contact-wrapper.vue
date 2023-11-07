@@ -5,7 +5,7 @@ withDefaults(defineProps<{ center?: boolean }>(), {
 </script>
 
 <template>
-  <ul class="flex flex-wrap gap-8" :class="{ 'justify-center': center }">
+  <ul class="flex flex-wrap gap-3 sm:gap-4 md:gap-6" :class="{ 'justify-center': center }">
     <slot />
   </ul>
 </template>

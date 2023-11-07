@@ -62,6 +62,7 @@ const color = ref<string>("");
 const avatar = ref<AvatarUri>("emoji:😎");
 const style = ref<string>("");
 const contacts = ref<ContactInfo[]>([]);
+
 const cards = ref<FormValue[]>([]);
 
 const stretch = ref(true);
@@ -200,8 +201,8 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
       :color="color"
     >
       <template #avatar>
-        <ui-picture-selector v-model:value="avatar" :name="$route.params.name as string">
-          <ui-avatar :src="avatar" class="text-5 sm:text-8 md:text-12 lg:text-16" />
+        <ui-picture-selector v-model:value="avatar" :name="name">
+          <ui-avatar :src="avatar" class="text-8 md:text-12" />
         </ui-picture-selector>
       </template>
       <template #name>
@@ -211,7 +212,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
         {{ description }}
       </template>
       <template #contact>
-        <ui-contact-wrapper>
+        <ui-contact-wrapper :center="config.center">
           <ui-contact-item
             v-for="contact of contacts"
             :key="contact.value"
@@ -297,7 +298,7 @@ const handleRightClick = (item: FormValue, event: PointerEvent) => {
   border: 1px solid $dt("border.primary");
   border-left: 0;
   transition-property: left, border-radius;
-  
+
   &:hover {
     border-left: 1px solid $dt("border.primary");
     @apply rounded-full left-2 mix-blend-plus-lighter;
