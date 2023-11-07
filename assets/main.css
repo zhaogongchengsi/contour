@@ -5,9 +5,31 @@ body {
 }
 
 :root {
-  --card-size: 80px;
-  --card-gap-x: 10px;
-  --card-gap-y: 10px;
+  --card-size: 45px;
+  --card-gap-x: 6px;
+  --card-gap-y: 6px;
+}
+
+@sm {
+  :root {
+    --card-size: 50px;
+  }
+}
+
+@md {
+  :root {
+    --card-size: 55px;
+    --card-gap-x: 8px;
+    --card-gap-y: 8px;
+  }
+}
+
+@lg {
+  :root {
+    --card-size: 60px;
+    --card-gap-x: 10px;
+    --card-gap-y: 10px;
+  }
 }
 
 .card-wrapper-grid {
@@ -16,6 +38,9 @@ body {
   grid-template-rows: repeat(auto-fill, var(--card-size));
   grid-auto-flow: dense;
   grid-gap: var(--card-gap-x) var(--card-gap-y);
+
+  justify-content: space-evenly;
+  justify-items: center;
 }
 
 body::-webkit-scrollbar {
@@ -41,7 +66,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .dark body::-webkit-scrollbar-thumb {
- @apply bg-gray-800 rounded-md;
+  @apply bg-gray-800 rounded-md;
 }
 
 .page-enter-active,
