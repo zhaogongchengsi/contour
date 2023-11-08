@@ -28,6 +28,19 @@ export default defineAppConfig({
           },
         ],
       },
+      {
+        title: "工具网站",
+        nav: [
+          {
+            title: "渐变色",
+            link: "#",
+          },
+          {
+            title: "壁纸",
+            link: "#",
+          },
+        ],
+      },
     ],
   },
 });

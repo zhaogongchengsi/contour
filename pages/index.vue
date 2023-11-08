@@ -64,26 +64,25 @@ const submit = async () => {
   <div
     class="container mx-auto px-3 my-5 sm:my-10 md:my-20 flex flex-col md:flex-row md:items-start items-center justify-between"
   >
-    <h4 class="text-6 sm:text-8 md:text-10 font-bold">马上行动</h4>
+    <h4 class="home-page_title">马上行动</h4>
     <div class="w-full md:w-1/2 flex flex-col items-center md:items-start mt-10 md:mt-0">
       <span class="text-4 sm:text-5 text-white/60">现在就开始使用我的APP吧！</span>
       <div class="flex mt-5 md:mt-8 gap-6 justify-center items-center sm:gap-7 md:gap-8">
-        <router-link class="primary-button primary-button-text primary-button-color" to="/signup">
-          立即注册
-        </router-link>
-        <router-link class="~ h-full primary-button-text-flip" to="/login">立即登录</router-link>
+        <router-link class="home-page_button" to="/signup">立即注册</router-link>
+        <router-link class="h-full text-sm md:text-lg" to="/login">立即登录</router-link>
       </div>
     </div>
   </div>
   <section class="container mx-auto px-0 my-15 sm:my-25 md:my-40 px-3 flex md:px-0 flex-col md:flex-row">
-    <div class="flex flex-col gap-3 sm:gap-6 md:gap-10 items-center mr-auto w-full md:w-auto">
-      <h3 class="text-6 sm:text-8 md:text-10 font-bold">优势</h3>
+    <div class="flex flex-col gap-3 sm:gap-6 items-center md:items-start mr-auto w-full md:w-auto">
+      <h3 class="home-page_title">优势</h3>
       <p>我们的优势</p>
-      <a href="#" class="primary-button primary-button-text primary-button-color">试用</a>
+      <a href="#" class="home-page_button">试用</a>
     </div>
-    <div class="w-full md:w-1/2 mt-10 md:mt-0">
-      <ul class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-3 sm:gap-5">
-        <li v-for="i of 5" :key="i" class="bg-zinc-800 h-50 rounded-lg p-2">广告位招租</li>
+    <div class="w-full md:w-1/2 mt-10 md:mt-0 relative group">
+      <div class="home-page_bg group-hover:opacity-7" />
+      <ul class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-3 sm:gap-5 home-page_cards">
+        <ui-card tag="li" v-for="i of 2" :key="i" class="p-3 min-h-40">广告位招租</ui-card>
       </ul>
     </div>
   </section>
@@ -92,14 +91,14 @@ const submit = async () => {
   >
     <div class="flex items-center gap-3">
       <i class="block i-carbon:favorite-filled w-6 h-6" />
-      <span class="text-zinc-300 text-5 font-bold sm:text-6 md:text-7">个人专属页面</span>
+      <span class="home-page_title">个人专属页面</span>
     </div>
     <nav class="flex flex-col items-start sm:flex-row text-3 gap-5 sm:gap-10 md:gap-20 w-full sm:w-1/2">
-      <dl v-for="item of footerLinks" :key="item.title" class="w-full sm:w-auto grid grid-cols-3 gap-1 md:gap-2">
-        <dt class="col-span-3 text-4 sm:text-5 md:text-6 mb-2 sm:mb-3 md:mb-5 text-zinc-300">
+      <dl v-for="item of footerLinks" :key="item.title" class="w-full sm:w-auto grid grid-cols-3 gap-2">
+        <dt class="col-span-3 text-sm sm:text-lg mb-2 text-zinc-300">
           {{ item.title }}
         </dt>
-        <dd class="flex sm:col-span-3 text-3 sm:text-4 md:text-5" v-for="i of item.nav" :key="i.title">
+        <dd class="flex sm:col-span-3 text-xs sm:text-sm" v-for="i of item.nav" :key="i.title">
           <a :href="i.link" class="text-zinc-400 hover:text-zinc-300">
             {{ i.title }}
           </a>
@@ -120,5 +119,37 @@ const submit = async () => {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+.home-page_title {
+  @apply text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold;
+}
+
+.home-page_button {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm md:text-lg;
+}
+
+.home-page_bg {
+  --color-a: #59e5ae;
+  --color-b: #97ed8d;
+  --color-c: #f2f75d;
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0.06;
+
+  --page-max-width: 1200px;
+  --page-edge: calc((100vw - var(--page-max-width)) / 2);
+
+  filter: blur(80px);
+
+  background: radial-gradient(400px circle at calc(100% - var(--page-edge) - 10%) 45%, var(--color-a), 70%, transparent),
+    radial-gradient(400px circle at 50% 55%, var(--color-b), 60%, transparent),
+    radial-gradient(350px circle at calc(var(--page-edge) + 15%) 40%, var(--color-c), 60%, transparent);
+
+  transition: opacity 0.5s ease;
 }
 </style>

@@ -7,10 +7,10 @@ const app = useAppConfig();
     <div
       class="mx-auto h-full flex items-center justify-between px-3 container md:px-0"
     >
-      <h3 class="text-3 text-zinc-300 text-sm">
+      <h3 class="text-3 text-zinc-300 text-xs sm:text-sm">
         {{ app.title }}
       </h3>
-      <div class="flex items-center gap-3 text-sm">
+      <div class="flex items-center gap-3 text-xs sm:text-sm">
         <span class="text-zinc-400 hover:text-zinc-300">隐私政策</span>
         <span class="text-zinc-400 hover:text-zinc-300">服务条款</span>
         <span class="text-zinc-400 hover:text-zinc-300">Cookie设置</span>
