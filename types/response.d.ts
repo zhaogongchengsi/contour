@@ -1,5 +1,7 @@
+
+declare ResponseStatusCode = 0 | 1 | 2 | 3;
 declare interface AppResponse<T> {
-  code: 0 | 1;
+  code: ResponseStatusCode;
   data: T | null;
   message: string;
 }

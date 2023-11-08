@@ -5,7 +5,7 @@ export default defineEventHandler(async (e) => {
   const { name, avatar, cards, color, background, styles, contacts } = await readBody<NoteData>(e);
 
   if (!name) {
-    return sendFail("缺少名称");
+    return fail("缺少名称");
   }
 
   const { uuid, id } = readAuthInfo(e);
@@ -26,7 +26,7 @@ export default defineEventHandler(async (e) => {
   });
 
   if (cards.length < 1) {
-    return sendSuccess(null, "操作成功");
+    return success(null, "操作成功");
   }
 
   const newCards = cards.map((card) => {
@@ -62,8 +62,8 @@ export default defineEventHandler(async (e) => {
         data: newCards,
       });
     });
-    return sendSuccess(null, "操作成功");
+    return success(null, "操作成功");
   } catch (err) {
-    return sendFail("操作失败");
+    return fail("操作失败");
   }
 });

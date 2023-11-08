@@ -4,7 +4,7 @@ export default defineEventHandler(async (e) => {
   const name = getQuery(e).name as string;
 
   if (!name) {
-    return sendFail("缺少参数 name");
+    return fail("缺少参数 name");
   }
 
   const storage = useRedisLoggingStatusStorage();
@@ -12,14 +12,14 @@ export default defineEventHandler(async (e) => {
   const value = await storage?.getItem(name);
 
   if (!value) {
-    return sendFail("未登录");
+    return fail("未登录");
   }
 
   const now = Date.now();
 
   if (now > Number(value)) {
-    return sendFail("未登录");
+    return fail("未登录");
   }
 
-  return sendSuccess("登录中...");
+  return success("登录中...");
 });

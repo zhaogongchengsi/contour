@@ -11,11 +11,11 @@ export default defineEventHandler(async (event) => {
   });
 
   if (!success) {
-    return sendFail(message);
+    return fail(message);
   }
 
   if (isPro() && !(await verifyCaptcha(body.id, body.code))) {
-    return sendFail("验证码错误或过期");
+    return fail("验证码错误或过期");
   }
 
   const user = await prisma.user.findFirst({
@@ -34,11 +34,11 @@ export default defineEventHandler(async (event) => {
   });
 
   if (!user) {
-    return sendFail("用户不存在");
+    return fail("用户不存在");
   }
 
   if (!decrypt(body.password, user.password as any)) {
-    return sendFail("密码错误");
+    return fail("密码错误");
   }
 
   const { token, exp } = issueToken({
@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
   // @ts-ignore
   delete user.password;
 
-  return sendSuccess<AppUserResponse>({
+  return success<AppUserResponse>({
     authorization: {
       token,
       exp,

@@ -11,5 +11,5 @@ export default defineEventHandler(async (e) => {
     },
   });
 
-  return sendSuccess(list);
+  return success(list);
 });

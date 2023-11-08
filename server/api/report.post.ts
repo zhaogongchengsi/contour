@@ -20,11 +20,11 @@ export default defineEventHandler(async (e) => {
   }>(e);
 
   if ([name, action].some(isEmpty)) {
-    return sendFail("缺少参数");
+    return fail("缺少参数");
   }
 
   if (action === ReportAction.duration && isEmpty(time)) {
-    return sendFail("当 action 为 duration time 不可为空");
+    return fail("当 action 为 duration time 不可为空");
   }
 
   //  先查询当前时间访问记录是否已经创建
@@ -65,5 +65,5 @@ export default defineEventHandler(async (e) => {
     });
   }
 
-  return sendSuccess("ok");
+  return success("ok");
 });

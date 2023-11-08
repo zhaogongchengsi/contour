@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
     // @ts-ignore
     delete user.password;
 
-    return sendSuccess(user, "注册成功");
+    return success(user, "注册成功");
   } catch (err: any) {
     return sendFail("注册失败");
   }
