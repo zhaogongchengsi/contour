@@ -2,8 +2,7 @@ import { prisma } from "~/prisma/client";
 import { NoteData } from "~/types";
 
 export default defineEventHandler(async (e) => {
-  const { name, avatar, cards, color, background, styles, contacts } =
-    await readBody<NoteData>(e);
+  const { name, avatar, cards, color, background, styles, contacts } = await readBody<NoteData>(e);
 
   if (!name) {
     return sendFail("缺少名称");
@@ -26,34 +25,45 @@ export default defineEventHandler(async (e) => {
     },
   });
 
-  await prisma.card.deleteMany({
-    where: {
-      userId: uuid,
-    },
-  });
-
-  if (cards.length > 0) {
-    await prisma.card.createMany({
-      data: cards.map((card) => {
-        const background =
-          typeof card.background === "string"
-            ? card.background
-            : `linear-gradient(${card.background
-                ?.direction}, ${card.background?.colors.join(", ")})`;
-
-        return {
-          link: card.link,
-          buttonStyle: card.buttonStyle,
-          image: card.image,
-          background: background,
-          icon: JSON.stringify(card.icon),
-          size: card.size,
-          sort: card.id,
-          userId: uuid,
-        };
-      }),
-    });
+  if (cards.length < 1) {
+    return sendSuccess(null, "操作成功");
   }
 
-  return sendSuccess(null, "操作成功");
+  const newCards = cards.map((card) => {
+    const background =
+      typeof card.background === "string"
+        ? card.background
+        : `linear-gradient(${card.background?.direction}, ${card.background?.colors.join(", ")})`;
+
+    return {
+      link: card.link,
+      buttonStyle: card.buttonStyle,
+      image: card.image,
+      background: background,
+      icon: JSON.stringify(card.icon),
+      size: card.size,
+
+      // 将id 作为 排序标记
+      sort: card.id,
+
+      userId: uuid,
+    };
+  });
+
+  try {
+    await prisma.$transaction(async (prisma) => {
+      await prisma.card.deleteMany({
+        where: {
+          userId: uuid,
+        },
+      });
+
+      await prisma.card.createMany({
+        data: newCards,
+      });
+    });
+    return sendSuccess(null, "操作成功");
+  } catch (err) {
+    return sendFail("操作失败");
+  }
 });

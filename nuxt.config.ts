@@ -32,6 +32,10 @@ export default defineNuxtConfig({
       },
       reportCycle: 10,
     },
+    log: {
+      level: process.env.LOG_LEVEL || "debug",
+      direction: process.env.LOG_PATH || "stdout",
+    },
     captchaExpert: 3,
     email: {
       user: process.env.EMAIL_USER,
@@ -48,13 +52,7 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
-  modules: [
-    "@unocss/nuxt",
-    "@vueuse/nuxt",
-    "pinceau/nuxt",
-    "@pinia/nuxt",
-    "nuxt-lodash",
-  ],
+  modules: ["@unocss/nuxt", "@vueuse/nuxt", "pinceau/nuxt", "@pinia/nuxt", "nuxt-lodash"],
   css: ["@unocss/reset/tailwind.css", "assets/main.css"],
   lodash: {
     prefix: "_",
@@ -82,28 +80,17 @@ export default defineNuxtConfig({
     ],
   },
   imports: {
-    dirs: [
-      "composables",
-      "composables/*/index.{ts,js,mjs,mts}",
-      "composables/**",
-      "stores",
-    ],
+    dirs: ["composables", "composables/*/index.{ts,js,mjs,mts}", "composables/**", "stores"],
   },
   build: {
     transpile:
       process.env.NODE_ENV === "production"
-        ? [
-            "naive-ui",
-            "vueuc",
-            "@css-render/vue3-ssr",
-            "@juggle/resize-observer",
-          ]
+        ? ["naive-ui", "vueuc", "@css-render/vue3-ssr", "@juggle/resize-observer"]
         : ["@juggle/resize-observer"],
   },
   vite: {
     optimizeDeps: {
-      include:
-        process.env.NODE_ENV === "development" ? ["naive-ui", "vueuc"] : [],
+      include: process.env.NODE_ENV === "development" ? ["naive-ui", "vueuc"] : [],
     },
   },
   nitro: {
