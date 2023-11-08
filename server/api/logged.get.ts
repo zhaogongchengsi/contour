@@ -1,5 +1,3 @@
-import { useRedisLoggingStatusStorage } from "../utils/storage";
-
 export default defineEventHandler(async (e) => {
   const name = getQuery(e).name as string;
 
@@ -16,7 +14,7 @@ export default defineEventHandler(async (e) => {
   }
 
   const now = Date.now();
-
+ 
   if (now > Number(value)) {
     return fail("未登录");
   }

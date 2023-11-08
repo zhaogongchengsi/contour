@@ -4,13 +4,9 @@ import { prisma } from "~/prisma/client";
 export default defineEventHandler(async (event) => {
   const body = await readBody<UserInfoScheme>(event);
 
-  const { success, message } = await isUserInfo(body);
-  if (!success) {
-    return sendFail(message);
-  }
-
-  if (isPro() && !(await verifyCaptcha(body.id, body.code))) {
-    return sendFail("验证码错误或过期");
+  const { success: ok, message } = await isUserInfo(body);
+  if (!ok) {
+    return fail(message);
   }
 
   // todo: 验证邮箱真实性
@@ -24,7 +20,7 @@ export default defineEventHandler(async (event) => {
     });
 
     if (oldUser) {
-      return sendFail("用户已存在");
+      return fail("用户已存在");
     }
 
     const user = await prisma.user.create({
@@ -40,6 +36,6 @@ export default defineEventHandler(async (event) => {
 
     return success(user, "注册成功");
   } catch (err: any) {
-    return sendFail("注册失败");
+    return fail("注册失败");
   }
 });

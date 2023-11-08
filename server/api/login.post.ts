@@ -5,17 +5,13 @@ import { useRedisLoggingStatusStorage } from "../utils/storage";
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
-  const { success, message } = await isUserInfo({
+  const { success: ok, message } = await isUserInfo({
     ...body,
     code: Number(body.code),
   });
 
-  if (!success) {
+  if (!ok) {
     return fail(message);
-  }
-
-  if (isPro() && !(await verifyCaptcha(body.id, body.code))) {
-    return fail("验证码错误或过期");
   }
 
   const user = await prisma.user.findFirst({

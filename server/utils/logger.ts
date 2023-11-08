@@ -13,28 +13,27 @@ export const useLogger = () => {
     // see: https://github.com/winstonjs/logform
     const { combine, timestamp, colorize, json, printf } = format;
 
-    logger = createLogger({
-      level: log?.level || "info",
-      format: combine(timestamp(), json()),
-      defaultMeta: { service: name },
-      transports: [
-        import.meta.dev
-          ? new transports.Console({
-              format: combine(
-                colorize(),
-                printf((info) => `${info.level}: ${info.message}`),
-              ),
-            })
-          : undefined,
-        new DailyRotateFile({
+    const transport = isDev()
+      ? new transports.Console({
+          format: combine(
+            colorize(),
+            printf((info) => `${info.level}: ${info.message}`),
+          ),
+        })
+      : new DailyRotateFile({
           filename: `app-%DATE%.log`,
           datePattern: "YYYY-MM-DD-HH",
           zippedArchive: true,
           maxSize: "20m",
           maxFiles: "14d",
           dirname: log?.direction,
-        }),
-      ].filter(Boolean) as [],
+        });
+
+    logger = createLogger({
+      level: log?.level || "info",
+      format: combine(timestamp(), json()),
+      defaultMeta: { service: name },
+      transports: [transport],
     });
   }
 
