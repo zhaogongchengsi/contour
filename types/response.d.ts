@@ -1,3 +1,4 @@
+import { ContactInfo } from ".";
 
 declare ResponseStatusCode = 0 | 1 | 2 | 3;
 declare interface AppResponse<T> {
@@ -35,11 +36,11 @@ declare interface Resume {
   background: string;
   cards: Card[];
   color: string;
-  contact: string;
-  description: null;
+  contact: ContactInfo[];
+  description?: string;
   name: string;
   state: number;
-  styles: string;
+  styles?: CardButtonStyle;
 }
 
 declare interface Card {
@@ -47,7 +48,7 @@ declare interface Card {
   buttonStyle: "windows" | "android" | "apple";
   createdAt: string;
   icon: string;
-  id: number;
+  uid: string;
   image: string;
   link: string;
   size: `${number}-${number}`;

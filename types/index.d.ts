@@ -68,7 +68,8 @@ export declare interface CardSize {
 export declare type CardButtonStyle = "windows" | "android" | "apple";
 
 export declare interface CardConfig {
-  id: number;
+  id?: number;
+  uid?: string;
   icon: IconInfo | undefined;
   size: CardSizeString;
   link: string;

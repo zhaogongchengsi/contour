@@ -21,7 +21,7 @@ const nameStore = useGlobalName();
 const isShow = ref(false);
 const title = ref("");
 const logged = ref(false);
-const { warning, success } = useMessage();
+const { warning, success, error } = useMessage();
 
 interface FormValue {
   icon: IconInfo | undefined;
@@ -40,19 +40,8 @@ const formValue = reactive<CardConfig>({
   size: "1-1",
   image: "url:/images/grid.webp",
   icon: undefined,
-  id: 0,
+  uid: undefined,
 });
-
-// todo: 会导致水和不一致 后续在增加
-// const defineStorageKey = (key: string) => `contour-edit-${key}`;
-// const name = useStorage<string>(defineStorageKey("name"), route.params.name as string);
-// const description = useStorage<string>(defineStorageKey("description"), "");
-// const background = useStorage(defineStorageKey("background"), "");
-// const color = useStorage<string>(defineStorageKey("color"), "");
-// const avatar = useStorage<AvatarUri>(defineStorageKey("avatar"), "emoji:😎");
-// const style = useStorage<string>(defineStorageKey("style"), "");
-// const contacts = useStorage<ContactInfo[]>(defineStorageKey("contact"), []);
-// const cards = useStorage<FormValue[]>(defineStorageKey("cards"), []);
 
 const name = ref<string>(route.params.name as string);
 nameStore.value = name.value;
@@ -75,12 +64,14 @@ const init = async () => {
   if (code) {
     avatar.value = data!.avatar as AvatarUri;
     background.value = data!.background;
-    style.value = data!.styles as CardButtonStyle;
-    color.value = data!.color;
-    description.value = data!.description || "没有介绍";
-    contacts.value = JSON.parse(data?.contact || "[]") || [];
 
-    cards.value = (data?.cards || []).map((card) => {
+    data.styles && (style.value = data.style);
+    
+    color.value = data!.color;
+    description.value = data?.description || "没有介绍";
+    contacts.value = JSON.parse(data?.contact) || [];
+
+    cards.value = (data?.cards || []).map((card: any) => {
       return {
         ...card,
         icon: JSON.parse(card.icon),
@@ -94,7 +85,7 @@ logged.value = await loggedByServer(name.value);
 logged.value && (await init());
 
 const config = computed(() => {
-  const list = style.value.split("-");
+  const list = style?.value?.split("-") || [];
   return {
     frosted: list.includes("frosted"),
     center: list.includes("center"),
@@ -113,7 +104,7 @@ const addCard = (icon: IconInfo) => {
 const createCard = () => {
   if (editMode.value === "change") {
     cards.value = cards.value.map((item) => {
-      if (item.id === formValue.id) {
+      if (item.uid === formValue.uid) {
         return cloneDeep(formValue);
       }
       return item;
@@ -121,26 +112,25 @@ const createCard = () => {
   }
 
   if (editMode.value === "create") {
-    formValue.id++;
     cards.value.push(cloneDeep(formValue));
   }
 
   isShow.value = false;
 };
 
-const handleRightClick = (item: FormValue, event: PointerEvent) => {
+const handleRightClick = (item: CardConfig, event: PointerEvent) => {
   event.preventDefault();
 
   editMode.value = "change";
 
-  const { background, image, buttonStyle, link, size, icon, id } = cloneDeep(item);
+  const { background, image, buttonStyle, link, size, icon, uid } = cloneDeep(item);
   formValue.background = background;
   formValue.image = image;
   formValue.buttonStyle = buttonStyle;
   formValue.link = link;
   formValue.size = size;
   formValue.icon = icon;
-  formValue.id = id;
+  formValue.uid = uid;
   isShow.value = true;
 };
 
@@ -166,7 +156,7 @@ const save = async () => {
     }),
   });
 
-  code && success(message);
+  code ? success(message) : error(message);
 };
 
 const logout = async () => {
@@ -262,7 +252,7 @@ const logout = async () => {
         </ui-contact-wrapper>
       </template>
       <template #card>
-        <draggable tag="div" :animation="500" :list="cards" class="card-wrapper-grid" item-key="id">
+        <draggable tag="div" :animation="500" :list="cards" class="card-wrapper-grid" item-key="uid">
           <template #item="{ element }">
             <card
               edit

@@ -27,5 +27,5 @@ export default defineEventHandler(async (e) => {
     return fail("用户不存在");
   }
 
-  return success(user);
+  return success({ ...user, cards: user.cards.sort((a, b) => a.sort - b.sort) });
 });

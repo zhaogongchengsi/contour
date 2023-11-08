@@ -9,25 +9,7 @@ export default defineEventHandler(async (e) => {
   }
 
   const { uuid, id } = readAuthInfo(e);
-
-  await prisma.user.update({
-    where: {
-      id: Number(id),
-      uid: uuid,
-    },
-    data: {
-      name,
-      avatar,
-      color,
-      background,
-      styles: styles,
-      contact: JSON.stringify(contacts),
-    },
-  });
-
-  if (cards.length < 1) {
-    return success(null, "操作成功");
-  }
+  const logger = useLogger();
 
   const newCards = cards.map((card) => {
     const background =
@@ -44,26 +26,47 @@ export default defineEventHandler(async (e) => {
       size: card.size,
 
       // 将id 作为 排序标记
-      sort: card.id,
+      sort: card.id!,
 
       userId: uuid,
     };
   });
 
+  logger.info(`${uuid} update !`);
+
   try {
     await prisma.$transaction(async (prisma) => {
+      await prisma.user.update({
+        where: {
+          id: Number(id),
+          uid: uuid,
+        },
+        data: {
+          name,
+          avatar,
+          color,
+          background,
+          styles: styles,
+          contact: JSON.stringify(contacts),
+        },
+      });
+
       await prisma.card.deleteMany({
         where: {
           userId: uuid,
         },
       });
 
-      await prisma.card.createMany({
-        data: newCards,
-      });
+      if (cards.length > 1) {
+        await prisma.card.createMany({
+          data: newCards,
+        });
+      }
     });
+
     return success(null, "操作成功");
   } catch (err) {
+    logger.error(`更改失败: ${err}`);
     return fail("操作失败");
   }
 });
