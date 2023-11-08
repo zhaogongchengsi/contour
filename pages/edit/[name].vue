@@ -23,16 +23,6 @@ const title = ref("");
 const logged = ref(false);
 const { warning, success, error } = useMessage();
 
-interface FormValue {
-  icon: IconInfo | undefined;
-  size: CardSizeString;
-  link: string;
-  buttonStyle: CardButtonStyle;
-  image: string;
-  background: string;
-  id: number;
-}
-
 const formValue = reactive<CardConfig>({
   link: "",
   background: "#fff",

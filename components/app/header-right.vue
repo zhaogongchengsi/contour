@@ -2,7 +2,14 @@
 import { NPopover } from "naive-ui";
 
 const name = useGlobalName();
-const logged = await loggedByServer(name.value);
+const logged = ref(false) 
+logged.value = await loggedByServer(name.value);
+
+const logout = async () => {
+  await logoutByServer(name.value);
+  logged.value = false;
+};
+
 </script>
 
 <template>
@@ -19,11 +26,11 @@ const logged = await loggedByServer(name.value);
           <i class="block i-carbon:home w-3 h-3" />
           <span class="max-w-25 truncate">{{ name }}</span>
         </router-link>
-        <button class="header-right_button" @click="navigateTo('/panel')">
+        <router-link class="header-right_button" to="/panel">
           <i class="block i-carbon:user w-3 h-3" />
           <span>个人中心</span>
-        </button>
-        <button class="header-right_button">
+        </router-link>
+        <button class="header-right_button" @click="logout">
           <i class="block i-carbon:logout w-3 h-3" />
           <span>注销登陆</span>
         </button>
