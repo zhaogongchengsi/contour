@@ -81,8 +81,11 @@ const submit = async () => {
     </div>
     <div class="w-full md:w-1/2 mt-10 md:mt-0 relative group">
       <div class="home-page_bg group-hover:opacity-7" />
-      <ul class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-3 sm:gap-5 home-page_cards">
-        <ui-card tag="li" v-for="i of 2" :key="i" class="p-3 min-h-40">广告位招租</ui-card>
+      <ul
+        style="--card-searchlight-size: 300px"
+        class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-3 sm:gap-5"
+      >
+        <ui-card tag="li" v-for="i of 4" :key="i" class="p-3 min-h-45">广告位招租</ui-card>
       </ul>
     </div>
   </section>

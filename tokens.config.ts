@@ -31,6 +31,10 @@ export default defineTheme({
     black: "rgba(18, 18, 18, 1)",
     white: "#ffffff",
   },
+  radius: {
+    xs: "8px",
+    sm: "12px",
+  },
   hover: {
     black: "rgba(24, 24, 24, 1)",
   },
@@ -39,5 +43,10 @@ export default defineTheme({
   },
   background: {
     primary: "rgba(255, 255, 255, 0.03)",
+    secondary: "rgba(255, 255, 255, 0.12)",
+    tertiary: "rgba(255, 255, 255, 0.24)",
+    quaternary: "rgba(255, 255, 255, 0.36)",
+    quinary: "rgba(255, 255, 255, 0.48)",
+    senary: "rgba(255, 255, 255, 0.60)",
   },
 });
