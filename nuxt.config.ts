@@ -17,6 +17,7 @@ export default defineNuxtConfig({
         { hid: "description", name: "description", content: "Talent" },
       ],
       script: [
+        // see https://github.com/triggerjs/trigger/blob/main/README.zh-Hans.md
         {
           src: "/trigger.js",
           defer: true,
