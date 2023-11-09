@@ -40,9 +40,7 @@ const submit = async () => {
 </script>
 
 <template>
-  <div
-    class="flex flex-col items-center pt-20 sm:pt-30 md:pt-40 container mx-auto overflow-hidden min-h-80 sm:min-h-100 md:min-h-200 relative"
-  >
+  <div class="flex flex-col items-center pt-20 sm:pt-30 md:pt-40 container mx-auto overflow-hidden relative">
     <h3 class="text-4xl sm:text-5xl lg:text-6xl font-bold z-10 gradient-text">定制个人专属页面</h3>
     <div
       class="w-full px-5 sm:px-0 mx-auto mt-15 mb-15 flex flex-col sm:flex-row items-center justify-center gap-8 rounded-md z-10"
@@ -61,6 +59,11 @@ const submit = async () => {
       </button>
     </div>
   </div>
+  <section class="container mx-auto px-0 sm:my-10 px-5 home-main-img-container">
+    <div class="w-full max-w-270 mx-auto home-main_img_x">
+      <img class="w-full" src="/home-main.webp" />
+    </div>
+  </section>
   <div
     class="container mx-auto px-3 my-5 sm:my-10 md:my-20 flex flex-col md:flex-row md:items-start items-center justify-between"
   >
@@ -113,6 +116,77 @@ const submit = async () => {
 
 <style lang="scss">
 // 渐变文字
+
+.home-main-img-container {
+  perspective: 2000px;
+}
+
+.home-main_img_x {
+  position: relative;
+
+  --transparent: hsla(0, 0%, 100%, 0);
+
+  background-color: rgba(255, 255, 255, 0.01);
+  background-image: radial-gradient(ellipse 50% 80% at 20% 40%, rgba(93, 52, 221, 0.1), var(--transparent)),
+    radial-gradient(ellipse 50% 80% at 80% 50%, rgba(120, 119, 198, 0.15), var(--transparent));
+  border-radius: $dt("radius.xs");
+  padding: 1px;
+
+  transition: transform 400ms ease-out 0s;
+  transform: rotateX(25deg);
+
+  img {
+    border-radius: $dt("radius.xs");
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(
+      from 230.29deg at 51.63% 52.16%,
+      rgb(36, 0, 255) 0deg,
+      rgb(0, 135, 255) 67.5deg,
+      rgb(108, 39, 157) 198.75deg,
+      rgb(24, 38, 163) 251.25deg,
+      rgb(54, 103, 196) 301.88deg,
+      rgb(105, 30, 255) 360deg
+    );
+    filter: blur(150px);
+    z-index: -1;
+    opacity: 0.3;
+  }
+
+  // animation-duration: 1400ms;
+  // animation-timing-function: ease;
+  // animation-iteration-count: 1;
+  // animation-direction: normal;
+  // animation-fill-mode: forwards;
+  // animation-play-state: running;
+  // animation-name: regression;
+  // animation-timeline: auto;
+  // animation-range: normal;
+  // animation-delay: 3s;
+}
+
+@keyframes regression {
+  0% {
+    transform: rotateX(25deg);
+  }
+
+  25% {
+    transform: rotateX(25deg) scale(0.9);
+  }
+
+  60%,
+  100% {
+    transform: none;
+  }
+}
 
 .gradient-text {
   letter-spacing: -0.02em;

@@ -90,7 +90,7 @@ defineOptions({
 
     background: radial-gradient(
       800px circle at var(--cursor-x) var(--cursor-y),
-      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.2),
       transparent 40%
     );
 

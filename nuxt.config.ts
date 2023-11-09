@@ -10,15 +10,17 @@ export default defineNuxtConfig({
           href: "https://fonts.gstatic.com",
           crossorigin: "",
         },
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap",
-        },
       ],
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { hid: "description", name: "description", content: "Talent" },
+      ],
+      script: [
+        {
+          src: "/trigger.js",
+          defer: true,
+        },
       ],
     },
     // pageTransition: { name: 'page', mode: 'out-in' }
