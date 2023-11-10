@@ -3,7 +3,6 @@ import { NModal, NScrollbar, NPopover, useMessage, NSkeleton } from "naive-ui";
 import card from "~/components/card/card.vue";
 import draggable from "vuedraggable";
 import { cloneDeep } from "lodash";
-import type { AvatarUri, CardButtonStyle, CardConfig, CardSizeString, ContactInfo, IconInfo } from "~/types";
 
 definePageMeta({
   layout: "edit",
@@ -23,13 +22,19 @@ const title = ref("");
 const logged = ref(false);
 const { warning, success, error } = useMessage();
 
-const formValue = reactive<CardConfig>({
+type C = Card & {
+  icon?: IconInfo;
+  uid?: string;
+};
+
+const formValue = reactive<C>({
   link: "",
   background: "#fff",
   buttonStyle: "windows",
   size: "1-1",
   image: "url:/images/grid.webp",
   icon: undefined,
+  order: 0,
   uid: undefined,
 });
 
@@ -39,11 +44,12 @@ nameStore.value = name.value;
 const description = ref<string>("");
 const background = ref("");
 const color = ref<string>("");
-const avatar = ref<AvatarUri>("emoji:😎");
-const style = ref<CardButtonStyle>("windows");
+const avatar = ref<AvatarUrl>("emoji:😎");
+
+const pageConfig = ref<ResumeConfig>("");
 const contacts = ref<ContactInfo[]>([]);
 
-const cards = ref<CardConfig[]>([]);
+const cards = ref<C[]>([]);
 
 const stretch = ref(true);
 
@@ -52,14 +58,13 @@ const stretchToggle = useToggle(stretch);
 const init = async () => {
   const { code, data } = await getResume(route.params.name as string);
   if (code) {
-    avatar.value = data!.avatar as AvatarUri;
+    avatar.value = data!.avatar;
     background.value = data!.background;
-
-    data.styles && (style.value = data.style);
-    
+    pageConfig.value = data!.config;
     color.value = data!.color;
     description.value = data?.description || "没有介绍";
-    contacts.value = JSON.parse(data?.contact) || [];
+
+    contacts.value = JSON.parse(data?.contact || "[]") || [];
 
     cards.value = (data?.cards || []).map((card: any) => {
       return {
@@ -75,7 +80,7 @@ logged.value = await loggedByServer(name.value);
 logged.value && (await init());
 
 const config = computed(() => {
-  const list = style?.value?.split("-") || [];
+  const list = pageConfig?.value?.split("-") || [];
   return {
     frosted: list.includes("frosted"),
     center: list.includes("center"),
@@ -108,7 +113,7 @@ const createCard = () => {
   isShow.value = false;
 };
 
-const handleRightClick = (item: CardConfig, event: PointerEvent) => {
+const handleRightClick = (item: C, event: PointerEvent) => {
   event.preventDefault();
 
   editMode.value = "change";
@@ -135,13 +140,13 @@ const save = async () => {
     name: name.value,
     color: color.value,
     background: background.value,
-    styles: style.value,
+    config: pageConfig.value,
     avatar: avatar.value,
-    contacts: contacts.value,
+    contact: contacts.value,
     cards: cards.value.map((item, index) => {
       return {
         ...item,
-        id: index,
+        order: index,
       };
     }),
   });
@@ -201,7 +206,7 @@ const logout = async () => {
               v-model:contacts="contacts"
               v-model:background="background"
               v-model:color="color"
-              v-model:style="style"
+              v-model:style="pageConfig"
             />
           </client-only>
         </n-scrollbar>
