@@ -14,7 +14,7 @@ export default defineEventHandler(async (e) => {
       name: true,
       avatar: true,
       background: true,
-      styles: true,
+      config: true,
       color: true,
       description: true,
       contact: true,
@@ -27,5 +27,5 @@ export default defineEventHandler(async (e) => {
     return fail("用户不存在");
   }
 
-  return success({ ...user, cards: user.cards.sort((a, b) => a.sort - b.sort) });
+  return success({ ...user, cards: user.cards.sort((a, b) => a.order - b.order) });
 });

@@ -27,6 +27,7 @@ watch(userInfo.user, (u) => {
 });
 
 const submit = async () => {
+  console.log(name.value);
   const url = unref(name);
   const { success, message: msg } = await isName(url);
 
@@ -45,11 +46,12 @@ const submit = async () => {
     <div
       class="w-full px-5 sm:px-0 mx-auto mt-15 mb-15 flex flex-col sm:flex-row items-center justify-center gap-8 rounded-md z-10"
     >
-      <ui-home-input v-model:value="name">
-        <template #prefix>
+      <div class="home-input_wrapper text-4 sm:text-5">
+        <div>
           <span>https://</span>
-        </template>
-      </ui-home-input>
+        </div>
+        <input class="h-8 bg-transparent outline-none w-40 sm:w-50" v-model="name" type="text" />
+      </div>
       <button
         @click="submit"
         class="flex items-center gap-3 px-5 py-2 sm:py-3 bg-purple-600/80 hover:bg-purple-600 rounded-2xl"
@@ -116,6 +118,19 @@ const submit = async () => {
 
 <style lang="scss">
 // 渐变文字
+
+.home-input_wrapper {
+  border-radius: 16px;
+  border: 1px solid $dt('border.primary');
+  background: $dt('background.primary');
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.6rem;
+  padding: 0.5rem 1rem;
+}
 
 .home-main-img-container {
   perspective: 2000px;

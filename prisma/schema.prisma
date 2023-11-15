@@ -30,23 +30,25 @@ model User {
   background  String  @default("transparent")
   color       String  @default("#333333")
   description String?
-  styles      String?
+  config      String? @default("")
 
   contact Json?  @default("[]")
   cards   Card[]
 
   // 页面访问统计
   statistics PageVisits[]
+
+  @@map("user")
 }
 
-model File {
-  id   Int    @id @default(autoincrement())
-  hash String @unique
-  name String
-  url  String
-  size String
-  type String
-}
+// model File {
+//   id   Int    @id @default(autoincrement())
+//   hash String @unique
+//   name String
+//   url  String
+//   size String
+//   type String
+// }
 
 model Card {
   uid String @id @unique @default(uuid())
@@ -54,7 +56,7 @@ model Card {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")
 
-  sort        Int
+  order       Int
   icon        Json
   size        String
   link        String
@@ -65,6 +67,8 @@ model Card {
   background String
   User       User?   @relation(fields: [userId], references: [uid])
   userId     String?
+
+  @@map("card")
 }
 
 model PageVisits {

@@ -16,7 +16,6 @@ import {
 import type { SelectOption } from "naive-ui";
 import { VNodeChild, h } from "vue";
 import icons from "~/assets/icons.json";
-import type { ContactInfo, IconInfo } from "~/types";
 
 const material = useMaterial();
 

@@ -1,8 +1,11 @@
 import { prisma } from "~/prisma/client";
-import { NoteData } from "~/types";
+
+const formateBackground = <T extends { direction?: string; colors?: string[] }>(value: T) => {
+  return typeof value === "string" ? value : `linear-gradient(${value?.direction}, ${value?.colors?.join(", ")})`;
+};
 
 export default defineEventHandler(async (e) => {
-  const { name, avatar, cards, color, background, styles, contacts } = await readBody<NoteData>(e);
+  const { name, avatar, cards, color, background, config, contact } = await readBody<RequestResume>(e);
 
   if (!name) {
     return fail("缺少名称");
@@ -12,22 +15,17 @@ export default defineEventHandler(async (e) => {
   const logger = useLogger();
 
   const newCards = cards.map((card) => {
-    const background =
-      typeof card.background === "string"
-        ? card.background
-        : `linear-gradient(${card.background?.direction}, ${card.background?.colors.join(", ")})`;
 
     return {
       link: card.link,
       buttonStyle: card.buttonStyle,
       image: card.image,
-      background: background,
+      // @ts-ignore
+      background: formateBackground(background),
       icon: JSON.stringify(card.icon),
       size: card.size,
-
       // 将id 作为 排序标记
-      sort: card.id!,
-
+      order: card.order!,
       userId: uuid,
     };
   });
@@ -45,9 +43,10 @@ export default defineEventHandler(async (e) => {
           name,
           avatar,
           color,
-          background,
-          styles: styles,
-          contact: JSON.stringify(contacts),
+          // @ts-ignore
+          background: formateBackground(background),
+          config,
+          contact: contact as any,
         },
       });
 

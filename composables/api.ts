@@ -1,5 +1,3 @@
-import { NoteData, UploadInfo } from "~/types";
-
 export const loginApi = (body: UserInfoScheme) =>
   $fetch<AppResponse<AppUserResponse>>("/api/login", {
     method: "post",
@@ -18,7 +16,7 @@ export const removeFileApi = (name: string, key: string) =>
   });
 
 export const getResume = (name: string) =>
-  $fetch<AppResponse<Resume>>("/api/resume", {
+  $fetch<AppResponse<ResponseResume>>("/api/resume", {
     method: "get",
     query: { name },
   });
@@ -28,7 +26,8 @@ const getToken = (): string => {
   return userinfo.token.value;
 };
 
-export const noteSave = (body: NoteData) => {
+// todo： 提交类型
+export const noteSave = (body: RequestResume) => {
   const token = getToken();
   return $fetch<AppResponse<string>>("/api/auth/save", {
     method: "post",
@@ -54,6 +53,6 @@ export const logoutByServer = async (name: string) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    params: { name }
+    params: { name },
   });
 };

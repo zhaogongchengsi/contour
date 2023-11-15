@@ -1,6 +1,3 @@
-import { ContactInfo } from ".";
-
-declare ResponseStatusCode = 0 | 1 | 2 | 3;
 declare interface AppResponse<T> {
   code: ResponseStatusCode;
   data: T | null;
@@ -25,34 +22,12 @@ declare interface User {
   uid: string;
 }
 
-declare interface BgItem {
-  url: string;
-  name: string;
-  size: string;
+declare interface ResponseResume extends Resume {
+  cards: ResponseCard[];
 }
 
-declare interface Resume {
-  avatar: string;
-  background: string;
-  cards: Card[];
-  color: string;
-  contact: ContactInfo[];
-  description?: string;
-  name: string;
-  state: number;
-  styles?: CardButtonStyle;
-}
-
-declare interface Card {
-  background: string;
-  buttonStyle: "windows" | "android" | "apple";
+declare interface ResponseCard extends Card {
   createdAt: string;
-  icon: string;
-  uid: string;
-  image: string;
-  link: string;
-  size: `${number}-${number}`;
-  sort: number;
   updatedAt: null;
   userId: string;
 }
