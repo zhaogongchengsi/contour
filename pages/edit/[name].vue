@@ -57,21 +57,15 @@ const stretchToggle = useToggle(stretch);
 
 const init = async () => {
   const { code, data } = await getResume(name.value);
-  
-  if (code) {
-    avatar.value = data!.avatar;
-    background.value = data!.background;
-    pageConfig.value = data!.config;
-    color.value = data!.color;
-    description.value = data?.description || "没有介绍";
-    contacts.value = data?.contact || [];
-    cards.value = (data?.cards || []).map((card) => {
-      return {
-        ...card,
-        id: card.order,
-      };
-    });
-  }
+  if (!code) return;
+
+  avatar.value = data!.avatar;
+  background.value = data!.background;
+  pageConfig.value = data!.config;
+  color.value = data!.color;
+  description.value = data?.description || "没有介绍";
+  contacts.value = data?.contact || [];
+  cards.value = (data?.cards || []).map((card) => Object.assign(card, { id: card.order }));
 };
 
 logged.value = await loggedByServer(name.value);

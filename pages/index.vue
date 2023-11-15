@@ -27,7 +27,6 @@ watch(userInfo.user, (u) => {
 });
 
 const submit = async () => {
-  console.log(name.value);
   const url = unref(name);
   const { success, message: msg } = await isName(url);
 

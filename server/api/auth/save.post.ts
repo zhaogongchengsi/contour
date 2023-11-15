@@ -15,17 +15,11 @@ export default defineEventHandler(async (e) => {
   const logger = useLogger();
 
   const newCards = cards.map((card) => {
-
+    delete card.id;
     return {
-      link: card.link,
-      buttonStyle: card.buttonStyle,
-      image: card.image,
+      ...card,
       // @ts-ignore
-      background: formateBackground(background),
-      icon: JSON.stringify(card.icon),
-      size: card.size,
-      // 将id 作为 排序标记
-      order: card.order!,
+      background: formateBackground(card.background),
       userId: uuid,
     };
   });

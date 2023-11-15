@@ -1,6 +1,11 @@
 import jwt from "jsonwebtoken";
 import ms from "ms";
 
+/**
+ * 颁发令牌
+ * @param payload 令牌数据
+ * @returns 颁发的令牌对象
+ */
 export function issueToken(payload: any) {
   const config = useRuntimeConfig();
   const iss = Date.now();
