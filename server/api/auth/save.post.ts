@@ -18,6 +18,7 @@ export default defineEventHandler(async (e) => {
     delete card.id;
     return {
       ...card,
+      // TODO: 卡片背景颜色还未统一 需要统一为字符串
       // @ts-ignore
       background: formateBackground(card.background),
       userId: uuid,
