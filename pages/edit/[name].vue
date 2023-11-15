@@ -23,7 +23,6 @@ const logged = ref(false);
 const { warning, success, error } = useMessage();
 
 type C = Card & {
-  icon?: IconInfo;
   uid?: string;
 };
 
@@ -33,6 +32,7 @@ const formValue = reactive<C>({
   buttonStyle: "windows",
   size: "1-1",
   image: "url:/images/grid.webp",
+  // @ts-ignore
   icon: undefined,
   order: 0,
   uid: undefined,
@@ -56,21 +56,19 @@ const stretch = ref(true);
 const stretchToggle = useToggle(stretch);
 
 const init = async () => {
-  const { code, data } = await getResume(route.params.name as string);
+  const { code, data } = await getResume(name.value);
+  
   if (code) {
     avatar.value = data!.avatar;
     background.value = data!.background;
     pageConfig.value = data!.config;
     color.value = data!.color;
     description.value = data?.description || "没有介绍";
-
-    contacts.value = JSON.parse(data?.contact || "[]") || [];
-
-    cards.value = (data?.cards || []).map((card: any) => {
+    contacts.value = data?.contact || [];
+    cards.value = (data?.cards || []).map((card) => {
       return {
         ...card,
-        icon: JSON.parse(card.icon),
-        id: card.sort,
+        id: card.order,
       };
     });
   }
@@ -130,7 +128,7 @@ const handleRightClick = (item: C, event: PointerEvent) => {
 };
 
 const save = async () => {
-  if (!logged) {
+  if (!logged.value) {
     warning("请先登录");
     return;
   }

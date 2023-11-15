@@ -29,6 +29,5 @@ declare interface ResponseResume extends Resume {
 declare interface ResponseCard extends Card {
   createdAt: string;
   updatedAt: null;
-  icon: `[${IconInfoJson}]`; // 在后端为 json<IconInfo> 字符串
   userId: string;
 }

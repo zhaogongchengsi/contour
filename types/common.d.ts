@@ -21,8 +21,6 @@ declare interface IconInfo {
   background?: string;
 }
 
-type IconInfoJson = `{"name": ${string}, "image": ${string}, background: ${string}, label: ${string}}`;
-
 declare interface Card {
   buttonStyle: ButtonStyle;
   size: SizeString;
@@ -31,6 +29,7 @@ declare interface Card {
   link: string;
   // 客户端发送到后端 后端将其作为排序标记
   order: number;
+  icon: IconInfo;
 }
 
 declare interface ContactInfo {
@@ -53,8 +52,7 @@ declare interface LinearGradient {
 declare interface Resume {
   config: ResumeConfig;
   state: ResumeState;
-  // json
-  contact: string;
+  contact: ContactInfo[];
   avatar: AvatarUrl;
   background: string;
   color: string;
