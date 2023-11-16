@@ -15,7 +15,9 @@ export default defineEventHandler(async (e) => {
   const logger = useLogger();
 
   const newCards = cards.map((card) => {
+    // @ts-ignore
     delete card.id;
+
     return {
       ...card,
       // TODO: 卡片背景颜色还未统一 需要统一为字符串
@@ -53,6 +55,7 @@ export default defineEventHandler(async (e) => {
 
       if (cards.length > 1) {
         await prisma.card.createMany({
+          // @ts-ignore
           data: newCards,
         });
       }

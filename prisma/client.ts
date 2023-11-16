@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-export type { PageVisits, User } from "@prisma/client";
+export type { PageVisits, User, Card } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 

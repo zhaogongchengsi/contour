@@ -9,10 +9,8 @@ import {
   NRadioGroup,
   NRadioButton,
   NInput,
-  NUpload,
 } from "naive-ui";
 import type { FormInst } from "naive-ui";
-import type { LinearGradient } from "~/types";
 
 const material = useMaterial();
 const formRef = ref<FormInst | null>(null);
@@ -25,8 +23,6 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: "commit"): void;
-  (e: "cancel"): void;
   (e: "update:link"): void;
   (e: "update:size"): void;
   (e: "update:style"): void;
@@ -114,8 +110,7 @@ const setBackground = (color: LinearGradient) => {
         </NTabs>
       </n-form-item>
       <div class="flex gap-3">
-        <n-button attr-type="button" @click="emit('commit')">创建</n-button>
-        <n-button attr-type="button" @click="emit('cancel')">取消</n-button>
+        <slot name="footer" />
       </div>
     </n-form>
   </div>

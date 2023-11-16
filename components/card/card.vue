@@ -39,6 +39,9 @@ const cardStyle = computed(() => {
 });
 
 provide(key, props);
+
+const emit = defineEmits(["delete"]);
+
 </script>
 
 <template>
@@ -47,7 +50,7 @@ provide(key, props);
     :col="col"
     :style="cardStyle"
     :class="buttonClass"
-    class="relative h-full w-full overflow-hidden"
+    class="relative h-full w-full"
   >
     <card-inner :size="$props.size!">
       <template #icon>
@@ -65,5 +68,6 @@ provide(key, props);
         {{ $props.icon?.label }}
       </slot>
     </card-inner>
+    <div v-if="props.edit" @click.stop="emit('delete')" class="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full bg-black/50 cursor-pointer"> <i class="w-5 h-5 block i-carbon:close" /> </div>
   </ui-card-size>
 </template>

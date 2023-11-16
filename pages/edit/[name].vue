@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NModal, NScrollbar, NPopover, useMessage, NSkeleton } from "naive-ui";
+import { NModal, NScrollbar, NPopover, useMessage, NSkeleton, NButton } from "naive-ui";
 import card from "~/components/card/card.vue";
 import draggable from "vuedraggable";
 import { cloneDeep } from "lodash";
@@ -14,7 +14,12 @@ if (!route.params.name) {
   await navigateTo("/");
 }
 
-const editMode = ref<"create" | "change">("create");
+enum EditMode {
+  create = "create",
+  change = "change",
+}
+
+const editMode = ref<"create" | "change">(EditMode.create);
 
 const nameStore = useGlobalName();
 const isShow = ref(false);
@@ -89,7 +94,7 @@ const addCard = (icon: IconInfo) => {
 };
 
 const createCard = () => {
-  if (editMode.value === "change") {
+  if (editMode.value === EditMode.change) {
     cards.value = cards.value.map((item) => {
       if (item.uid === formValue.uid) {
         return cloneDeep(formValue);
@@ -98,7 +103,7 @@ const createCard = () => {
     });
   }
 
-  if (editMode.value === "create") {
+  if (editMode.value === EditMode.create) {
     cards.value.push(cloneDeep(formValue));
   }
 
@@ -119,6 +124,10 @@ const handleRightClick = (item: C, event: PointerEvent) => {
   formValue.icon = icon;
   formValue.uid = uid;
   isShow.value = true;
+};
+
+const deleteCard = (item: C) => {
+  cards.value = cards.value.filter((card) => card.uid!== item.uid);
 };
 
 const save = async () => {
@@ -245,6 +254,7 @@ const logout = async () => {
               edit
               :icon="element.icon"
               @contextmenu="handleRightClick(element, $event)"
+              @delete="deleteCard(element)"
               :background="element.background"
               :button-style="element.buttonStyle"
               :size="element.size"
@@ -296,9 +306,13 @@ const logout = async () => {
           v-model:size="formValue.size"
           v-model:style="formValue.buttonStyle"
           class="flex-1 p-3"
-          @cancel="isShow = false"
-          @commit="createCard"
-        />
+        >
+          <template #footer>
+            <n-button attr-type="button" @click="createCard"> {{ editMode === EditMode.create ? '创建' : '保存'}} </n-button>
+            <n-button attr-type="button" @click="isShow = false">取消</n-button>
+            <!-- <n-button class="ml-auto" v-if="editMode === EditMode.change" >删除</n-button> -->
+          </template>
+        </app-card-from>
       </div>
     </div>
   </n-modal>
