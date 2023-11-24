@@ -180,7 +180,7 @@ const logout = async () => {
               <div class="w-30 flex flex-col p-2 gap-2">
                 <button class="edit-stretch-popover_button" @click="save">
                   <i class="edit-stretch-popover_button_icon i-carbon:save" />
-                  <span class="edit-stretch-popover_button_text">保存</span>
+                  <span class="edit-stretch-popover_button_text">{{ !logged ? '保存' : '发布' }}</span>
                 </button>
                 <div class="edit-stretch-header_space" />
                 <button v-if="logged" class="edit-stretch-popover_button" @click="logout">
@@ -286,7 +286,6 @@ const logout = async () => {
       <div class="flex justify-between items-center gap-3">
         <div class="w-1/2 h-full flex justify-center items-center">
           <card
-            edit
             :icon="formValue.icon"
             :background="formValue.background"
             :button-style="formValue.buttonStyle"

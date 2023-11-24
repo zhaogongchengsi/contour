@@ -1,5 +1,3 @@
-import { UploadInfo } from "~/types";
-
 export default defineEventHandler(async (event) => {
   const files = (await readMultipartFormData(event)) || [];
 
@@ -12,5 +10,5 @@ export default defineEventHandler(async (event) => {
     urls.push(info);
   }
 
-  return sendSuccess(urls);
+  return success(urls);
 });
