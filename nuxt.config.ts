@@ -50,7 +50,7 @@ export default defineNuxtConfig({
       exp: "1h",
     },
     upload: {
-      urlPrefix: "http://localhost/static",
+      urlPrefix: "http://localhost/upload",
       path: process.env.UPLOAD_PATH,
     },
   },

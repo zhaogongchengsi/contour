@@ -15,14 +15,19 @@ const props = withDefaults(
     separator?: string;
     action?: string;
     name?: string;
+    // 禁用文件上传
+    disabledUpload?: boolean;
   }>(),
   {
     prefix: "",
     separator: ":",
     action: "",
     name: "",
+    disabledUpload: false,
   },
 );
+
+console.log(props.disabledUpload)
 
 const m = 1024 * 1024;
 const { error } = useMessage();
@@ -74,6 +79,7 @@ onChange(async (files) => {
     <div
       class="flex gap-2 justify-center items-center rounded-xl bg-gray-900 py-1 cursor-pointer"
       @click="open()"
+      v-if="!disabledUpload"
     >
       <div class="md-icon i-carbon:cloud-upload" />
       <span>上传</span>

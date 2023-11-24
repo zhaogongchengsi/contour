@@ -227,7 +227,7 @@ const logout = async () => {
       :color="color"
     >
       <template #avatar>
-        <ui-picture-selector v-model:value="avatar" :name="name">
+        <ui-picture-selector :disabled-upload="!logged"  v-model:value="avatar" :name="name">
           <ui-avatar :src="avatar" class="text-8 md:text-12" />
         </ui-picture-selector>
       </template>
@@ -260,7 +260,7 @@ const logout = async () => {
               :size="element.size"
             >
               <template #image>
-                <ui-picture-selector v-model:value="element.image" :name="name">
+                <ui-picture-selector :disabled-upload="!logged" v-model:value="element.image" :name="name">
                   <div class="w-full h-full">
                     <ui-picture :src="element.image" :alt="String(element.id)" />
                   </div>

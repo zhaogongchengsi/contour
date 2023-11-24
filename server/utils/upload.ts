@@ -1,7 +1,6 @@
 import { outputFile, remove as removeFile } from "fs-extra";
 import { join, parse, normalize } from "pathe";
 import { sha256 } from "ohash";
-import { UploadInfo } from "~/types";
 
 export function useUpload() {
   const { path, urlPrefix } = useRuntimeConfig().upload as {

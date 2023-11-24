@@ -10,8 +10,10 @@ const props = withDefaults(
     action?: string;
     name?: string;
     defaultValue?: string;
+    disabledUpload?: boolean,
   }>(),
   {
+    disabledUpload: false,
     separator: ":",
     action: "/api/file/upload",
     name: "",
@@ -43,7 +45,7 @@ provide("ui-picture-selector-separator", props.separator);
         <n-tabs type="bar" animated placement="bottom" size="small">
           <n-tab-pane name="image" tab="图片" display-directive="show">
             <n-scrollbar class="h-80">
-              <ui-image-selector prefix="url" :name="$props.name" :action="$props.action" v-model:value="value" />
+              <ui-image-selector :disabled-upload="disabledUpload" prefix="url" :name="$props.name" :action="$props.action" v-model:value="value" />
             </n-scrollbar>
           </n-tab-pane>
           <n-tab-pane name="emoji" tab="表情" display-directive="show">
